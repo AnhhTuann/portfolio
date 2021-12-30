@@ -143,7 +143,6 @@ h6 {
   box-shadow: -1px 1px 3px -1px rgba(0, 0, 0, 0.75);
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 3em 30em;
   grid-template-areas: "nav-wrapper nav-wrapper" "left-column right-column";
 }
 .header-nav-wrapper {
@@ -189,9 +188,107 @@ h6 {
 }
 .header-left-column {
   grid-area: left-column;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+.header-left-column #profile_pic {
+  display: block;
+  margin: auto;
+  height: 200px;
+  width: 200px;
+  object-fit: cover;
+  border: 2px solid #c1c1c1;
+}
+.header-theme-option-wrapper {
+  display: flex;
+  justify-content: center;
+}
+.header-theme-dot {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  -webkit-box-shadow: -1px 1px 3px -1px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: -1px 1px 3px -1px rgba(0, 0, 0, 0.75);
+  box-shadow: -1px 1px 3px -1px rgba(0, 0, 0, 0.75);
+  cursor: pointer;
+  background: black;
+  margin: 5px;
+  border: 2px solid #24292e;
+}
+.header-theme-dot:hover {
+  border-width: 5px;
+}
+.header-light-mode {
+  background-color: #fff;
+}
+.header-blue-mode {
+  background-color: #1c4266;
+}
+.header-green-mode {
+  background-color: #78866b;
+}
+.header-purple-mode {
+  background-color: #7e4c74;
+}
+.header-setting-note {
+  font-size: 12px;
+  font-style: italic;
+  text-align: center;
 }
 .header-right-column {
   grid-area: right-column;
+  display: grid;
+  align-content: center;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+.header-preview-shadow {
+  background-color: #f0ead6;
+  width: 300px;
+  height: 100px;
+  padding-left: 30px;
+  padding-top: 30px;
+}
+.header-preview {
+  width: 300px;
+  border: 1.5px solid #17a2b8;
+  background-color: rgba(251, 249, 243, 0.8);
+  padding: 15px;
+  position: relative;
+}
+.header-conner {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  border: 1.5px solid #17a2b8;
+  background-color: #fff;
+  position: absolute;
+}
+.header #conner-tl {
+  top: -5px;
+  left: -5px;
+}
+.header #conner-tr {
+  top: -5px;
+  right: -5px;
+}
+.header #conner-bl {
+  bottom: -5px;
+  left: -5px;
+}
+.header #conner-br {
+  bottom: -5px;
+  right: -5px;
+}
+
+@media screen and (max-width: 800px) {
+  .header-intro-wrapper {
+    grid-template-columns: 1fr;
+    grid-template-areas: "nav-wrapper " "left-column" "right-column";
+  }
+  .header-right-column {
+    justify-content: center;
+  }
 }
 
 /*# sourceMappingURL=styles.css.map */
