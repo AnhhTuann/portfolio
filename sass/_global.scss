@@ -1,0 +1,30 @@
+body {
+  min-height: 100vh;
+  background: $brown-color;
+  display: flex;
+  justify-content: center;
+}
+
+.wrapper {
+  display: block;
+  max-width: 1000px;
+  margin-top: 100px;
+  margin-bottom: 100px;
+  background: rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0px 10px 10px $brown-dark-color;
+  border-radius: 20px;
+}
+
+.container {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 70px;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.btn {
+  cursor: pointer;
+}

@@ -1,0 +1,14 @@
+.header {
+  padding-top: 70px;
+  padding-bottom: 30px;
+  &-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &-logo {
+    font-size: 30px;
+    color: inherit;
+  }
+}
