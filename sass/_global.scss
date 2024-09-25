@@ -8,8 +8,8 @@ body {
 .wrapper {
   display: block;
   max-width: 1000px;
-  margin-top: 100px;
-  margin-bottom: 100px;
+  margin-top: 70px;
+  margin-bottom: 50px;
   background: rgba(0, 0, 0, 0.2);
   box-shadow: 0px 0px 10px 10px $brown-dark-color;
   border-radius: 20px;
@@ -26,5 +26,17 @@ ul {
 }
 
 .btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 500;
+  color: $brown-dark-color;
+  background-color: $primary-color;
+  padding: 20px;
+  border-radius: 10px;
   cursor: pointer;
+  font-family: $font;
+  line-height: 1;
+  border: 0;
+  outline: 0;
 }

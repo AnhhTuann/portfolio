@@ -48,8 +48,8 @@ body {
 .wrapper {
   display: block;
   max-width: 1000px;
-  margin-top: 100px;
-  margin-bottom: 100px;
+  margin-top: 70px;
+  margin-bottom: 50px;
   background: rgba(0, 0, 0, 0.2);
   box-shadow: 0px 0px 10px 10px #271c19;
   border-radius: 20px;
@@ -66,7 +66,19 @@ ul {
 }
 
 .btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 500;
+  color: #271c19;
+  background-color: #ffc0ad;
+  padding: 20px;
+  border-radius: 10px;
   cursor: pointer;
+  font-family: "Poppins", sans-serif;
+  line-height: 1;
+  border: 0;
+  outline: 0;
 }
 
 body {
@@ -76,8 +88,21 @@ body {
   color: #fff3ec;
 }
 
+.heading {
+  color: #fffffe;
+  font-size: 35px;
+  line-height: 1.7142857143;
+  font-weight: 600;
+}
+
+.text {
+  color: #fff3ec;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
 .header {
-  padding-top: 70px;
+  padding-top: 30px;
   padding-bottom: 30px;
 }
 .header-container {
@@ -99,9 +124,29 @@ body {
 .menu-link {
   color: inherit;
 }
+.menu-link:hover {
+  color: #ffc0ad;
+}
 
+.introduce-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.introduce-heading {
+  padding-bottom: 30px;
+}
+.introduce .text {
+  padding-bottom: 30px;
+}
+.introduce-image {
+  transform: translateX(70px);
+}
 .introduce-image img {
   max-width: 500px;
+}
+.introduce-button:hover {
+  background-color: #9656a1;
 }
 
 /*# sourceMappingURL=app.css.map */

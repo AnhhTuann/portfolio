@@ -1,7 +1,26 @@
 .introduce {
+  &-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &-heading {
+    padding-bottom: 30px;
+  }
+
+  .text {
+    padding-bottom: 30px;
+  }
+
   &-image {
     img {
       max-width: 500px;
     }
+    transform: translateX(70px);
+  }
+
+  &-button:hover {
+    background-color: $tertiary-color;
   }
 }

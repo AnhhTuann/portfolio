@@ -6,4 +6,8 @@
   &-link {
     color: inherit;
   }
+
+  &-link:hover {
+    color: $secondary-color;
+  }
 }

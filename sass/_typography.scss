@@ -4,3 +4,16 @@ body {
   line-height: 1;
   color: $text-color;
 }
+
+.heading {
+  color: $heading-color;
+  font-size: 35px;
+  line-height: calc(60 / 35);
+  font-weight: 600;
+}
+
+.text {
+  color: $text-color;
+  font-size: 15px;
+  line-height: 1.5;
+}
