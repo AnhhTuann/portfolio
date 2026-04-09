@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { Code2, Palette, Fish, Database, ChevronDown, Mail, Send } from 'lucide-react';
 import { saveContactMessage } from './services/dataService';
