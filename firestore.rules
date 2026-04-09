@@ -1,0 +1,28 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Khớp với tất cả các collections và documents trong Firestore
+    match /{document=**} {
+      
+      // 1. CHO PHÉP ĐỌC CÔNG KHAI
+      // Bất kỳ ai truy cập vào Portfolio của bạn đều có thể đọc dữ liệu
+      // để hiển thị các dự án (projects) và tranh vẽ (artworks).
+      allow read: if true;
+      
+      // 2. CHỈ CHO PHÉP BẠN CHỈNH SỬA
+      // Chỉ những người dùng đã đăng nhập (Authentication) mới được phép
+      // tạo mới (create), cập nhật (update) hoặc xóa (delete) dữ liệu.
+      allow write: if request.auth != null;
+    }
+    
+    // 3. NGOẠI LỆ: COLLECTION 'messages' (Form liên hệ)
+    // Nếu bạn muốn khách truy cập (chưa đăng nhập) có thể gửi tin nhắn liên hệ cho bạn,
+    // hãy mở quyền 'create' cho collection messages.
+    match /messages/{messageId} {
+      allow create: if true; // Ai cũng có thể gửi tin nhắn
+      allow read, update, delete: if request.auth != null; // Chỉ bạn mới đọc được tin nhắn
+    }
+  }
+}
