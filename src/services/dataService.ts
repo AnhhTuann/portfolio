@@ -7,16 +7,17 @@ export interface Artwork {
   title: string;
   imageUrl: string;
   description: string;
+  createAt?: string;
 }
 
 export interface Project {
   id: string;
   name: string;
-  problem: string;
+  painPoint: string;
   techStack: string[];
   imageUrl: string;
-  liveUrl?: string;
-  sourceUrl?: string;
+  liveLink?: string;
+  sourceCode?: string;
 }
 
 export interface MessageData {

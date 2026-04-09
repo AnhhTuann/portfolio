@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { Code2, Palette, Fish, Database, ChevronDown, Mail, Send } from 'lucide-react';
 import { saveContactMessage } from './services/dataService';
-import ArtworksGallery from './components/ArtworksGallery';
-import ProjectsGallery from './components/ProjectsGallery';
+import ArtisticVision from './components/ArtisticVision';
+import DigitalCanvas from './components/DigitalCanvas';
+import TechnicalMastery from './components/TechnicalMastery';
 
 const CinematicSection = ({ 
   children, 
@@ -129,35 +130,17 @@ export default function App() {
 
       {/* 02. Technical Mastery */}
       <CinematicSection id="skills" number="02" title="Technical Mastery">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {[
-            { title: "Frontend Engineering", items: ["React / Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"] },
-            { title: "Backend & Cloud", items: ["Firebase / Firestore", "Node.js / Express", "RESTful APIs", "Cloud Functions"] },
-            { title: "Creative Tools", items: ["Figma", "Digital Painting", "Aquascape Design", "UI/UX Prototyping"] }
-          ].map((category, idx) => (
-            <div key={idx} className="p-8 bg-white/[0.01] border border-white/[0.03] rounded-2xl">
-              <h3 className="font-display text-lg text-white mb-6 tracking-wide">{category.title}</h3>
-              <ul className="space-y-4">
-                {category.items.map((item, i) => (
-                  <li key={i} className="text-gray-400 font-light flex items-center gap-3">
-                    <span className="w-1 h-1 rounded-full bg-white/[0.2]" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
+        <TechnicalMastery />
       </CinematicSection>
 
       {/* 03. Digital Canvas */}
       <CinematicSection id="projects" number="03" title="Digital Canvas">
-        <ProjectsGallery />
+        <DigitalCanvas />
       </CinematicSection>
 
       {/* 04. Artistic Vision */}
       <CinematicSection id="gallery" number="04" title="Artistic Vision">
-        <ArtworksGallery />
+        <ArtisticVision />
       </CinematicSection>
 
       {/* 05. Epilogue */}
