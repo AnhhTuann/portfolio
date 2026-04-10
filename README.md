@@ -1,6 +1,6 @@
 # 🎬 Anh Tuấn — Cinematic Portfolio
 
-> *Nơi logic của Code giao thoa cùng cảm xúc của Nghệ thuật & Sự sống.*
+> _Nơi logic của Code giao thoa cùng cảm xúc của Nghệ thuật & Sự sống._
 
 Trang web portfolio cá nhân với phong cách **Cinematic**, hỗ trợ **Light/Dark Mode**, tích hợp hệ thống quản trị nội dung (Admin Panel) và kết nối Firebase Firestore.
 
@@ -20,17 +20,17 @@ Trang web portfolio cá nhân với phong cách **Cinematic**, hỗ trợ **Ligh
 
 ## 🛠️ Tech Stack
 
-| Công nghệ | Vai trò |
-|-----------|---------|
-| React 19 | UI Framework |
-| TypeScript | Type safety |
-| Tailwind CSS v4 | Styling (utility-first) |
-| Vite 6 | Build tool & Dev server |
-| Firebase Auth | Xác thực Google Sign-In |
-| Cloud Firestore | Database (NoSQL) |
-| Framer Motion (motion) | Animations |
-| Lucide React | Icon system |
-| react-easy-crop | Crop avatar hình tròn |
+| Công nghệ              | Vai trò                 |
+| ---------------------- | ----------------------- |
+| React 19               | UI Framework            |
+| TypeScript             | Type safety             |
+| Tailwind CSS v4        | Styling (utility-first) |
+| Vite 6                 | Build tool & Dev server |
+| Firebase Auth          | Xác thực Google Sign-In |
+| Cloud Firestore        | Database (NoSQL)        |
+| Framer Motion (motion) | Animations              |
+| Lucide React           | Icon system             |
+| react-easy-crop        | Crop avatar hình tròn   |
 
 ---
 
