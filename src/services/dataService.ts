@@ -1,7 +1,14 @@
-import { collection, getDocs, addDoc } from 'firebase/firestore';
+import { collection, getDocs, addDoc, doc, getDoc, setDoc } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 
 // --- ĐỊNH NGHĨA KIỂU DỮ LIỆU (TYPESCRIPT) ---
+export interface Profile {
+  name: string;
+  avatarUrl: string;
+  description: string;
+  role: string[];
+}
+
 export interface Artwork {
   id: string;
   title: string;
@@ -72,6 +79,37 @@ export const saveContactMessage = async (data: MessageData) => {
     return { success: true, id: docRef.id };
   } catch (error) {
     console.error("Lỗi khi gửi tin nhắn:", error);
+    return { success: false, error };
+  }
+};
+
+/**
+ * Lấy cấu hình profile từ collection 'portfolio_settings'
+ */
+export const getProfile = async (): Promise<Profile | null> => {
+  try {
+    const docRef = doc(db, 'portfolio_settings', 'profile');
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      return docSnap.data() as Profile;
+    }
+    return null;
+  } catch (error) {
+    console.error("Lỗi khi tải Profile:", error);
+    return null;
+  }
+};
+
+/**
+ * Cập nhật cấu hình profile
+ */
+export const updateProfile = async (data: Profile) => {
+  try {
+    const docRef = doc(db, 'portfolio_settings', 'profile');
+    await setDoc(docRef, data, { merge: true });
+    return { success: true };
+  } catch (error) {
+    console.error("Lỗi khi cập nhật Profile:", error);
     return { success: false, error };
   }
 };
