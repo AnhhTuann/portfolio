@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
+import { Link } from 'react-router-dom';
 import { Code2, Palette, Fish, Database, ChevronDown, Mail, Send } from 'lucide-react';
 import { saveContactMessage, getProfile, Profile } from '../services/dataService';
 import ArtisticVision from '../components/ArtisticVision';
@@ -89,7 +90,7 @@ export default function Portfolio() {
           className="text-center z-10 relative flex flex-col items-center w-full max-w-4xl"
         >
           {/* Avatar Container */}
-          <div className="mb-8 relative w-44 h-44 mx-auto group perspective-1000">
+          <Link to="/admin" className="mb-8 relative w-44 h-44 mx-auto group perspective-1000 block cursor-pointer">
             {/* Hiệu ứng Glow phía sau Avatar */}
             <div className="absolute inset-0 bg-gradient-to-tr from-[#3B82F6] via-[#8B5CF6] to-[#FFC107] blur-[50px] rounded-full opacity-40 group-hover:opacity-80 group-hover:scale-125 transition-all duration-1000 ease-out z-0"></div>
             
@@ -108,7 +109,9 @@ export default function Portfolio() {
               />
               <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/80 z-30"></div>
             </div>
-          </div>
+            {/* Bọc div trong div gốc */}
+            <div className="absolute inset-0 z-40" />
+          </Link>
 
           {/* Tên & Subtitle */}
           <motion.div
