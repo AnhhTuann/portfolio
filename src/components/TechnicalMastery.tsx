@@ -1,18 +1,16 @@
+import { useState, useEffect } from 'react';
+import { getSkillsData, SkillCategory } from './SkillsManager';
+
 export default function TechnicalMastery() {
-  const skills = [
-    { 
-      title: "Frontend Engineering", 
-      items: ["React / Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"] 
-    },
-    { 
-      title: "Backend & Cloud", 
-      items: ["Firebase / Firestore", "Node.js / Express", "RESTful APIs", "Cloud Functions"] 
-    },
-    { 
-      title: "Creative Tools", 
-      items: ["Figma", "Digital Painting", "Aquascape Design", "UI/UX Prototyping"] 
-    }
-  ];
+  const [skills, setSkills] = useState<SkillCategory[]>(() => getSkillsData());
+
+  useEffect(() => {
+    const handleStorage = () => {
+      setSkills(getSkillsData());
+    };
+    window.addEventListener('storage', handleStorage);
+    return () => window.removeEventListener('storage', handleStorage);
+  }, []);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -28,8 +26,8 @@ export default function TechnicalMastery() {
           <ul className="space-y-5">
             {category.items.map((item, i) => (
               <li key={i} className="text-muted font-sans font-light flex items-center gap-4 group/item">
-                <span className="w-1.5 h-1.5 rounded-full bg-white/[0.2] group-hover/item:bg-[#FFC107] group-hover/item:scale-150 group-hover/item:shadow-[0_0_8px_rgba(255,193,7,0.6)] transition-all duration-300" />
-                <span className="group-hover/item:text-gray-200 transition-colors duration-300">{item}</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-muted/30 group-hover/item:bg-[#FFC107] group-hover/item:scale-150 group-hover/item:shadow-[0_0_8px_rgba(255,193,7,0.6)] transition-all duration-300" />
+                <span className="group-hover/item:text-primary transition-colors duration-300">{item}</span>
               </li>
             ))}
           </ul>

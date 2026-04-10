@@ -96,7 +96,7 @@ export default function DigitalCanvas() {
               {project.techStack?.map(tag => (
                 <span 
                   key={tag} 
-                  className="px-3 py-1.5 text-[9px] font-mono tracking-[0.1em] text-muted bg-glass border border-subtle rounded-sm group-hover:border-[#FFC107]/30 group-hover:text-[#FFC107]/80 hover:!bg-[#FFC107]/10 hover:!text-[#FFC107] transition-all duration-500"
+                  className="px-4 py-2 text-xs font-mono tracking-[0.1em] text-secondary bg-glass border border-subtle rounded-md group-hover:border-[#FFC107]/30 group-hover:text-[#FFC107] hover:!bg-[#FFC107]/10 hover:!text-[#FFC107] transition-all duration-500"
                 >
                   &lt;{tag}/&gt;
                 </span>

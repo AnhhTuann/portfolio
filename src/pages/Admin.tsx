@@ -6,6 +6,7 @@ import { logout } from '../services/authService';
 import { Link, useNavigate } from 'react-router-dom';
 import Cropper from 'react-easy-crop';
 import AboutManager from '../components/AboutManager';
+import SkillsManager from '../components/SkillsManager';
 import ProjectManager from '../components/ProjectManager';
 import ArtworkManager from '../components/ArtworkManager';
 
@@ -254,6 +255,7 @@ export default function Admin() {
         </motion.form>
 
         <AboutManager />
+        <SkillsManager />
         <ProjectManager />
         <ArtworkManager />
       </div>
