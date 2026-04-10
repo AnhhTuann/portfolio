@@ -107,7 +107,7 @@ export default function SkillsManager() {
                 type="text"
                 value={cat.title}
                 onChange={(e) => updateCategoryTitle(catIdx, e.target.value)}
-                className="flex-1 bg-transparent border-b border-subtle text-primary font-serif italic text-lg focus:outline-none focus:border-[#FFC107]/50 transition-colors py-1"
+                className="flex-1 bg-transparent border-b border-subtle text-primary font-serif italic text-lg focus:outline-none focus:border-accent/50 transition-colors py-1"
                 placeholder="Tên nhóm kỹ năng..."
               />
               {categories.length > 1 && (
@@ -126,7 +126,7 @@ export default function SkillsManager() {
             <div className="space-y-2 pl-7">
               {cat.items.map((item, itemIdx) => (
                 <div key={itemIdx} className="flex items-center gap-2 group/skill">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#FFC107]/40 flex-shrink-0" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-accent/40 flex-shrink-0" />
                   <input
                     type="text"
                     value={item}
@@ -147,7 +147,7 @@ export default function SkillsManager() {
               <button
                 type="button"
                 onClick={() => addItem(catIdx)}
-                className="flex items-center gap-2 text-[11px] font-mono text-muted hover:text-[#FFC107] transition-colors mt-2"
+                className="flex items-center gap-2 text-[11px] font-mono text-muted hover:text-accent transition-colors mt-2"
               >
                 <Plus className="w-3 h-3" /> Thêm skill
               </button>
@@ -159,7 +159,7 @@ export default function SkillsManager() {
           <button
             type="submit"
             disabled={status === 'saving'}
-            className="w-full flex items-center justify-center gap-3 px-8 py-3 bg-[#FFC107]/10 text-[#FFC107] border border-[#FFC107]/20 rounded-xl font-medium hover:bg-[#FFC107]/20 hover:border-[#FFC107]/50 transition-all disabled:opacity-50"
+            className="w-full flex items-center justify-center gap-3 px-8 py-3 bg-accent-soft text-accent border border-accent/20 rounded-xl font-medium hover:bg-accent/20 hover:border-accent/50 transition-all disabled:opacity-50"
           >
             {status === 'saving' ? (
               <span>ĐANG LƯU...</span>

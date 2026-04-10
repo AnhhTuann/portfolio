@@ -52,7 +52,7 @@ export default function AboutManager() {
 
       <form onSubmit={handleSave} className="space-y-6">
         <div className="space-y-2">
-          <label className="block font-mono text-xs text-[#FFC107] uppercase tracking-widest">Đoạn 1 (Học vấn & Logic)</label>
+          <label className="block font-mono text-xs text-accent uppercase tracking-widest">Đoạn 1 (Học vấn & Logic)</label>
           <textarea 
             rows={3}
             required
@@ -63,7 +63,7 @@ export default function AboutManager() {
         </div>
 
         <div className="space-y-2">
-          <label className="block font-mono text-xs text-[#FFC107] uppercase tracking-widest">Đoạn 2 (Nghệ thuật & Cảm xúc - Hỗ trợ thẻ HTML)</label>
+          <label className="block font-mono text-xs text-accent uppercase tracking-widest">Đoạn 2 (Nghệ thuật & Cảm xúc - Hỗ trợ thẻ HTML)</label>
           <textarea 
             rows={4}
             required
@@ -74,7 +74,7 @@ export default function AboutManager() {
         </div>
 
         <div className="space-y-2">
-          <label className="block font-mono text-xs text-[#FFC107] uppercase tracking-widest">Câu Quote Tâm Đắc</label>
+          <label className="block font-mono text-xs text-accent uppercase tracking-widest">Câu Quote Tâm Đắc</label>
           <input 
             type="text"
             required
@@ -88,7 +88,7 @@ export default function AboutManager() {
           <button 
             type="submit" 
             disabled={status === 'saving'}
-            className="w-full flex items-center justify-center gap-3 px-8 py-3 bg-[#FFC107]/10 text-[#FFC107] border border-[#FFC107]/20 rounded-xl font-medium hover:bg-[#FFC107]/20 hover:border-[#FFC107]/50 transition-all disabled:opacity-50"
+            className="w-full flex items-center justify-center gap-3 px-8 py-3 bg-accent-soft text-accent border border-accent/20 rounded-xl font-medium hover:bg-accent/20 hover:border-accent/50 transition-all disabled:opacity-50"
           >
             {status === 'saving' ? (
               <span>ĐANG LƯU...</span>

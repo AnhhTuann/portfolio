@@ -120,7 +120,7 @@ export default function Admin() {
     <div className="min-h-screen bg-background text-secondary font-sans p-6 md:p-12 relative overflow-x-hidden">
       {/* Background Glow */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none z-0 mix-blend-screen opacity-50">
-        <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-[#FFC107]/10 blur-[130px] rounded-full"></div>
+        <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-accent/10 blur-[130px] rounded-full"></div>
         <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-[#3B82F6]/10 blur-[130px] rounded-full"></div>
       </div>
 
@@ -161,7 +161,7 @@ export default function Admin() {
           {/* Cột đôi cho Tên và Avatar */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
-              <label className="block font-mono text-xs text-[#FFC107] uppercase tracking-widest">Tên Hiển Thị</label>
+              <label className="block font-mono text-xs text-accent uppercase tracking-widest">Tên Hiển Thị</label>
               <input 
                 type="text" 
                 required
@@ -172,7 +172,7 @@ export default function Admin() {
               />
             </div>
             <div className="space-y-2">
-              <label className="block font-mono text-xs text-[#FFC107] uppercase tracking-widest">Avatar URL</label>
+              <label className="block font-mono text-xs text-accent uppercase tracking-widest">Avatar URL</label>
               <div className="flex gap-2">
                 <input 
                   type="text" 
@@ -270,7 +270,7 @@ export default function Admin() {
           >
             {/* Header Modal */}
             <div className="p-4 border-b border-subtle-hover flex justify-between items-center bg-glass">
-              <h3 className="text-primary font-mono text-xs tracking-widest text-[#FFC107]">CẮT ẢNH AVATAR</h3>
+              <h3 className="text-primary font-mono text-xs tracking-widest text-accent">CẮT ẢNH AVATAR</h3>
               <button 
                 onClick={() => setImageToCrop(null)} 
                 className="text-muted hover:text-primary transition-colors p-1"
@@ -305,14 +305,14 @@ export default function Admin() {
                   max={3}
                   step={0.1}
                   onChange={(e) => setZoom(Number(e.target.value))}
-                  className="w-full accent-[#FFC107] h-1 bg-white/10 rounded-lg appearance-none cursor-pointer"
+                  className="w-full accent-accent h-1 bg-white/10 rounded-lg appearance-none cursor-pointer"
                 />
               </div>
 
               <button 
                 onClick={handleCropComplete}
                 disabled={uploadingImage}
-                className="w-full py-4 bg-[#FFC107] text-black font-semibold rounded-xl font-mono text-xs tracking-widest hover:bg-[#FFD54F] transition-all flex items-center justify-center gap-2 hover:shadow-[0_0_20px_rgba(255,193,7,0.3)] active:scale-[0.98]"
+                className="w-full py-4 bg-accent text-white dark:text-black font-semibold rounded-xl font-mono text-xs tracking-widest hover:opacity-90 transition-all flex items-center justify-center gap-2 hover:shadow-[0_0_20px_var(--accent-soft)] active:scale-[0.98]"
               >
                 {uploadingImage ? 'ĐANG XỬ LÝ...' : (
                   <>

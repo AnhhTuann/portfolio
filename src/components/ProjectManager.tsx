@@ -136,7 +136,7 @@ export default function ProjectManager() {
         </div>
         <button 
           onClick={openAddModal}
-          className="flex items-center gap-2 px-4 py-2 bg-[#FFC107]/10 text-[#FFC107] hover:bg-[#FFC107]/20 border border-[#FFC107]/20 rounded-lg font-mono text-xs tracking-widest transition-colors shadow-[0_0_15px_rgba(255,193,7,0.1)] hover:shadow-[0_0_20px_rgba(255,193,7,0.3)]"
+          className="flex items-center gap-2 px-4 py-2 bg-accent-soft text-accent hover:bg-accent/20 border border-accent/20 rounded-lg font-mono text-xs tracking-widest transition-colors shadow-[0_0_15px_var(--accent-soft)] hover:shadow-[0_0_20px_var(--accent-soft)]"
         >
           <Plus className="w-4 h-4" /> THÊM PROJECT
         </button>
@@ -185,7 +185,7 @@ export default function ProjectManager() {
             className="relative w-full max-w-2xl bg-surface border border-subtle-hover rounded-2xl shadow-2xl my-auto"
           >
             <div className="p-4 border-b border-subtle-hover flex justify-between items-center bg-glass sticky top-0 z-10 rounded-t-2xl">
-              <h3 className="text-[#FFC107] font-mono text-xs tracking-widest uppercase font-semibold">
+              <h3 className="text-accent font-mono text-xs tracking-widest uppercase font-semibold">
                 {currentProject.id ? 'SỬA THÔNG TIN DỰ ÁN' : 'KHỞI TẠO DỰ ÁN MỚI'}
               </h3>
               <button 
@@ -290,7 +290,7 @@ export default function ProjectManager() {
               <div className="pt-6 pb-2 border-t border-subtle-hover">
                 <button 
                   type="submit" disabled={saving || uploadingImage}
-                  className="w-full py-4 bg-[#FFC107] text-black font-semibold rounded-xl font-mono text-xs tracking-widest hover:bg-[#FFD54F] transition-all flex items-center justify-center gap-2 hover:shadow-[0_0_20px_rgba(255,193,7,0.3)] active:scale-[0.98] disabled:opacity-50"
+                  className="w-full py-4 bg-accent text-white dark:text-black font-semibold rounded-xl font-mono text-xs tracking-widest hover:opacity-90 transition-all flex items-center justify-center gap-2 hover:shadow-[0_0_20px_var(--accent-soft)] active:scale-[0.98] disabled:opacity-50"
                 >
                   {saving ? 'ĐANG LƯU DỮ LIỆU VÀO MA TRẬN...' : <><Save className="w-4 h-4"/> TRIỂN KHAI DỰ ÁN LÊN HỆ THỐNG</>}
                 </button>
