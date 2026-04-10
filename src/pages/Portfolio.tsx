@@ -90,13 +90,13 @@ export default function Portfolio() {
   };
 
   return (
-    <div className="min-h-screen bg-background text-secondary selection:bg-[#FFC107] selection:text-black font-sans relative overflow-x-hidden">
+    <div className="min-h-screen bg-background text-secondary selection:bg-accent selection:text-white dark:selection:text-black font-sans relative overflow-x-hidden">
       
       {/* --- Cực Quang Vũ Trụ (Aurora Background Glow) --- */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none z-0 mix-blend-screen opacity-70">
         <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] bg-[#8B5CF6]/10 blur-[130px] rounded-full animate-aurora" style={{ animationDelay: '0s' }}></div>
         <div className="absolute top-[20%] right-[-10%] w-[50%] h-[70%] bg-[#3B82F6]/10 blur-[140px] rounded-full animate-aurora" style={{ animationDelay: '-5s' }}></div>
-        <div className="absolute bottom-[-10%] left-[20%] w-[60%] h-[50%] bg-[#FFC107]/5 blur-[120px] rounded-full animate-aurora" style={{ animationDelay: '-10s' }}></div>
+        <div className="absolute bottom-[-10%] left-[20%] w-[60%] h-[50%] bg-accent/5 blur-[120px] rounded-full animate-aurora" style={{ animationDelay: '-10s' }}></div>
       </div>
       
       <div className="relative z-10 w-full">
@@ -118,7 +118,7 @@ export default function Portfolio() {
             
             {/* Các vòng sáng công nghệ xoay quanh */}
             <div className="absolute inset-[-8px] border border-subtle border-t-[#3B82F6]/70 rounded-full animate-spin [animation-duration:8s] pointer-events-none z-10"></div>
-            <div className="absolute inset-[-18px] border border-subtle border-b-[#FFC107]/50 rounded-full animate-spin [animation-duration:12s] [animation-direction:reverse] pointer-events-none z-10"></div>
+            <div className="absolute inset-[-18px] border border-subtle border-b-accent/50 rounded-full animate-spin [animation-duration:12s] [animation-direction:reverse] pointer-events-none z-10"></div>
             <div className="absolute inset-[-28px] border border-transparent border-l-[#8B5CF6]/30 border-r-[#8B5CF6]/30 rounded-full animate-[spin_20s_linear_infinite] pointer-events-none z-10"></div>
             
             {/* Hình Avatar */}
@@ -150,7 +150,7 @@ export default function Portfolio() {
               {profile?.role && profile.role.length > 0 ? (
                 profile.role.map((r, index) => (
                   <React.Fragment key={index}>
-                    <span className={`font-mono text-[10px] md:text-xs tracking-[0.4em] uppercase font-semibold ${index % 2 === 0 ? 'text-[#3B82F6]' : 'text-[#FFC107] hidden md:block'}`}>
+                    <span className={`font-mono text-[10px] md:text-xs tracking-[0.4em] uppercase font-semibold ${index % 2 === 0 ? 'text-[#3B82F6]' : 'text-accent hidden md:block'}`}>
                       {r}
                     </span>
                     {index < profile.role.length - 1 && (
@@ -164,12 +164,12 @@ export default function Portfolio() {
                     Software Engineer
                   </span>
                   <span className="w-1.5 h-1.5 rounded-full bg-gray-600 hidden md:block"></span>
-                  <span className="font-mono text-[10px] md:text-xs tracking-[0.4em] text-[#FFC107] uppercase font-semibold hidden md:block">
+                  <span className="font-mono text-[10px] md:text-xs tracking-[0.4em] text-accent uppercase font-semibold hidden md:block">
                     Creative Explorer
                   </span>
                 </>
               )}
-              <span className="h-[1px] w-8 md:w-16 bg-gradient-to-l from-transparent to-[#FFC107]/70"></span>
+              <span className="h-[1px] w-8 md:w-16 bg-gradient-to-l from-transparent to-accent/70"></span>
             </div>
           </motion.div>
 
@@ -180,7 +180,7 @@ export default function Portfolio() {
             className="text-base md:text-xl font-light tracking-wide text-muted max-w-2xl mx-auto leading-relaxed mb-12"
           >
             {profile?.description || (
-              <>Kỹ sư CNTT từ SGU. Nơi logic của <span className="text-primary font-medium">React & Firebase</span> giao thoa cùng cảm xúc của <span className="text-[#FFC107] font-medium drop-shadow-[0_0_8px_rgba(255,193,7,0.5)]">Nghệ thuật & Sự sống</span>.</>
+              <>Kỹ sư CNTT từ SGU. Nơi logic của <span className="text-primary font-medium">React & Firebase</span> giao thoa cùng cảm xúc của <span className="text-accent font-medium drop-shadow-[0_0_8px_var(--accent)]">Nghệ thuật & Sự sống</span>.</>
             )}
           </motion.p>
 
@@ -198,9 +198,9 @@ export default function Portfolio() {
             </a>
             
             <a href="#contact" className="group relative px-8 py-4 bg-transparent border border-subtle-hover text-primary rounded-full overflow-hidden font-mono text-xs tracking-widest font-semibold transition-all hover:border-primary/30 hover:bg-glass-hover hover:scale-105 active:scale-95">
-              <div className="absolute inset-0 bg-[#FFC107]/0 group-hover:bg-[#FFC107]/5 transition-colors duration-500"></div>
+              <div className="absolute inset-0 bg-accent/0 group-hover:bg-accent/5 transition-colors duration-500"></div>
               <span className="relative z-10 flex items-center gap-3">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#FFC107] animate-pulse"></span>
+                <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse"></span>
                 LIÊN HỆ NGAY
               </span>
             </a>

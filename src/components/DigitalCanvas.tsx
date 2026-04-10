@@ -20,7 +20,7 @@ export default function DigitalCanvas() {
   if (isLoading) {
     return (
       <div className="w-full flex flex-col items-center justify-center py-32 space-y-6">
-        <div className="w-8 h-8 border-t-2 border-[#FFC107]/20 border-r-2 border-r-[#FFC107] rounded-full animate-spin"></div>
+        <div className="w-8 h-8 border-t-2 border-accent/20 border-r-2 border-r-accent rounded-full animate-spin"></div>
         <span className="font-sans text-xs tracking-[0.4em] text-gray-500 animate-pulse uppercase">
           [System Booting...]
         </span>
@@ -71,8 +71,8 @@ export default function DigitalCanvas() {
           <div className="w-full lg:w-2/5 flex flex-col z-20">
             {/* Tên dự án: phong cách kỹ thuật */}
             <div className="flex items-center gap-3 mb-6 opacity-60">
-              <Terminal className="text-[#FFC107] w-4 h-4" />
-              <span className="font-mono text-[10px] text-[#FFC107] tracking-[0.3em] uppercase">
+              <Terminal className="text-accent w-4 h-4" />
+              <span className="font-mono text-[10px] text-accent tracking-[0.3em] uppercase">
                 ID: {project.id || `PRJ_0${idx+1}`}
               </span>
             </div>
@@ -96,7 +96,7 @@ export default function DigitalCanvas() {
               {project.techStack?.map(tag => (
                 <span 
                   key={tag} 
-                  className="px-4 py-2 text-xs font-mono tracking-[0.1em] text-secondary bg-glass border border-subtle rounded-md group-hover:border-[#FFC107]/30 group-hover:text-[#FFC107] hover:!bg-[#FFC107]/10 hover:!text-[#FFC107] transition-all duration-500"
+                  className="px-4 py-2 text-xs font-mono tracking-[0.1em] text-secondary bg-glass border border-subtle rounded-md group-hover:border-accent/30 group-hover:text-accent hover:!bg-accent-soft hover:!text-accent transition-all duration-500"
                 >
                   &lt;{tag}/&gt;
                 </span>
@@ -109,17 +109,17 @@ export default function DigitalCanvas() {
                 href={project.liveLink || "#"} 
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group/btn flex items-center gap-2 text-xs font-mono tracking-[0.1em] text-secondary hover:text-[#FFC107] transition-all"
+                className="group/btn flex items-center gap-2 text-xs font-mono tracking-[0.1em] text-secondary hover:text-accent transition-all"
               >
-                <span className="text-[#FFC107]/50 group-hover/btn:text-[#FFC107]">&gt;</span> VIEW_LIVE
+                <span className="text-accent/50 group-hover/btn:text-accent">&gt;</span> VIEW_LIVE
               </a>
               <a 
                 href={project.sourceCode || "#"} 
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group/btn flex items-center gap-2 text-xs font-mono tracking-[0.1em] text-secondary hover:text-[#FFC107] transition-all"
+                className="group/btn flex items-center gap-2 text-xs font-mono tracking-[0.1em] text-secondary hover:text-accent transition-all"
               >
-                <span className="text-[#FFC107]/50 group-hover/btn:text-[#FFC107]">&gt;</span> SOURCE_CODE
+                <span className="text-accent/50 group-hover/btn:text-accent">&gt;</span> SOURCE_CODE
               </a>
             </div>
           </div>

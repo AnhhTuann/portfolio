@@ -19,7 +19,7 @@ export default function ArtisticVision() {
   if (isLoading) {
     return (
       <div className="w-full flex flex-col items-center justify-center py-32 space-y-6">
-        <div className="w-8 h-8 border-t-2 border-[#FFC107]/20 border-r-2 border-r-[#FFC107] rounded-full animate-spin"></div>
+        <div className="w-8 h-8 border-t-2 border-accent/20 border-r-2 border-r-accent rounded-full animate-spin"></div>
         <span className="font-sans text-xs tracking-[0.4em] text-gray-500 animate-pulse uppercase">
           LOADING VISION...
         </span>
