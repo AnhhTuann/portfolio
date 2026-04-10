@@ -1,4 +1,4 @@
-import { collection, getDocs, addDoc, doc, getDoc, setDoc } from 'firebase/firestore';
+import { collection, getDocs, addDoc, doc, getDoc, setDoc, deleteDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 
 // --- ĐỊNH NGHĨA KIỂU DỮ LIỆU (TYPESCRIPT) ---
@@ -64,6 +64,49 @@ export const getProjects = async (): Promise<Project[]> => {
   } catch (error) {
     console.error("Lỗi khi tải Projects:", error);
     return [];
+  }
+};
+
+/**
+ * Thêm một dự án mới
+ */
+export const addProject = async (data: Omit<Project, 'id'>) => {
+  try {
+    const docRef = await addDoc(collection(db, 'projects'), {
+      ...data,
+      createdAt: new Date().toISOString()
+    });
+    return { success: true, id: docRef.id };
+  } catch (error) {
+    console.error("Lỗi khi thêm Project:", error);
+    return { success: false, error };
+  }
+};
+
+/**
+ * Cập nhật dự án
+ */
+export const updateProjectData = async (id: string, data: Partial<Project>) => {
+  try {
+    const docRef = doc(db, 'projects', id);
+    await updateDoc(docRef, data);
+    return { success: true };
+  } catch (error) {
+    console.error("Lỗi khi sửa Project:", error);
+    return { success: false, error };
+  }
+};
+
+/**
+ * Xóa một dự án
+ */
+export const deleteProjectData = async (id: string) => {
+  try {
+    await deleteDoc(doc(db, 'projects', id));
+    return { success: true };
+  } catch (error) {
+    console.error("Lỗi khi xóa Project:", error);
+    return { success: false, error };
   }
 };
 
