@@ -50,7 +50,7 @@ export default function DigitalCanvas() {
             {/* Hắt sáng lụa không gian (Cyberpunk Glow) */}
             <div className="absolute inset-0 bg-gradient-to-r from-[#3B82F6]/10 to-[#8B5CF6]/10 blur-[80px] rounded-full transform scale-90 group-hover:scale-110 transition-transform duration-[3s] ease-out z-0" />
             
-            <div className={`relative aspect-[16/10] bg-[#0a0a0a] border border-white/[0.05] rounded-xl overflow-hidden shadow-[0_30px_60px_rgba(0,0,0,0.8)] z-10 transition-all duration-[1s] ease-out ${idx % 2 === 1 ? 'group-hover:rotate-y-[-5deg]' : 'group-hover:rotate-y-[5deg]'} group-hover:translate-z-10 group-hover:border-[#3B82F6]/30 preserve-3d`}>
+            <div className={`relative aspect-[16/10] bg-surface border border-subtle rounded-xl overflow-hidden shadow-[0_30px_60px_rgba(0,0,0,0.8)] z-10 transition-all duration-[1s] ease-out ${idx % 2 === 1 ? 'group-hover:rotate-y-[-5deg]' : 'group-hover:rotate-y-[5deg]'} group-hover:translate-z-10 group-hover:border-[#3B82F6]/30 preserve-3d`}>
               {/* Lưới kỹ thuật chìm */}
               <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none z-20"></div>
 
@@ -60,7 +60,7 @@ export default function DigitalCanvas() {
                 alt={project.name} 
                 className="w-full h-full object-cover grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-[1.02] transition-all duration-[1.5s] ease-out z-10 relative"
               />
-              <div className="absolute inset-0 bg-gradient-to-tr from-[#050505]/95 via-[#050505]/40 to-transparent group-hover:opacity-20 transition-opacity duration-1000 z-30" />
+              <div className="absolute inset-0 bg-gradient-to-tr from-surface/95 via-surface/40 dark:from-[#050505]/95 dark:via-[#050505]/40 to-transparent group-hover:opacity-20 transition-opacity duration-1000 z-30" />
             </div>
             
             {/* Hiệu ứng tia lướt nhẹ dọc ảnh (scanline) */}
@@ -77,16 +77,16 @@ export default function DigitalCanvas() {
               </span>
             </div>
 
-            <h3 className="font-sans text-4xl md:text-5xl text-white mb-8 font-semibold tracking-tight uppercase">
+            <h3 className="font-sans text-4xl md:text-5xl text-primary mb-8 font-semibold tracking-tight uppercase">
               {project.name}
             </h3>
             
-            <div className="mb-10 pl-4 border-l-2 border-white/[0.05] group-hover:border-[#3B82F6]/40 transition-colors duration-700">
+            <div className="mb-10 pl-4 border-l-2 border-subtle group-hover:border-[#3B82F6]/40 transition-colors duration-700">
               <span className="font-mono text-[10px] tracking-[0.2em] text-[#3B82F6]/70 mb-4 flex items-center gap-2 uppercase">
                 <span className="w-2 h-2 rounded-full bg-[#3B82F6]/30 animate-pulse"></span>
                 THE_PAIN_POINT
               </span>
-              <p className="text-gray-400 font-light leading-relaxed text-sm font-sans w-full lg:w-11/12 group-hover:text-gray-300 transition-colors">
+              <p className="text-muted font-light leading-relaxed text-sm font-sans w-full lg:w-11/12 group-hover:text-secondary transition-colors">
                 {project.painPoint}
               </p>
             </div>
@@ -96,7 +96,7 @@ export default function DigitalCanvas() {
               {project.techStack?.map(tag => (
                 <span 
                   key={tag} 
-                  className="px-3 py-1.5 text-[9px] font-mono tracking-[0.1em] text-gray-400 bg-white/[0.02] border border-white/[0.05] rounded-sm group-hover:border-[#FFC107]/30 group-hover:text-[#FFC107]/80 hover:!bg-[#FFC107]/10 hover:!text-[#FFC107] transition-all duration-500"
+                  className="px-3 py-1.5 text-[9px] font-mono tracking-[0.1em] text-muted bg-glass border border-subtle rounded-sm group-hover:border-[#FFC107]/30 group-hover:text-[#FFC107]/80 hover:!bg-[#FFC107]/10 hover:!text-[#FFC107] transition-all duration-500"
                 >
                   &lt;{tag}/&gt;
                 </span>
@@ -109,7 +109,7 @@ export default function DigitalCanvas() {
                 href={project.liveLink || "#"} 
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group/btn flex items-center gap-2 text-xs font-mono tracking-[0.1em] text-gray-300 hover:text-[#FFC107] transition-all"
+                className="group/btn flex items-center gap-2 text-xs font-mono tracking-[0.1em] text-secondary hover:text-[#FFC107] transition-all"
               >
                 <span className="text-[#FFC107]/50 group-hover/btn:text-[#FFC107]">&gt;</span> VIEW_LIVE
               </a>
@@ -117,7 +117,7 @@ export default function DigitalCanvas() {
                 href={project.sourceCode || "#"} 
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group/btn flex items-center gap-2 text-xs font-mono tracking-[0.1em] text-gray-300 hover:text-[#FFC107] transition-all"
+                className="group/btn flex items-center gap-2 text-xs font-mono tracking-[0.1em] text-secondary hover:text-[#FFC107] transition-all"
               >
                 <span className="text-[#FFC107]/50 group-hover/btn:text-[#FFC107]">&gt;</span> SOURCE_CODE
               </a>

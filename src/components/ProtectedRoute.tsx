@@ -15,7 +15,7 @@ export default function ProtectedRoute({ children }: { children: React.ReactNode
     return () => unsubscribe();
   }, []);
 
-  if (loading) return <div className="min-h-screen bg-[#050505] flex items-center justify-center text-[#FFC107] font-mono text-xs tracking-widest animate-pulse">AUTHENTICATING...</div>;
+  if (loading) return <div className="min-h-screen bg-background flex items-center justify-center text-[#FFC107] font-mono text-xs tracking-widest animate-pulse">AUTHENTICATING...</div>;
   
   if (!user) return <Navigate to="/login" replace />;
   

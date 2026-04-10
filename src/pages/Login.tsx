@@ -19,7 +19,7 @@ export default function Login() {
     return () => unsubscribe();
   }, []);
 
-  if (isAuthenticated === null) return <div className="min-h-screen bg-[#050505]"></div>;
+  if (isAuthenticated === null) return <div className="min-h-screen bg-background"></div>;
   if (isAuthenticated) return <Navigate to="/admin" replace />;
 
   const handleLogin = async () => {
@@ -35,11 +35,11 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-[#050505] text-gray-300 font-sans flex flex-col items-center justify-center px-6 relative overflow-hidden">
+    <div className="min-h-screen bg-background text-secondary font-sans flex flex-col items-center justify-center px-6 relative overflow-hidden">
       {/* Glow Effects */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#3B82F6]/5 blur-[120px] rounded-full pointer-events-none"></div>
 
-      <Link to="/" className="absolute top-12 left-12 inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors font-mono text-xs tracking-widest z-10">
+      <Link to="/" className="absolute top-12 left-12 inline-flex items-center gap-2 text-muted hover:text-primary transition-colors font-mono text-xs tracking-widest z-10">
         <ArrowLeft className="w-4 h-4" /> CANCEL
       </Link>
 
@@ -48,12 +48,12 @@ export default function Login() {
         animate={{ opacity: 1, y: 0 }}
         className="relative z-10 w-full max-w-sm flex flex-col items-center"
       >
-        <div className="w-20 h-20 mb-8 rounded-full border border-white/[0.1] bg-white/[0.02] flex items-center justify-center relative group">
+        <div className="w-20 h-20 mb-8 rounded-full border border-subtle-hover bg-glass flex items-center justify-center relative group">
           <div className="absolute inset-0 rounded-full border-t border-[#3B82F6] animate-spin opacity-50 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
           <Fingerprint className="w-8 h-8 text-[#FFC107] group-hover:scale-110 transition-transform" strokeWidth={1.5} />
         </div>
 
-        <h1 className="font-display text-4xl text-white font-light tracking-tight mb-2 text-center">Xác Thực.</h1>
+        <h1 className="font-display text-4xl text-primary font-light tracking-tight mb-2 text-center">Xác Thực.</h1>
         <p className="text-gray-500 font-light text-sm text-center mb-12">Hệ thống yêu cầu quyền truy cập cấp cao</p>
 
         {error && (

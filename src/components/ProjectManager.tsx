@@ -128,10 +128,10 @@ export default function ProjectManager() {
   };
 
   return (
-    <div className="mt-20 border-t border-white/[0.05] pt-12 relative z-10 w-full max-w-2xl mx-auto">
+    <div className="mt-20 border-t border-subtle pt-12 relative z-10 w-full max-w-2xl mx-auto">
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h2 className="font-display text-3xl text-white font-light tracking-tight mb-2">Digital Canvas.</h2>
+          <h2 className="font-display text-3xl text-primary font-light tracking-tight mb-2">Digital Canvas.</h2>
           <p className="text-gray-500 font-light text-sm">Quản lý các mảnh ghép sáng tạo</p>
         </div>
         <button 
@@ -147,8 +147,8 @@ export default function ProjectManager() {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {projects.map(p => (
-            <div key={p.id} className="bg-white/[0.02] border border-white/[0.05] rounded-xl p-4 flex gap-4 hover:border-white/[0.1] transition-colors group">
-              <div className="w-20 h-16 bg-black rounded-lg overflow-hidden flex-shrink-0 border border-white/10 relative">
+            <div key={p.id} className="bg-glass border border-subtle rounded-xl p-4 flex gap-4 hover:border-subtle-hover transition-colors group">
+              <div className="w-20 h-16 bg-black rounded-lg overflow-hidden flex-shrink-0 border border-subtle-hover relative">
                 {p.imageUrl ? (
                   <img src={p.imageUrl} alt={p.name} className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500" />
                 ) : (
@@ -159,7 +159,7 @@ export default function ProjectManager() {
                 )}
               </div>
               <div className="flex-1 min-w-0 flex flex-col justify-center">
-                <h4 className="text-white font-semibold text-sm truncate">{p.name}</h4>
+                <h4 className="text-primary font-semibold text-sm truncate">{p.name}</h4>
                 <p className="text-gray-500 text-[10px] font-mono truncate mt-1">{p.techStack?.slice(0,2).join(', ')}{p.techStack && p.techStack.length > 2 ? '...' : ''}</p>
               </div>
               <div className="flex flex-col gap-1 justify-center">
@@ -182,15 +182,15 @@ export default function ProjectManager() {
           <motion.div 
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="relative w-full max-w-2xl bg-[#0a0a0a] border border-white/10 rounded-2xl shadow-2xl my-auto"
+            className="relative w-full max-w-2xl bg-surface border border-subtle-hover rounded-2xl shadow-2xl my-auto"
           >
-            <div className="p-4 border-b border-white/10 flex justify-between items-center bg-black/50 sticky top-0 z-10 rounded-t-2xl">
+            <div className="p-4 border-b border-subtle-hover flex justify-between items-center bg-glass sticky top-0 z-10 rounded-t-2xl">
               <h3 className="text-[#FFC107] font-mono text-xs tracking-widest uppercase font-semibold">
                 {currentProject.id ? 'SỬA THÔNG TIN DỰ ÁN' : 'KHỞI TẠO DỰ ÁN MỚI'}
               </h3>
               <button 
                 onClick={() => setIsModalOpen(false)} 
-                className="text-gray-400 hover:text-white transition-colors p-1"
+                className="text-muted hover:text-primary transition-colors p-1"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -204,56 +204,56 @@ export default function ProjectManager() {
                   <input 
                     type="text" required value={currentProject.name || ''}
                     onChange={(e) => setCurrentProject({...currentProject, name: e.target.value})}
-                    className="w-full bg-white/[0.02] border border-white/[0.05] rounded-xl px-4 py-3 text-white placeholder:text-gray-600 focus:outline-none focus:border-white/[0.2] transition-colors"
+                    className="w-full bg-glass border border-subtle rounded-xl px-4 py-3 text-primary placeholder:text-gray-600 focus:outline-none focus:border-white/[0.2] transition-colors"
                     placeholder="Tên Hệ Thống. (VD: NEXUS CMS)"
                   />
                 </div>
 
                 {/* Tech Stack */}
                 <div className="space-y-2 md:col-span-2">
-                  <label className="block font-mono text-[10px] text-gray-400 uppercase tracking-widest">Tech Stack (Ngăn cách phẩy)</label>
+                  <label className="block font-mono text-[10px] text-muted uppercase tracking-widest">Tech Stack (Ngăn cách phẩy)</label>
                   <input 
                     type="text" required value={techStackInput}
                     onChange={(e) => setTechStackInput(e.target.value)}
-                    className="w-full bg-white/[0.02] border border-white/[0.05] rounded-xl px-4 py-3 text-white font-mono text-xs placeholder:text-gray-600 focus:outline-none focus:border-white/[0.2] transition-colors"
+                    className="w-full bg-glass border border-subtle rounded-xl px-4 py-3 text-primary font-mono text-xs placeholder:text-gray-600 focus:outline-none focus:border-white/[0.2] transition-colors"
                     placeholder="VD: Next.js, Tailwind, Firestore"
                   />
                 </div>
 
                 {/* Mô tả Pain Point */}
                 <div className="space-y-2 md:col-span-2">
-                  <label className="block font-mono text-[10px] text-gray-400 uppercase tracking-widest">The Pain Point (Vấn Đề Giải Quyết)</label>
+                  <label className="block font-mono text-[10px] text-muted uppercase tracking-widest">The Pain Point (Vấn Đề Giải Quyết)</label>
                   <textarea 
                     required rows={3} value={currentProject.painPoint || ''}
                     onChange={(e) => setCurrentProject({...currentProject, painPoint: e.target.value})}
-                    className="w-full bg-white/[0.02] border border-white/[0.05] rounded-xl px-4 py-3 text-white placeholder:text-gray-600 focus:outline-none focus:border-white/[0.2] transition-colors resize-none text-sm"
+                    className="w-full bg-glass border border-subtle rounded-xl px-4 py-3 text-primary placeholder:text-gray-600 focus:outline-none focus:border-white/[0.2] transition-colors resize-none text-sm"
                     placeholder="Dự án sinh ra để dẹp tan nỗi đau gì của người dùng?"
                   />
                 </div>
 
                 {/* Links */}
                 <div className="space-y-2">
-                  <label className="block font-mono text-[10px] text-gray-400 uppercase tracking-widest">Link Sản phẩm sống (Live)</label>
+                  <label className="block font-mono text-[10px] text-muted uppercase tracking-widest">Link Sản phẩm sống (Live)</label>
                   <input 
                     type="url" value={currentProject.liveLink || ''}
                     onChange={(e) => setCurrentProject({...currentProject, liveLink: e.target.value})}
-                    className="w-full bg-white/[0.02] border border-white/[0.05] rounded-xl px-4 py-3 text-white placeholder:text-gray-600 focus:outline-none focus:border-white/[0.2] transition-colors text-xs font-mono"
+                    className="w-full bg-glass border border-subtle rounded-xl px-4 py-3 text-primary placeholder:text-gray-600 focus:outline-none focus:border-white/[0.2] transition-colors text-xs font-mono"
                     placeholder="https://..."
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="block font-mono text-[10px] text-gray-400 uppercase tracking-widest">Mã Nguồn (Source Code)</label>
+                  <label className="block font-mono text-[10px] text-muted uppercase tracking-widest">Mã Nguồn (Source Code)</label>
                   <input 
                     type="url" value={currentProject.sourceCode || ''}
                     onChange={(e) => setCurrentProject({...currentProject, sourceCode: e.target.value})}
-                    className="w-full bg-white/[0.02] border border-white/[0.05] rounded-xl px-4 py-3 text-white placeholder:text-gray-600 focus:outline-none focus:border-white/[0.2] transition-colors text-xs font-mono"
+                    className="w-full bg-glass border border-subtle rounded-xl px-4 py-3 text-primary placeholder:text-gray-600 focus:outline-none focus:border-white/[0.2] transition-colors text-xs font-mono"
                     placeholder="https://github.com/..."
                   />
                 </div>
 
                 {/* Ảnh Minh Họa */}
                 <div className="space-y-2 md:col-span-2 mt-2">
-                  <label className="block font-mono text-[10px] text-gray-400 uppercase tracking-widest flex justify-between items-center">
+                  <label className="block font-mono text-[10px] text-muted uppercase tracking-widest flex justify-between items-center">
                     <span>Ảnh Demo Dự Án</span>
                     <button 
                       type="button" 
@@ -265,12 +265,12 @@ export default function ProjectManager() {
                     </button>
                   </label>
                   
-                  <div className="relative aspect-[16/10] w-full border border-dashed border-white/20 rounded-xl overflow-hidden bg-black/50 flex flex-col items-center justify-center group hover:border-[#3B82F6]/50 transition-colors">
+                  <div className="relative aspect-[16/10] w-full border border-dashed border-white/20 rounded-xl overflow-hidden bg-glass flex flex-col items-center justify-center group hover:border-[#3B82F6]/50 transition-colors">
                     {currentProject.imageUrl ? (
                       <>
                         <img src={currentProject.imageUrl} className="w-full h-full object-cover" alt="Preview" />
                         <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-sm">
-                          <button type="button" onClick={() => fileInputRef.current?.click()} className="px-4 py-2 border border-white/20 rounded-lg text-white font-mono text-xs hover:bg-white/10 flex items-center gap-2"><Upload className="w-4 h-4"/> ĐỔI ẢNH KHÁC</button>
+                          <button type="button" onClick={() => fileInputRef.current?.click()} className="px-4 py-2 border border-white/20 rounded-lg text-primary font-mono text-xs hover:bg-white/10 flex items-center gap-2"><Upload className="w-4 h-4"/> ĐỔI ẢNH KHÁC</button>
                         </div>
                       </>
                     ) : (
@@ -287,7 +287,7 @@ export default function ProjectManager() {
               </div>
 
               {/* Submit */}
-              <div className="pt-6 pb-2 border-t border-white/10">
+              <div className="pt-6 pb-2 border-t border-subtle-hover">
                 <button 
                   type="submit" disabled={saving || uploadingImage}
                   className="w-full py-4 bg-[#FFC107] text-black font-semibold rounded-xl font-mono text-xs tracking-widest hover:bg-[#FFD54F] transition-all flex items-center justify-center gap-2 hover:shadow-[0_0_20px_rgba(255,193,7,0.3)] active:scale-[0.98] disabled:opacity-50"

@@ -5,6 +5,7 @@ import { getProfile, updateProfile, Profile } from '../services/dataService';
 import { logout } from '../services/authService';
 import { Link, useNavigate } from 'react-router-dom';
 import Cropper from 'react-easy-crop';
+import AboutManager from '../components/AboutManager';
 import ProjectManager from '../components/ProjectManager';
 import ArtworkManager from '../components/ArtworkManager';
 
@@ -115,7 +116,7 @@ export default function Admin() {
   };
 
   return (
-    <div className="min-h-screen bg-[#050505] text-gray-300 font-sans p-6 md:p-12 relative overflow-x-hidden">
+    <div className="min-h-screen bg-background text-secondary font-sans p-6 md:p-12 relative overflow-x-hidden">
       {/* Background Glow */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none z-0 mix-blend-screen opacity-50">
         <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-[#FFC107]/10 blur-[130px] rounded-full"></div>
@@ -124,7 +125,7 @@ export default function Admin() {
 
       <div className="relative z-10 max-w-2xl mx-auto mt-12">
         <div className="flex items-center justify-between mb-8">
-          <Link to="/" className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors font-mono text-sm">
+          <Link to="/" className="inline-flex items-center gap-2 text-muted hover:text-primary transition-colors font-mono text-sm">
             <ArrowLeft className="w-4 h-4" /> TRỞ VỀ TRANG CHỦ
           </Link>
           <button 
@@ -138,11 +139,11 @@ export default function Admin() {
           </button>
         </div>
         
-        <div className="mb-12 border-b border-white/[0.05] pb-6">
+        <div className="mb-12 border-b border-subtle pb-6">
           <motion.h1 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="font-display text-4xl text-white font-light tracking-tight mb-2"
+            className="font-display text-4xl text-primary font-light tracking-tight mb-2"
           >
             Terminal Quản Trị.
           </motion.h1>
@@ -165,7 +166,7 @@ export default function Admin() {
                 required
                 value={profile.name}
                 onChange={(e) => setProfile({...profile, name: e.target.value})}
-                className="w-full bg-white/[0.02] border border-white/[0.05] rounded-xl px-4 py-3 text-white placeholder:text-gray-600 focus:outline-none focus:border-white/[0.2] transition-colors"
+                className="w-full bg-glass border border-subtle rounded-xl px-4 py-3 text-primary placeholder:text-gray-600 focus:outline-none focus:border-white/[0.2] transition-colors"
                 placeholder="VD: Tuấn."
               />
             </div>
@@ -177,7 +178,7 @@ export default function Admin() {
                   required
                   value={profile.avatarUrl}
                   onChange={(e) => setProfile({...profile, avatarUrl: e.target.value})}
-                  className="flex-1 min-w-0 bg-white/[0.02] border border-white/[0.05] rounded-xl px-4 py-3 text-white placeholder:text-gray-600 focus:outline-none focus:border-white/[0.2] transition-colors"
+                  className="flex-1 min-w-0 bg-glass border border-subtle rounded-xl px-4 py-3 text-primary placeholder:text-gray-600 focus:outline-none focus:border-white/[0.2] transition-colors"
                   placeholder="VD: /assets/images/avatar.png"
                 />
                 <input 
@@ -191,7 +192,7 @@ export default function Admin() {
                   type="button" 
                   onClick={() => fileInputRef.current?.click()}
                   disabled={uploadingImage}
-                  className="px-5 bg-white/[0.05] hover:bg-white/[0.1] border border-white/[0.1] rounded-xl text-white font-mono text-xs tracking-wider transition-colors flex flex-shrink-0 items-center justify-center gap-2"
+                  className="px-5 bg-glass-hover hover:bg-glass-hover border border-subtle-hover rounded-xl text-primary font-mono text-xs tracking-wider transition-colors flex flex-shrink-0 items-center justify-center gap-2"
                 >
                   {uploadingImage ? 'XỬ LÝ...' : (
                     <>
@@ -212,20 +213,20 @@ export default function Admin() {
               required
               value={roleInput}
               onChange={(e) => setRoleInput(e.target.value)}
-              className="w-full bg-white/[0.02] border border-white/[0.05] rounded-xl px-4 py-3 text-white placeholder:text-gray-600 focus:outline-none focus:border-white/[0.2] transition-colors"
+              className="w-full bg-glass border border-subtle rounded-xl px-4 py-3 text-primary placeholder:text-gray-600 focus:outline-none focus:border-white/[0.2] transition-colors"
               placeholder="VD: Software Engineer, Creative Explorer"
             />
           </div>
 
           {/* Mô tả */}
           <div className="space-y-2">
-             <label className="block font-mono text-xs text-gray-400 uppercase tracking-widest">Đoạn Mô Tả Giới Thiệu</label>
+             <label className="block font-mono text-xs text-muted uppercase tracking-widest">Đoạn Mô Tả Giới Thiệu</label>
              <textarea 
                 rows={4}
                 required
                 value={profile.description}
                 onChange={(e) => setProfile({...profile, description: e.target.value})}
-                className="w-full bg-white/[0.02] border border-white/[0.05] rounded-xl px-4 py-3 text-white placeholder:text-gray-600 focus:outline-none focus:border-white/[0.2] transition-colors resize-none"
+                className="w-full bg-glass border border-subtle rounded-xl px-4 py-3 text-primary placeholder:text-gray-600 focus:outline-none focus:border-white/[0.2] transition-colors resize-none"
              />
           </div>
 
@@ -252,6 +253,7 @@ export default function Admin() {
           </div>
         </motion.form>
 
+        <AboutManager />
         <ProjectManager />
         <ArtworkManager />
       </div>
@@ -262,14 +264,14 @@ export default function Admin() {
           <motion.div 
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="relative w-full max-w-lg bg-[#0a0a0a] border border-white/10 rounded-2xl overflow-hidden shadow-2xl"
+            className="relative w-full max-w-lg bg-surface border border-subtle-hover rounded-2xl overflow-hidden shadow-2xl"
           >
             {/* Header Modal */}
-            <div className="p-4 border-b border-white/10 flex justify-between items-center bg-black/50">
-              <h3 className="text-white font-mono text-xs tracking-widest text-[#FFC107]">CẮT ẢNH AVATAR</h3>
+            <div className="p-4 border-b border-subtle-hover flex justify-between items-center bg-glass">
+              <h3 className="text-primary font-mono text-xs tracking-widest text-[#FFC107]">CẮT ẢNH AVATAR</h3>
               <button 
                 onClick={() => setImageToCrop(null)} 
-                className="text-gray-400 hover:text-white transition-colors p-1"
+                className="text-muted hover:text-primary transition-colors p-1"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -291,7 +293,7 @@ export default function Admin() {
             </div>
             
             {/* Thanh trượt control */}
-            <div className="p-6 bg-black/50 flex flex-col gap-6">
+            <div className="p-6 bg-glass flex flex-col gap-6">
               <div className="flex items-center gap-4">
                 <span className="text-xs font-mono text-gray-500 min-w-10">ZOOM</span>
                 <input

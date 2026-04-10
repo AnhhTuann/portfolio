@@ -42,7 +42,7 @@ export default function ArtisticVision() {
       {artworks.map((art) => (
         <div 
           key={art.id} 
-          className="break-inside-avoid relative group overflow-hidden rounded-md bg-white/[0.01] border border-white/[0.03] cursor-pointer shadow-lg hover:shadow-[0_10px_40px_rgba(255,193,7,0.05)] transition-shadow duration-700"
+          className="break-inside-avoid relative group overflow-hidden rounded-md bg-glass border border-subtle cursor-pointer shadow-lg hover:shadow-[0_10px_40px_rgba(255,193,7,0.05)] transition-shadow duration-700"
         >
           {/* Image - now respects original aspect ratio */}
           <img
@@ -53,7 +53,7 @@ export default function ArtisticVision() {
           />
           
           {/* Subtle frame effect */}
-          <div className="absolute inset-0 border border-white/[0.03] rounded-md pointer-events-none z-20"></div>
+          <div className="absolute inset-0 border border-subtle rounded-md pointer-events-none z-20"></div>
 
           {/* Gradient Overlay để nổi bật chữ nhưng pha ánh tím ma mị */}
           <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-[#2e092f] via-[#050505]/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 z-10" />

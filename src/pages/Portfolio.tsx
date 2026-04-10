@@ -26,9 +26,9 @@ const CinematicSection = ({
       transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
       className="max-w-5xl mx-auto w-full"
     >
-      <div className="mb-16 flex items-baseline gap-6 border-b border-white/[0.05] pb-8">
+      <div className="mb-16 flex items-baseline gap-6 border-b border-subtle pb-8">
         <span className="font-display text-sm tracking-[0.3em] text-gray-600">{number}</span>
-        <h2 className="font-display text-3xl md:text-4xl text-white font-light tracking-tight">{title}</h2>
+        <h2 className="font-display text-3xl md:text-4xl text-primary font-light tracking-tight">{title}</h2>
       </div>
       {children}
     </motion.div>
@@ -44,6 +44,28 @@ export default function Portfolio() {
       if (data) setProfile(data);
     };
     fetchProfile();
+  }, []);
+
+  const defaultAbout = {
+    p1: "Tốt nghiệp Đại học Sài Gòn (SGU), tôi được rèn luyện trong môi trường kỹ thuật khắt khe. Ở đó, mọi thứ đều cần sự chính xác, tối ưu và logic.",
+    p2: 'Nhưng mã nguồn không chỉ là những dòng lệnh khô khan. Khi kết hợp với tư duy thẩm mỹ từ việc <strong class="text-primary font-normal">vẽ tranh</strong> và sự tĩnh lặng khi <strong class="text-primary font-normal">chăm sóc hồ cá thủy sinh</strong>, tôi tìm thấy một nhịp điệu riêng:',
+    quote: '"Code là nghệ thuật kiến tạo, và nghệ thuật là logic của cảm xúc."'
+  };
+  const [aboutData, setAboutData] = useState(() => {
+    try {
+      const saved = localStorage.getItem('about_data');
+      return saved ? JSON.parse(saved) : defaultAbout;
+    } catch { return defaultAbout; }
+  });
+  useEffect(() => {
+    const handleStorage = () => {
+      try {
+        const saved = localStorage.getItem('about_data');
+        if (saved) setAboutData(JSON.parse(saved));
+      } catch {}
+    };
+    window.addEventListener('storage', handleStorage);
+    return () => window.removeEventListener('storage', handleStorage);
   }, []);
 
   // --- STATE QUẢN LÝ FORM LIÊN HỆ ---
@@ -68,7 +90,7 @@ export default function Portfolio() {
   };
 
   return (
-    <div className="min-h-screen bg-[#050505] text-gray-300 selection:bg-[#FFC107] selection:text-black font-sans relative overflow-x-hidden">
+    <div className="min-h-screen bg-background text-secondary selection:bg-[#FFC107] selection:text-black font-sans relative overflow-x-hidden">
       
       {/* --- Cực Quang Vũ Trụ (Aurora Background Glow) --- */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none z-0 mix-blend-screen opacity-70">
@@ -95,12 +117,12 @@ export default function Portfolio() {
             <div className="absolute inset-0 bg-gradient-to-tr from-[#3B82F6] via-[#8B5CF6] to-[#FFC107] blur-[50px] rounded-full opacity-40 group-hover:opacity-80 group-hover:scale-125 transition-all duration-1000 ease-out z-0"></div>
             
             {/* Các vòng sáng công nghệ xoay quanh */}
-            <div className="absolute inset-[-8px] border border-white/[0.05] border-t-[#3B82F6]/70 rounded-full animate-spin [animation-duration:8s] pointer-events-none z-10"></div>
-            <div className="absolute inset-[-18px] border border-white/[0.02] border-b-[#FFC107]/50 rounded-full animate-spin [animation-duration:12s] [animation-direction:reverse] pointer-events-none z-10"></div>
+            <div className="absolute inset-[-8px] border border-subtle border-t-[#3B82F6]/70 rounded-full animate-spin [animation-duration:8s] pointer-events-none z-10"></div>
+            <div className="absolute inset-[-18px] border border-subtle border-b-[#FFC107]/50 rounded-full animate-spin [animation-duration:12s] [animation-direction:reverse] pointer-events-none z-10"></div>
             <div className="absolute inset-[-28px] border border-transparent border-l-[#8B5CF6]/30 border-r-[#8B5CF6]/30 rounded-full animate-[spin_20s_linear_infinite] pointer-events-none z-10"></div>
             
             {/* Hình Avatar */}
-            <div className="w-full h-full rounded-full border-2 border-white/10 overflow-hidden relative z-20 transform group-hover:rotate-y-[15deg] group-hover:rotate-x-[10deg] preserve-3d shadow-[0_0_40px_rgba(0,0,0,0.8)] transition-transform duration-700 bg-[#0a0a0a]">
+            <div className="w-full h-full rounded-full border-2 border-subtle-hover overflow-hidden relative z-20 transform group-hover:rotate-y-[15deg] group-hover:rotate-x-[10deg] preserve-3d shadow-[0_0_40px_rgba(0,0,0,0.8)] transition-transform duration-700 bg-surface">
               <img 
                 src={profile?.avatarUrl || "/assets/images/avatar.png"} 
                 alt={`${profile?.name || "Tuấn"}'s Avatar`} 
@@ -120,7 +142,7 @@ export default function Portfolio() {
             transition={{ delay: 0.5, duration: 1 }}
             className="flex flex-col items-center"
           >
-            <h1 className="font-display text-7xl md:text-9xl font-light tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white via-gray-100 to-gray-500 mb-4 drop-shadow-2xl">
+            <h1 className="font-display text-7xl md:text-9xl font-light tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-[#3B82F6] via-[#8B5CF6] to-[#FFC107] dark:from-white dark:via-gray-100 dark:to-gray-500 mb-4 drop-shadow-2xl hover:scale-105 transition-transform duration-700">
               {profile?.name || "Tuấn."}
             </h1>
             <div className="flex items-center justify-center gap-4 mb-8">
@@ -155,10 +177,10 @@ export default function Portfolio() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1, duration: 1.5 }}
-            className="text-base md:text-xl font-light tracking-wide text-gray-400 max-w-2xl mx-auto leading-relaxed mb-12"
+            className="text-base md:text-xl font-light tracking-wide text-muted max-w-2xl mx-auto leading-relaxed mb-12"
           >
             {profile?.description || (
-              <>Kỹ sư CNTT từ SGU. Nơi logic của <span className="text-white font-medium">React & Firebase</span> giao thoa cùng cảm xúc của <span className="text-[#FFC107] font-medium drop-shadow-[0_0_8px_rgba(255,193,7,0.5)]">Nghệ thuật & Sự sống</span>.</>
+              <>Kỹ sư CNTT từ SGU. Nơi logic của <span className="text-primary font-medium">React & Firebase</span> giao thoa cùng cảm xúc của <span className="text-[#FFC107] font-medium drop-shadow-[0_0_8px_rgba(255,193,7,0.5)]">Nghệ thuật & Sự sống</span>.</>
             )}
           </motion.p>
 
@@ -169,13 +191,13 @@ export default function Portfolio() {
             transition={{ delay: 1.5, duration: 1 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-6 w-full"
           >
-            <a href="#projects" className="group relative px-8 py-4 bg-white text-black rounded-full overflow-hidden font-mono text-xs tracking-widest font-semibold transition-all hover:scale-105 active:scale-95 shadow-[0_0_30px_rgba(255,255,255,0.1)] hover:shadow-[0_0_40px_rgba(255,255,255,0.3)]">
+            <a href="#projects" className="group relative px-8 py-4 bg-black text-white dark:bg-white dark:text-black rounded-full overflow-hidden font-mono text-xs tracking-widest font-semibold transition-all hover:scale-105 active:scale-95 shadow-[0_0_30px_rgba(0,0,0,0.1)] dark:shadow-[0_0_30px_rgba(255,255,255,0.1)] hover:shadow-[0_0_40px_rgba(0,0,0,0.2)] dark:hover:shadow-[0_0_40px_rgba(255,255,255,0.3)]">
               <span className="relative z-10 flex items-center gap-3">
                 [ KHÁM PHÁ DỰ ÁN ]
               </span>
             </a>
             
-            <a href="#contact" className="group relative px-8 py-4 bg-transparent border border-white/[0.1] text-white rounded-full overflow-hidden font-mono text-xs tracking-widest font-semibold transition-all hover:border-white/[0.3] hover:bg-white/[0.05] hover:scale-105 active:scale-95">
+            <a href="#contact" className="group relative px-8 py-4 bg-transparent border border-subtle-hover text-primary rounded-full overflow-hidden font-mono text-xs tracking-widest font-semibold transition-all hover:border-primary/30 hover:bg-glass-hover hover:scale-105 active:scale-95">
               <div className="absolute inset-0 bg-[#FFC107]/0 group-hover:bg-[#FFC107]/5 transition-colors duration-500"></div>
               <span className="relative z-10 flex items-center gap-3">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#FFC107] animate-pulse"></span>
@@ -193,50 +215,45 @@ export default function Portfolio() {
           className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 opacity-50 hover:opacity-100 transition-opacity cursor-pointer z-20 group"
           onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
         >
-          <span className="font-mono text-[9px] tracking-[0.3em] text-gray-500 group-hover:text-white transition-colors duration-300">SCROLL TO EXPLORE</span>
-          <div className="p-2 rounded-full border border-white/[0.1] group-hover:border-white/[0.3] transition-colors duration-300">
-            <ChevronDown className="w-4 h-4 text-gray-400 group-hover:text-white group-hover:animate-bounce transition-all" />
+          <span className="font-mono text-[9px] tracking-[0.3em] text-gray-500 group-hover:text-primary transition-colors duration-300">SCROLL TO EXPLORE</span>
+          <div className="p-2 rounded-full border border-subtle-hover group-hover:border-white/[0.3] transition-colors duration-300">
+            <ChevronDown className="w-4 h-4 text-muted group-hover:text-primary group-hover:animate-bounce transition-all" />
           </div>
         </motion.div>
         
         {/* Ánh sáng dưới đáy */}
-        <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-[#050505] to-transparent z-0 pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-gray-50 dark:from-[#050505] to-transparent z-0 pointer-events-none" />
       </section>
 
       {/* 01. The Architect & The Artist */}
       <CinematicSection id="about" number="01" title="The Architect & The Artist">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-          <div className="space-y-6 text-gray-400 font-light leading-relaxed text-lg">
-            <p>
-              Tốt nghiệp Đại học Sài Gòn (SGU), tôi được rèn luyện trong môi trường kỹ thuật khắt khe. Ở đó, mọi thứ đều cần sự chính xác, tối ưu và logic.
-            </p>
-            <p>
-              Nhưng mã nguồn không chỉ là những dòng lệnh khô khan. Khi kết hợp với tư duy thẩm mỹ từ việc <strong className="text-white font-normal">vẽ tranh</strong> và sự tĩnh lặng khi <strong className="text-white font-normal">chăm sóc hồ cá thủy sinh</strong>, tôi tìm thấy một nhịp điệu riêng:
-            </p>
-            <blockquote className="border-l-2 border-white/[0.2] pl-6 italic text-gray-300 mt-8">
-              "Code là nghệ thuật kiến tạo, và nghệ thuật là logic của cảm xúc."
+          <div className="space-y-6 text-muted font-light leading-relaxed text-lg">
+            <p dangerouslySetInnerHTML={{ __html: aboutData.p1 }}></p>
+            <p dangerouslySetInnerHTML={{ __html: aboutData.p2 }}></p>
+            <blockquote className="border-l-2 border-subtle-hover pl-6 italic text-secondary mt-8" dangerouslySetInnerHTML={{ __html: aboutData.quote }}>
             </blockquote>
           </div>
           
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-4">
-              <div className="aspect-square bg-white/[0.02] border border-white/[0.05] rounded-2xl flex flex-col items-center justify-center p-6 hover:bg-white/[0.05] transition-all duration-500">
-                <Code2 className="w-8 h-8 text-gray-300 mb-4" strokeWidth={1.5} />
-                <span className="font-display text-xs tracking-[0.2em] text-gray-400">LOGIC</span>
+              <div className="aspect-square bg-glass border border-subtle rounded-2xl flex flex-col items-center justify-center p-6 hover:bg-glass-hover transition-all duration-500">
+                <Code2 className="w-8 h-8 text-secondary mb-4" strokeWidth={1.5} />
+                <span className="font-display text-xs tracking-[0.2em] text-muted">LOGIC</span>
               </div>
-              <div className="aspect-[4/5] bg-white/[0.02] border border-white/[0.05] rounded-2xl flex flex-col items-center justify-center p-6 hover:bg-white/[0.05] transition-all duration-500">
-                <Palette className="w-8 h-8 text-gray-300 mb-4" strokeWidth={1.5} />
-                <span className="font-display text-xs tracking-[0.2em] text-gray-400">EMOTION</span>
+              <div className="aspect-[4/5] bg-glass border border-subtle rounded-2xl flex flex-col items-center justify-center p-6 hover:bg-glass-hover transition-all duration-500">
+                <Palette className="w-8 h-8 text-secondary mb-4" strokeWidth={1.5} />
+                <span className="font-display text-xs tracking-[0.2em] text-muted">EMOTION</span>
               </div>
             </div>
             <div className="space-y-4 mt-12">
-              <div className="aspect-[4/5] bg-white/[0.02] border border-white/[0.05] rounded-2xl flex flex-col items-center justify-center p-6 hover:bg-white/[0.05] transition-all duration-500">
-                <Database className="w-8 h-8 text-gray-300 mb-4" strokeWidth={1.5} />
-                <span className="font-display text-xs tracking-[0.2em] text-gray-400">STRUCTURE</span>
+              <div className="aspect-[4/5] bg-glass border border-subtle rounded-2xl flex flex-col items-center justify-center p-6 hover:bg-glass-hover transition-all duration-500">
+                <Database className="w-8 h-8 text-secondary mb-4" strokeWidth={1.5} />
+                <span className="font-display text-xs tracking-[0.2em] text-muted">STRUCTURE</span>
               </div>
-              <div className="aspect-square bg-white/[0.02] border border-white/[0.05] rounded-2xl flex flex-col items-center justify-center p-6 hover:bg-white/[0.05] transition-all duration-500">
-                <Fish className="w-8 h-8 text-gray-300 mb-4" strokeWidth={1.5} />
-                <span className="font-display text-xs tracking-[0.2em] text-gray-400">LIFE</span>
+              <div className="aspect-square bg-glass border border-subtle rounded-2xl flex flex-col items-center justify-center p-6 hover:bg-glass-hover transition-all duration-500">
+                <Fish className="w-8 h-8 text-secondary mb-4" strokeWidth={1.5} />
+                <span className="font-display text-xs tracking-[0.2em] text-muted">LIFE</span>
               </div>
             </div>
           </div>
@@ -259,7 +276,7 @@ export default function Portfolio() {
       </CinematicSection>
 
       {/* 05. Epilogue */}
-      <section id="contact" className="py-32 px-6 flex flex-col items-center justify-center text-center border-t border-white/[0.05] mt-32">
+      <section id="contact" className="py-32 px-6 flex flex-col items-center justify-center text-center border-t border-subtle mt-32">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -268,8 +285,8 @@ export default function Portfolio() {
           className="w-full max-w-md"
         >
           <span className="font-display text-sm tracking-[0.3em] text-gray-600 mb-6 block">05. EPILOGUE</span>
-          <h2 className="font-display text-4xl md:text-6xl text-white font-light tracking-tight mb-8">The Next Chapter.</h2>
-          <p className="text-gray-400 font-light mb-12">
+          <h2 className="font-display text-4xl md:text-6xl text-primary font-light tracking-tight mb-8">The Next Chapter.</h2>
+          <p className="text-muted font-light mb-12">
             Cho dù là một dự án phần mềm phức tạp, một bức tranh đang dang dở, hay một hồ thủy sinh cần thiết kế. Hãy kết nối với tôi.
           </p>
           
@@ -282,7 +299,7 @@ export default function Portfolio() {
                 required
                 value={formData.name}
                 onChange={(e) => setFormData({...formData, name: e.target.value})}
-                className="w-full bg-white/[0.02] border border-white/[0.05] rounded-xl px-6 py-4 text-white placeholder:text-gray-600 focus:outline-none focus:border-white/[0.2] transition-colors"
+                className="w-full bg-glass border border-subtle rounded-xl px-6 py-4 text-primary placeholder:text-gray-600 focus:outline-none focus:border-white/[0.2] transition-colors"
               />
             </div>
             <div>
@@ -292,7 +309,7 @@ export default function Portfolio() {
                 required
                 value={formData.email}
                 onChange={(e) => setFormData({...formData, email: e.target.value})}
-                className="w-full bg-white/[0.02] border border-white/[0.05] rounded-xl px-6 py-4 text-white placeholder:text-gray-600 focus:outline-none focus:border-white/[0.2] transition-colors"
+                className="w-full bg-glass border border-subtle rounded-xl px-6 py-4 text-primary placeholder:text-gray-600 focus:outline-none focus:border-white/[0.2] transition-colors"
               />
             </div>
             <div>
@@ -302,7 +319,7 @@ export default function Portfolio() {
                 required
                 value={formData.message}
                 onChange={(e) => setFormData({...formData, message: e.target.value})}
-                className="w-full bg-white/[0.02] border border-white/[0.05] rounded-xl px-6 py-4 text-white placeholder:text-gray-600 focus:outline-none focus:border-white/[0.2] transition-colors resize-none"
+                className="w-full bg-glass border border-subtle rounded-xl px-6 py-4 text-primary placeholder:text-gray-600 focus:outline-none focus:border-white/[0.2] transition-colors resize-none"
               />
             </div>
             <button 
@@ -328,7 +345,7 @@ export default function Portfolio() {
       </section>
 
       {/* Footer */}
-      <footer className="py-8 text-center text-gray-600 font-light text-xs tracking-widest border-t border-white/[0.05]">
+      <footer className="py-8 text-center text-gray-600 font-light text-xs tracking-widest border-t border-subtle">
         <p>DESIGNED & ENGINEERED BY TUẤN © {new Date().getFullYear()}</p>
       </footer>
       </div>
