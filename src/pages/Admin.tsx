@@ -6,6 +6,7 @@ import { logout } from '../services/authService';
 import { Link, useNavigate } from 'react-router-dom';
 import Cropper from 'react-easy-crop';
 import ProjectManager from '../components/ProjectManager';
+import ArtworkManager from '../components/ArtworkManager';
 
 export default function Admin() {
   const [profile, setProfile] = useState<Profile>({
@@ -252,6 +253,7 @@ export default function Admin() {
         </motion.form>
 
         <ProjectManager />
+        <ArtworkManager />
       </div>
 
       {/* CROPPER MODAL DÀNH CHO AVATAR */}

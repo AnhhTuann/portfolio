@@ -52,6 +52,49 @@ export const getArtworks = async (): Promise<Artwork[]> => {
 };
 
 /**
+ * Thêm một tranh vẽ mới
+ */
+export const addArtwork = async (data: Omit<Artwork, 'id'>) => {
+  try {
+    const docRef = await addDoc(collection(db, 'artworks'), {
+      ...data,
+      createdAt: new Date().toISOString()
+    });
+    return { success: true, id: docRef.id };
+  } catch (error) {
+    console.error("Lỗi khi thêm Artwork:", error);
+    return { success: false, error };
+  }
+};
+
+/**
+ * Cập nhật thông tin tranh vẽ
+ */
+export const updateArtworkData = async (id: string, data: Partial<Artwork>) => {
+  try {
+    const docRef = doc(db, 'artworks', id);
+    await updateDoc(docRef, data);
+    return { success: true };
+  } catch (error) {
+    console.error("Lỗi khi sửa Artwork:", error);
+    return { success: false, error };
+  }
+};
+
+/**
+ * Xóa một tranh vẽ
+ */
+export const deleteArtworkData = async (id: string) => {
+  try {
+    await deleteDoc(doc(db, 'artworks', id));
+    return { success: true };
+  } catch (error) {
+    console.error("Lỗi khi xóa Artwork:", error);
+    return { success: false, error };
+  }
+};
+
+/**
  * Lấy danh sách dự án từ collection 'projects'
  */
 export const getProjects = async (): Promise<Project[]> => {
