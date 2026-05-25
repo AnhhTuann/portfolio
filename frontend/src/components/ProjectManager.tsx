@@ -52,8 +52,8 @@ export default function ProjectManager() {
         img.src = event.target?.result as string;
         img.onload = () => {
           const canvas = document.createElement('canvas'); // Khởi tạo thợ vẽ
-          const MAX_WIDTH = 600; // Giảm xuống 600 để file siêu nhẹ (< 50KB)
-          const MAX_HEIGHT = 375;
+          const MAX_WIDTH = 1600; // Tăng lên 1600 để hình ảnh sắc nét trên mọi loại màn hình
+          const MAX_HEIGHT = 1000;
           let width = img.width;
           let height = img.height;
 
@@ -82,8 +82,8 @@ export default function ProjectManager() {
           // Đóng mộc vào khung 600x375
           ctx.drawImage(img, sx, sy, sWidth, sHeight, 0, 0, MAX_WIDTH, MAX_HEIGHT);
           
-          // Trả về chuỗi Base64 JPEG với chất lượng thấp hơn chút cho nhẹ nhàng Firestore
-          const dataUrl = canvas.toDataURL('image/jpeg', 0.5);
+          // Trả về chuỗi Base64 JPEG với chất lượng 0.85 để ảnh luôn sắc nét hoàn hảo
+          const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
           resolve(dataUrl);
         };
         img.onerror = (err) => reject(err);
@@ -276,8 +276,8 @@ export default function ProjectManager() {
                     ) : (
                       <div className="text-gray-600 font-mono text-xs text-center">
                         <Upload className="w-8 h-8 mx-auto mb-3 opacity-30" strokeWidth={1} />
-                        Kích thước Auto Canvas: 800x500<br/>
-                        <span className="text-[10px] text-gray-700">(Được nén Base64 siêu tiết kiệm)</span>
+                        Kích thước Auto Canvas: 1600x1000<br/>
+                        <span className="text-[10px] text-gray-700">(Được nén Base64 chất lượng cực cao, sắc nét)</span>
                       </div>
                     )}
                     <input type="file" accept="image/*" className="hidden" ref={fileInputRef} onChange={handleImageUpload} />

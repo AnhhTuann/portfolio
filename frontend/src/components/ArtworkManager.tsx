@@ -49,7 +49,7 @@ export default function ArtworkManager() {
         img.src = event.target?.result as string;
         img.onload = () => {
           const canvas = document.createElement('canvas');
-          const MAX_SIDE = 600; // Giới hạn cạnh lớn nhất để tránh quá tải payload
+          const MAX_SIDE = 1600; // Giới hạn cạnh lớn nhất để hình ảnh sắc nét trên mọi loại màn hình
           let width = img.width;
           let height = img.height;
 
@@ -74,8 +74,8 @@ export default function ArtworkManager() {
 
           ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
           
-          // Trả về chuỗi Base64
-          const dataUrl = canvas.toDataURL('image/jpeg', 0.5); // Ép nén mạnh 50%
+          // Trả về chuỗi Base64 chất lượng 0.85 để giữ độ chi tiết cao và sắc nét
+          const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
           resolve(dataUrl);
         };
         img.onerror = (err) => reject(err);
@@ -222,8 +222,8 @@ export default function ArtworkManager() {
                   ) : (
                     <div className="text-[#8B5CF6]/60 font-mono text-xs text-center p-8">
                       <Upload className="w-8 h-8 mx-auto mb-3 opacity-50" strokeWidth={1} />
-                      Tỉ lệ gốc mộc định.<br/>
-                      <span className="text-[10px] text-gray-500">(Cạnh dài nhất sẽ được ép xuống 800px giới hạn)</span>
+                      Tỉ lệ gốc mặc định.<br/>
+                      <span className="text-[10px] text-gray-500">(Cạnh dài nhất sẽ được giới hạn tối đa 1600px sắc nét)</span>
                     </div>
                   )}
                   <input type="file" accept="image/*" className="hidden" ref={fileInputRef} onChange={handleImageUpload} />

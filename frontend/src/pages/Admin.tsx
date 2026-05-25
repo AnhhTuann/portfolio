@@ -67,8 +67,8 @@ export default function Admin() {
     await new Promise((resolve) => (image.onload = resolve));
 
     const canvas = document.createElement('canvas');
-    canvas.width = 400; // Xuất ảnh 400x400 nhẹ nhàng
-    canvas.height = 400;
+    canvas.width = 800; // Xuất ảnh 800x800 sắc nét
+    canvas.height = 800;
     const ctx = canvas.getContext('2d');
 
     if (!ctx) throw new Error('Không tạo được context canvas');
@@ -82,11 +82,11 @@ export default function Admin() {
       pixelCrop.height,
       0,
       0,
-      400,
-      400
+      800,
+      800
     );
 
-    return canvas.toDataURL('image/jpeg', 0.6); // Nén 0.6 để cực nhẹ
+    return canvas.toDataURL('image/jpeg', 0.85); // Nén 0.85 chất lượng cao sắc nét
   };
 
   const onFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
