@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'motion/react';
 import { Plus, Edit2, Trash2, X, Upload, Save, Check } from 'lucide-react';
-import { getArtworks, addArtwork, updateArtworkData, deleteArtworkData, Artwork, uploadImageToStorage } from '../services/dataService';
+import { getArtworks, addArtwork, updateArtworkData, deleteArtworkData, Artwork } from '../services/dataService';
 
 export default function ArtworkManager() {
   const [artworks, setArtworks] = useState<Artwork[]>([]);
@@ -49,7 +49,7 @@ export default function ArtworkManager() {
         img.src = event.target?.result as string;
         img.onload = () => {
           const canvas = document.createElement('canvas');
-          const MAX_SIDE = 800; // Giới hạn cạnh lớn nhất
+          const MAX_SIDE = 600; // Giới hạn cạnh lớn nhất để tránh quá tải payload
           let width = img.width;
           let height = img.height;
 
@@ -75,7 +75,7 @@ export default function ArtworkManager() {
           ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
           
           // Trả về chuỗi Base64
-          const dataUrl = canvas.toDataURL('image/jpeg', 0.8);
+          const dataUrl = canvas.toDataURL('image/jpeg', 0.5); // Ép nén mạnh 50%
           resolve(dataUrl);
         };
         img.onerror = (err) => reject(err);
@@ -91,8 +91,7 @@ export default function ArtworkManager() {
     setUploadingImage(true);
     try {
       const base64String = await handleImageBase64(file);
-      const url = await uploadImageToStorage(base64String, `artworks/artwork_${Date.now()}.jpg`);
-      setCurrentArtwork({ ...currentArtwork, imageUrl: url });
+      setCurrentArtwork({ ...currentArtwork, imageUrl: base64String });
     } catch (err: any) {
       alert("Lỗi xử lý ảnh: " + err.message);
     }

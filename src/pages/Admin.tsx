@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'motion/react';
 import { Save, ArrowLeft, LogOut, Upload, X, Check } from 'lucide-react';
-import { getProfile, updateProfile, Profile, uploadImageToStorage } from '../services/dataService';
+import { getProfile, updateProfile, Profile } from '../services/dataService';
 import { logout } from '../services/authService';
 import { Link, useNavigate } from 'react-router-dom';
 import Cropper from 'react-easy-crop';
@@ -86,7 +86,7 @@ export default function Admin() {
       400
     );
 
-    return canvas.toDataURL('image/jpeg', 0.8);
+    return canvas.toDataURL('image/jpeg', 0.6); // Nén 0.6 để cực nhẹ
   };
 
   const onFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -107,8 +107,7 @@ export default function Admin() {
     setUploadingImage(true);
     try {
       const base64Avatar = await getCroppedImageBase64(imageToCrop, croppedAreaPixels);
-      const url = await uploadImageToStorage(base64Avatar, `profile/avatar_${Date.now()}.jpg`);
-      setProfile({ ...profile, avatarUrl: url });
+      setProfile({ ...profile, avatarUrl: base64Avatar });
       setImageToCrop(null); // Tắt bảng cắt
     } catch (err: any) {
       alert("Lỗi xử lý nén ảnh: " + err.message);

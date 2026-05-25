@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'motion/react';
 import { Plus, Edit2, Trash2, X, Upload, Save, Check } from 'lucide-react';
-import { getProjects, addProject, updateProjectData, deleteProjectData, Project, uploadImageToStorage } from '../services/dataService';
+import { getProjects, addProject, updateProjectData, deleteProjectData, Project } from '../services/dataService';
 
 export default function ProjectManager() {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -52,8 +52,8 @@ export default function ProjectManager() {
         img.src = event.target?.result as string;
         img.onload = () => {
           const canvas = document.createElement('canvas'); // Khởi tạo thợ vẽ
-          const MAX_WIDTH = 800;
-          const MAX_HEIGHT = 500;
+          const MAX_WIDTH = 600; // Giảm xuống 600 để file siêu nhẹ (< 50KB)
+          const MAX_HEIGHT = 375;
           let width = img.width;
           let height = img.height;
 
@@ -79,11 +79,11 @@ export default function ProjectManager() {
           
           if (!ctx) return reject('No context');
 
-          // Đóng mộc vào khung 800x500
+          // Đóng mộc vào khung 600x375
           ctx.drawImage(img, sx, sy, sWidth, sHeight, 0, 0, MAX_WIDTH, MAX_HEIGHT);
           
-          // Trả về chuỗi Base64 JPEG cho nhẹ nhàng Firestore
-          const dataUrl = canvas.toDataURL('image/jpeg', 0.8);
+          // Trả về chuỗi Base64 JPEG với chất lượng thấp hơn chút cho nhẹ nhàng Firestore
+          const dataUrl = canvas.toDataURL('image/jpeg', 0.5);
           resolve(dataUrl);
         };
         img.onerror = (err) => reject(err);
@@ -99,8 +99,7 @@ export default function ProjectManager() {
     setUploadingImage(true);
     try {
       const base64String = await handleImageBase64(file);
-      const url = await uploadImageToStorage(base64String, `projects/project_${Date.now()}.jpg`);
-      setCurrentProject({ ...currentProject, imageUrl: url });
+      setCurrentProject({ ...currentProject, imageUrl: base64String });
     } catch (err: any) {
       alert("Lỗi xử lý ảnh: " + err.message);
     }

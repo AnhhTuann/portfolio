@@ -1,6 +1,5 @@
 import { collection, getDocs, addDoc, doc, getDoc, setDoc, deleteDoc, updateDoc, query, orderBy } from 'firebase/firestore';
-import { ref, uploadString, getDownloadURL } from 'firebase/storage';
-import { db, storage } from '../lib/firebase';
+import { db } from '../lib/firebase';
 
 // --- ĐỊNH NGHĨA KIỂU DỮ LIỆU (TYPESCRIPT) ---
 export interface Profile {
@@ -39,20 +38,6 @@ export interface MessageData {
 
 // --- CÁC HÀM TƯƠNG TÁC VỚI FIRESTORE ---
 
-/**
- * Upload ảnh lên Firebase Storage và trả về URL
- */
-export const uploadImageToStorage = async (base64String: string, path: string): Promise<string> => {
-  try {
-    const storageRef = ref(storage, path);
-    await uploadString(storageRef, base64String, 'data_url');
-    const downloadURL = await getDownloadURL(storageRef);
-    return downloadURL;
-  } catch (error) {
-    console.error("Lỗi khi upload ảnh:", error);
-    throw error;
-  }
-};
 
 /**
  * Lấy danh sách tranh vẽ và bể cá từ collection 'artworks'

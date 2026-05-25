@@ -11,7 +11,7 @@ Trang web portfolio cá nhân với phong cách **Cinematic**, hỗ trợ **Ligh
 - 🌗 **Light / Dark Theme** — Chuyển đổi mượt mà với accent color riêng cho từng chế độ
 - 🎨 **Cinematic UI** — Aurora glow, 3D perspective cards, scanline effects, grayscale-to-color hover
 - 🔐 **Admin Panel** — Đăng nhập Google, quản lý Profile / Projects / Artworks và Hộp Thư Liên Hệ (Inbox)
-- 🖼️ **Firebase Storage** — Tự động nén ảnh, đóng dấu và tải trực tiếp lên Firebase Storage để tối ưu tốc độ và dung lượng
+- 🖼️ **Base64 Image** — Ảnh được nén và mã hóa Base64, lưu trực tiếp vào Firestore (miễn phí, không cần Storage)
 - ✏️ **Local Editor** — Chỉnh sửa phần "About" và "Skills" ngay trên Admin, lưu tạm vào localStorage
 - 📬 **Contact Form & Inbox** — Gửi tin nhắn liên hệ trực tiếp vào Firestore và duyệt tin nhắn ngay trên trang quản trị
 - 📱 **Responsive** — Tương thích mọi kích thước màn hình
@@ -28,7 +28,6 @@ Trang web portfolio cá nhân với phong cách **Cinematic**, hỗ trợ **Ligh
 | Vite 6                 | Build tool & Dev server |
 | Firebase Auth          | Xác thực Google Sign-In |
 | Cloud Firestore        | Database (NoSQL)        |
-| Firebase Storage       | Lưu trữ Media (Images)  |
 | Framer Motion (motion) | Animations              |
 | Lucide React           | Icon system             |
 | react-easy-crop        | Crop avatar hình tròn   |
@@ -61,7 +60,7 @@ npm run lint
 src/
 ├── App.tsx                    # Router + ThemeProvider
 ├── index.css                  # CSS Variables + Tailwind v4 config
-├── lib/firebase.ts            # Firebase config (Auth + Firestore + Storage)
+├── lib/firebase.ts            # Firebase config (Auth + Firestore)
 ├── services/
 │   ├── dataService.ts         # CRUD: Profile, Projects, Artworks, Messages
 │   └── authService.ts         # Google Sign-In / Sign-Out
