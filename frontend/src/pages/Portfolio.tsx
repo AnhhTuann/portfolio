@@ -180,7 +180,7 @@ export default function Portfolio() {
             className="text-base md:text-xl font-light tracking-wide text-muted max-w-2xl mx-auto leading-relaxed mb-12"
           >
             {profile?.description || (
-              <>Kỹ sư CNTT từ SGU. Nơi logic của <span className="text-primary font-medium">React & Firebase</span> giao thoa cùng cảm xúc của <span className="text-accent font-medium drop-shadow-[0_0_8px_var(--accent)]">Nghệ thuật & Sự sống</span>.</>
+              <>Kỹ sư CNTT từ SGU. Nơi logic của <span className="text-primary font-medium">React & Node.js/MongoDB</span> giao thoa cùng cảm xúc của <span className="text-accent font-medium drop-shadow-[0_0_8px_var(--accent)]">Nghệ thuật & Sự sống</span>.</>
             )}
           </motion.p>
 
