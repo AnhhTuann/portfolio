@@ -1,0 +1,76 @@
+{
+  "hash": "1b66bbea",
+  "configHash": "70acd005",
+  "lockfileHash": "3d88b45f",
+  "browserHash": "380a90c7",
+  "optimized": {
+    "firebase/app": {
+      "src": "../../node_modules/firebase/app/dist/esm/index.esm.js",
+      "file": "firebase_app.js",
+      "fileHash": "08936f98",
+      "needsInterop": false
+    },
+    "firebase/auth": {
+      "src": "../../node_modules/firebase/auth/dist/esm/index.esm.js",
+      "file": "firebase_auth.js",
+      "fileHash": "8179e648",
+      "needsInterop": false
+    },
+    "firebase/firestore": {
+      "src": "../../node_modules/firebase/firestore/dist/esm/index.esm.js",
+      "file": "firebase_firestore.js",
+      "fileHash": "3468067f",
+      "needsInterop": false
+    },
+    "lucide-react": {
+      "src": "../../node_modules/lucide-react/dist/esm/lucide-react.js",
+      "file": "lucide-react.js",
+      "fileHash": "694a491a",
+      "needsInterop": false
+    },
+    "motion/react": {
+      "src": "../../node_modules/motion/dist/es/react.mjs",
+      "file": "motion_react.js",
+      "fileHash": "8323ec1f",
+      "needsInterop": false
+    },
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "1fd21f9d",
+      "needsInterop": true
+    },
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "79c41ab6",
+      "needsInterop": true
+    },
+    "react-easy-crop": {
+      "src": "../../node_modules/react-easy-crop/index.module.mjs",
+      "file": "react-easy-crop.js",
+      "fileHash": "3641d2d9",
+      "needsInterop": false
+    },
+    "react-router-dom": {
+      "src": "../../node_modules/react-router-dom/dist/index.mjs",
+      "file": "react-router-dom.js",
+      "fileHash": "139766c8",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-53FIH42N": {
+      "file": "chunk-53FIH42N.js"
+    },
+    "chunk-6YXW5NLT": {
+      "file": "chunk-6YXW5NLT.js"
+    },
+    "chunk-UYSWIWPF": {
+      "file": "chunk-UYSWIWPF.js"
+    },
+    "chunk-PR4QN5HX": {
+      "file": "chunk-PR4QN5HX.js"
+    }
+  }
+}

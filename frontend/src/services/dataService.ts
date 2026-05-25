@@ -1,5 +1,14 @@
-import { collection, getDocs, addDoc, doc, getDoc, setDoc, deleteDoc, updateDoc, query, orderBy } from 'firebase/firestore';
-import { db } from '../lib/firebase';
+const API_URL = 'http://localhost:5000/api/data';
+
+const getAuthHeaders = () => {
+  const token = localStorage.getItem('token');
+  return {
+    'Content-Type': 'application/json',
+    'Authorization': token ? `Bearer ${token}` : ''
+  };
+};
+
+const mapId = (item: any) => ({ ...item, id: item._id });
 
 // --- ĐỊNH NGHĨA KIỂU DỮ LIỆU (TYPESCRIPT) ---
 export interface Profile {
@@ -14,7 +23,7 @@ export interface Artwork {
   title: string;
   imageUrl: string;
   description: string;
-  createAt?: string;
+  createdAt?: string;
 }
 
 export interface Project {
@@ -25,6 +34,7 @@ export interface Project {
   imageUrl: string;
   liveLink?: string;
   sourceCode?: string;
+  createdAt?: string;
 }
 
 export interface MessageData {
@@ -36,216 +46,177 @@ export interface MessageData {
   read?: boolean;
 }
 
-// --- CÁC HÀM TƯƠNG TÁC VỚI FIRESTORE ---
+// --- CÁC HÀM TƯƠNG TÁC VỚI CUSTOM BACKEND ---
 
-
-/**
- * Lấy danh sách tranh vẽ và bể cá từ collection 'artworks'
- */
 export const getArtworks = async (): Promise<Artwork[]> => {
   try {
-    const querySnapshot = await getDocs(collection(db, 'artworks'));
-    return querySnapshot.docs.map(doc => ({ 
-      id: doc.id, 
-      ...doc.data() 
-    })) as Artwork[];
+    const res = await fetch(`${API_URL}/artworks`);
+    const data = await res.json();
+    return data.map(mapId);
   } catch (error) {
     console.error("Lỗi khi tải Artworks:", error);
     return [];
   }
 };
 
-/**
- * Thêm một tranh vẽ mới
- */
 export const addArtwork = async (data: Omit<Artwork, 'id'>) => {
   try {
-    const docRef = await addDoc(collection(db, 'artworks'), {
-      ...data,
-      createdAt: new Date().toISOString()
+    const res = await fetch(`${API_URL}/artworks`, {
+      method: 'POST',
+      headers: getAuthHeaders(),
+      body: JSON.stringify(data)
     });
-    return { success: true, id: docRef.id };
+    return await res.json();
   } catch (error) {
-    console.error("Lỗi khi thêm Artwork:", error);
     return { success: false, error };
   }
 };
 
-/**
- * Cập nhật thông tin tranh vẽ
- */
 export const updateArtworkData = async (id: string, data: Partial<Artwork>) => {
   try {
-    const docRef = doc(db, 'artworks', id);
-    await updateDoc(docRef, data);
-    return { success: true };
+    const res = await fetch(`${API_URL}/artworks/${id}`, {
+      method: 'PUT',
+      headers: getAuthHeaders(),
+      body: JSON.stringify(data)
+    });
+    return await res.json();
   } catch (error) {
-    console.error("Lỗi khi sửa Artwork:", error);
     return { success: false, error };
   }
 };
 
-/**
- * Xóa một tranh vẽ
- */
 export const deleteArtworkData = async (id: string) => {
   try {
-    await deleteDoc(doc(db, 'artworks', id));
-    return { success: true };
+    const res = await fetch(`${API_URL}/artworks/${id}`, {
+      method: 'DELETE',
+      headers: getAuthHeaders()
+    });
+    return await res.json();
   } catch (error) {
-    console.error("Lỗi khi xóa Artwork:", error);
     return { success: false, error };
   }
 };
 
-/**
- * Lấy danh sách dự án từ collection 'projects'
- */
 export const getProjects = async (): Promise<Project[]> => {
   try {
-    const querySnapshot = await getDocs(collection(db, 'projects'));
-    return querySnapshot.docs.map(doc => ({ 
-      id: doc.id, 
-      ...doc.data() 
-    })) as Project[];
+    const res = await fetch(`${API_URL}/projects`);
+    const data = await res.json();
+    return data.map(mapId);
   } catch (error) {
     console.error("Lỗi khi tải Projects:", error);
     return [];
   }
 };
 
-/**
- * Thêm một dự án mới
- */
 export const addProject = async (data: Omit<Project, 'id'>) => {
   try {
-    const docRef = await addDoc(collection(db, 'projects'), {
-      ...data,
-      createdAt: new Date().toISOString()
+    const res = await fetch(`${API_URL}/projects`, {
+      method: 'POST',
+      headers: getAuthHeaders(),
+      body: JSON.stringify(data)
     });
-    return { success: true, id: docRef.id };
+    return await res.json();
   } catch (error) {
-    console.error("Lỗi khi thêm Project:", error);
     return { success: false, error };
   }
 };
 
-/**
- * Cập nhật dự án
- */
 export const updateProjectData = async (id: string, data: Partial<Project>) => {
   try {
-    const docRef = doc(db, 'projects', id);
-    await updateDoc(docRef, data);
-    return { success: true };
+    const res = await fetch(`${API_URL}/projects/${id}`, {
+      method: 'PUT',
+      headers: getAuthHeaders(),
+      body: JSON.stringify(data)
+    });
+    return await res.json();
   } catch (error) {
-    console.error("Lỗi khi sửa Project:", error);
     return { success: false, error };
   }
 };
 
-/**
- * Xóa một dự án
- */
 export const deleteProjectData = async (id: string) => {
   try {
-    await deleteDoc(doc(db, 'projects', id));
-    return { success: true };
+    const res = await fetch(`${API_URL}/projects/${id}`, {
+      method: 'DELETE',
+      headers: getAuthHeaders()
+    });
+    return await res.json();
   } catch (error) {
-    console.error("Lỗi khi xóa Project:", error);
     return { success: false, error };
   }
 };
 
-/**
- * Lưu tin nhắn liên hệ vào collection 'messages'
- */
 export const saveContactMessage = async (data: MessageData) => {
   try {
-    const docRef = await addDoc(collection(db, 'messages'), {
-      ...data,
-      createdAt: new Date().toISOString(),
-      read: false
+    const res = await fetch(`${API_URL}/messages`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
     });
-    return { success: true, id: docRef.id };
+    return await res.json();
   } catch (error) {
-    console.error("Lỗi khi gửi tin nhắn:", error);
     return { success: false, error };
   }
 };
 
-/**
- * Lấy danh sách tin nhắn từ collection 'messages'
- */
 export const getMessages = async (): Promise<MessageData[]> => {
   try {
-    const q = query(collection(db, 'messages'), orderBy('createdAt', 'desc'));
-    const querySnapshot = await getDocs(q);
-    return querySnapshot.docs.map(doc => ({ 
-      id: doc.id, 
-      ...doc.data() 
-    })) as MessageData[];
+    const res = await fetch(`${API_URL}/messages`, {
+      headers: getAuthHeaders()
+    });
+    const data = await res.json();
+    return data.map(mapId);
   } catch (error) {
     console.error("Lỗi khi tải Tin nhắn:", error);
     return [];
   }
 };
 
-/**
- * Xoá một tin nhắn
- */
 export const deleteMessageData = async (id: string) => {
   try {
-    await deleteDoc(doc(db, 'messages', id));
-    return { success: true };
+    const res = await fetch(`${API_URL}/messages/${id}`, {
+      method: 'DELETE',
+      headers: getAuthHeaders()
+    });
+    return await res.json();
   } catch (error) {
-    console.error("Lỗi khi xóa tin nhắn:", error);
     return { success: false, error };
   }
 };
 
-/**
- * Đánh dấu tin nhắn đã đọc
- */
 export const updateMessageStatus = async (id: string, read: boolean) => {
   try {
-    const docRef = doc(db, 'messages', id);
-    await updateDoc(docRef, { read });
-    return { success: true };
+    const res = await fetch(`${API_URL}/messages/${id}`, {
+      method: 'PUT',
+      headers: getAuthHeaders(),
+      body: JSON.stringify({ read })
+    });
+    return await res.json();
   } catch (error) {
-    console.error("Lỗi khi cập nhật trạng thái tin nhắn:", error);
     return { success: false, error };
   }
 };
 
-/**
- * Lấy cấu hình profile từ collection 'portfolio_settings'
- */
 export const getProfile = async (): Promise<Profile | null> => {
   try {
-    const docRef = doc(db, 'portfolio_settings', 'profile');
-    const docSnap = await getDoc(docRef);
-    if (docSnap.exists()) {
-      return docSnap.data() as Profile;
-    }
-    return null;
+    const res = await fetch(`${API_URL}/profile`);
+    const data = await res.json();
+    return data || null;
   } catch (error) {
     console.error("Lỗi khi tải Profile:", error);
     return null;
   }
 };
 
-/**
- * Cập nhật cấu hình profile
- */
 export const updateProfile = async (data: Profile) => {
   try {
-    const docRef = doc(db, 'portfolio_settings', 'profile');
-    await setDoc(docRef, data, { merge: true });
-    return { success: true };
+    const res = await fetch(`${API_URL}/profile`, {
+      method: 'PUT',
+      headers: getAuthHeaders(),
+      body: JSON.stringify(data)
+    });
+    return await res.json();
   } catch (error) {
-    console.error("Lỗi khi cập nhật Profile:", error);
     return { success: false, error };
   }
 };
-
