@@ -39,7 +39,7 @@ export default function MessageManager() {
   };
 
   return (
-    <div className="mt-12 border-t border-subtle pt-12 relative z-10 w-full max-w-2xl mx-auto mb-20">
+    <div className="mt-12 border-t border-subtle pt-12 w-full max-w-2xl mx-auto mb-20">
       <div className="flex justify-between items-center mb-8">
         <div>
           <h2 className="font-display text-3xl text-primary font-light tracking-tight mb-2">Hộp Thư Tín Hiệu.</h2>
