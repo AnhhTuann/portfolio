@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'motion/react';
 import { Save, ArrowLeft, LogOut, Upload, X, Check } from 'lucide-react';
-import { getProfile, updateProfile, Profile } from '../services/dataService';
+import { getProfile, updateProfile, Profile, uploadImageToStorage } from '../services/dataService';
 import { logout } from '../services/authService';
 import { Link, useNavigate } from 'react-router-dom';
 import Cropper from 'react-easy-crop';
@@ -9,6 +9,7 @@ import AboutManager from '../components/AboutManager';
 import SkillsManager from '../components/SkillsManager';
 import ProjectManager from '../components/ProjectManager';
 import ArtworkManager from '../components/ArtworkManager';
+import MessageManager from '../components/MessageManager';
 
 export default function Admin() {
   const [profile, setProfile] = useState<Profile>({
@@ -106,7 +107,8 @@ export default function Admin() {
     setUploadingImage(true);
     try {
       const base64Avatar = await getCroppedImageBase64(imageToCrop, croppedAreaPixels);
-      setProfile({ ...profile, avatarUrl: base64Avatar });
+      const url = await uploadImageToStorage(base64Avatar, `profile/avatar_${Date.now()}.jpg`);
+      setProfile({ ...profile, avatarUrl: url });
       setImageToCrop(null); // Tắt bảng cắt
     } catch (err: any) {
       alert("Lỗi xử lý nén ảnh: " + err.message);
@@ -258,6 +260,7 @@ export default function Admin() {
         <SkillsManager />
         <ProjectManager />
         <ArtworkManager />
+        <MessageManager />
       </div>
 
       {/* CROPPER MODAL DÀNH CHO AVATAR */}

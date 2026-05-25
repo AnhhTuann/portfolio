@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'motion/react';
 import { Plus, Edit2, Trash2, X, Upload, Save, Check } from 'lucide-react';
-import { getProjects, addProject, updateProjectData, deleteProjectData, Project } from '../services/dataService';
+import { getProjects, addProject, updateProjectData, deleteProjectData, Project, uploadImageToStorage } from '../services/dataService';
 
 export default function ProjectManager() {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -99,7 +99,8 @@ export default function ProjectManager() {
     setUploadingImage(true);
     try {
       const base64String = await handleImageBase64(file);
-      setCurrentProject({ ...currentProject, imageUrl: base64String });
+      const url = await uploadImageToStorage(base64String, `projects/project_${Date.now()}.jpg`);
+      setCurrentProject({ ...currentProject, imageUrl: url });
     } catch (err: any) {
       alert("Lỗi xử lý ảnh: " + err.message);
     }

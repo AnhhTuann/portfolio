@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'motion/react';
 import { Plus, Edit2, Trash2, X, Upload, Save, Check } from 'lucide-react';
-import { getArtworks, addArtwork, updateArtworkData, deleteArtworkData, Artwork } from '../services/dataService';
+import { getArtworks, addArtwork, updateArtworkData, deleteArtworkData, Artwork, uploadImageToStorage } from '../services/dataService';
 
 export default function ArtworkManager() {
   const [artworks, setArtworks] = useState<Artwork[]>([]);
@@ -91,7 +91,8 @@ export default function ArtworkManager() {
     setUploadingImage(true);
     try {
       const base64String = await handleImageBase64(file);
-      setCurrentArtwork({ ...currentArtwork, imageUrl: base64String });
+      const url = await uploadImageToStorage(base64String, `artworks/artwork_${Date.now()}.jpg`);
+      setCurrentArtwork({ ...currentArtwork, imageUrl: url });
     } catch (err: any) {
       alert("Lỗi xử lý ảnh: " + err.message);
     }

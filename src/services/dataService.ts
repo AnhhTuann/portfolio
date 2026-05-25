@@ -1,5 +1,6 @@
-import { collection, getDocs, addDoc, doc, getDoc, setDoc, deleteDoc, updateDoc } from 'firebase/firestore';
-import { db } from '../lib/firebase';
+import { collection, getDocs, addDoc, doc, getDoc, setDoc, deleteDoc, updateDoc, query, orderBy } from 'firebase/firestore';
+import { ref, uploadString, getDownloadURL } from 'firebase/storage';
+import { db, storage } from '../lib/firebase';
 
 // --- ĐỊNH NGHĨA KIỂU DỮ LIỆU (TYPESCRIPT) ---
 export interface Profile {
@@ -28,12 +29,30 @@ export interface Project {
 }
 
 export interface MessageData {
+  id?: string;
   name: string;
   email: string;
   message: string;
+  createdAt?: string;
+  read?: boolean;
 }
 
 // --- CÁC HÀM TƯƠNG TÁC VỚI FIRESTORE ---
+
+/**
+ * Upload ảnh lên Firebase Storage và trả về URL
+ */
+export const uploadImageToStorage = async (base64String: string, path: string): Promise<string> => {
+  try {
+    const storageRef = ref(storage, path);
+    await uploadString(storageRef, base64String, 'data_url');
+    const downloadURL = await getDownloadURL(storageRef);
+    return downloadURL;
+  } catch (error) {
+    console.error("Lỗi khi upload ảnh:", error);
+    throw error;
+  }
+};
 
 /**
  * Lấy danh sách tranh vẽ và bể cá từ collection 'artworks'
@@ -160,11 +179,56 @@ export const saveContactMessage = async (data: MessageData) => {
   try {
     const docRef = await addDoc(collection(db, 'messages'), {
       ...data,
-      createdAt: new Date().toISOString()
+      createdAt: new Date().toISOString(),
+      read: false
     });
     return { success: true, id: docRef.id };
   } catch (error) {
     console.error("Lỗi khi gửi tin nhắn:", error);
+    return { success: false, error };
+  }
+};
+
+/**
+ * Lấy danh sách tin nhắn từ collection 'messages'
+ */
+export const getMessages = async (): Promise<MessageData[]> => {
+  try {
+    const q = query(collection(db, 'messages'), orderBy('createdAt', 'desc'));
+    const querySnapshot = await getDocs(q);
+    return querySnapshot.docs.map(doc => ({ 
+      id: doc.id, 
+      ...doc.data() 
+    })) as MessageData[];
+  } catch (error) {
+    console.error("Lỗi khi tải Tin nhắn:", error);
+    return [];
+  }
+};
+
+/**
+ * Xoá một tin nhắn
+ */
+export const deleteMessageData = async (id: string) => {
+  try {
+    await deleteDoc(doc(db, 'messages', id));
+    return { success: true };
+  } catch (error) {
+    console.error("Lỗi khi xóa tin nhắn:", error);
+    return { success: false, error };
+  }
+};
+
+/**
+ * Đánh dấu tin nhắn đã đọc
+ */
+export const updateMessageStatus = async (id: string, read: boolean) => {
+  try {
+    const docRef = doc(db, 'messages', id);
+    await updateDoc(docRef, { read });
+    return { success: true };
+  } catch (error) {
+    console.error("Lỗi khi cập nhật trạng thái tin nhắn:", error);
     return { success: false, error };
   }
 };
@@ -199,3 +263,4 @@ export const updateProfile = async (data: Profile) => {
     return { success: false, error };
   }
 };
+
