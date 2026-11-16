@@ -27,6 +27,16 @@ router.get('/projects', async (req, res) => {
   }
 });
 
+router.get('/projects/:id', async (req, res) => {
+  try {
+    const { rows } = await pool.query('SELECT * FROM projects WHERE id = $1', [req.params.id]);
+    if (!rows.length) return res.status(404).json({ success: false, message: 'Project not found' });
+    res.json(mapRow(rows[0]));
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
 router.post('/projects', authMiddleware, async (req, res) => {
   try {
     const { name, painPoint, techStack = [], imageUrl = '', liveLink = '', sourceCode = '' } = req.body;
@@ -75,6 +85,16 @@ router.get('/artworks', async (req, res) => {
   try {
     const { rows } = await pool.query('SELECT * FROM artworks ORDER BY created_at DESC');
     res.json(mapRows(rows));
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+router.get('/artworks/:id', async (req, res) => {
+  try {
+    const { rows } = await pool.query('SELECT * FROM artworks WHERE id = $1', [req.params.id]);
+    if (!rows.length) return res.status(404).json({ success: false, message: 'Artwork not found' });
+    res.json(mapRow(rows[0]));
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }

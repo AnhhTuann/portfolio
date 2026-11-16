@@ -1,5 +1,7 @@
+import { ArrowUpRight } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Artwork, getArtworks } from '../services/dataService';
 import { englishPortfolio, PortfolioLanguage } from '../utils/portfolioTranslations';
 
@@ -51,34 +53,47 @@ export default function ArtisticVision({ language }: { language: PortfolioLangua
           transition={{ duration: 0.65, delay: (idx % 3) * 0.08, ease: [0.22, 1, 0.36, 1] }}
           className="studio-art-card group relative flex h-full flex-col overflow-hidden rounded-[1.5rem] border"
         >
-          <div className="flex aspect-[4/3] w-full items-center justify-center overflow-hidden bg-glass">
-            {art.imageUrl ? (
-              <img
-                src={art.imageUrl}
-                alt={art.title}
-                className="h-full w-full object-contain transition-transform duration-700 group-hover:scale-[1.03]"
-                loading="lazy"
-              />
-            ) : (
-              <span className="font-sans text-sm text-muted">
-                {english ? 'No image' : 'Chưa có ảnh'}
-              </span>
-            )}
-          </div>
+          <Link to={`/art/${art.id}`} className="block overflow-hidden focus:outline-none">
+            <div className="flex aspect-[4/3] w-full items-center justify-center overflow-hidden bg-glass">
+              {art.imageUrl ? (
+                <img
+                  src={art.imageUrl}
+                  alt={art.title}
+                  className="h-full w-full object-contain transition-transform duration-700 group-hover:scale-[1.03]"
+                  loading="lazy"
+                />
+              ) : (
+                <span className="font-sans text-sm text-muted">
+                  {english ? 'No image' : 'Chưa có ảnh'}
+                </span>
+              )}
+            </div>
+          </Link>
           <div className="flex flex-1 flex-col p-5 md:p-6">
             <span className="mb-3 block font-sans text-xs font-bold tracking-[0.08em] text-accent">
               {english ? englishPortfolio.gallery.artwork : 'TÁC PHẨM'}{' '}
               {String(idx + 1).padStart(2, '0')}
             </span>
-            <h3 className="mb-2 line-clamp-2 h-16 font-display text-xl font-bold tracking-tight text-primary lg:text-2xl">
-              {art.title}
-            </h3>
+            <Link to={`/art/${art.id}`} className="transition-colors hover:text-accent">
+              <h3 className="mb-2 line-clamp-2 h-16 font-display text-xl font-bold tracking-tight text-primary transition-colors hover:text-accent lg:text-2xl">
+                {art.title}
+              </h3>
+            </Link>
             <div className="h-[7.5rem] overflow-hidden">
               {art.description && (
                 <p className="line-clamp-5 whitespace-break-spaces font-sans text-sm leading-6 text-secondary">
                   {art.description}
                 </p>
               )}
+            </div>
+            <div className="mt-4 pt-4 border-t border-subtle/60 flex items-center justify-between">
+              <Link
+                to={`/art/${art.id}`}
+                className="inline-flex items-center gap-1.5 font-sans text-xs font-bold text-accent transition-colors hover:opacity-80 underline underline-offset-4 decoration-accent/60"
+              >
+                <span>{english ? englishPortfolio.gallery.details : 'Xem chi tiết'}</span>
+                <ArrowUpRight size={14} />
+              </Link>
             </div>
           </div>
         </motion.div>

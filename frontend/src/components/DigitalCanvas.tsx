@@ -1,6 +1,7 @@
 import { ArrowUpRight } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { getProjects, Project } from '../services/dataService';
 import { englishPortfolio, PortfolioLanguage } from '../utils/portfolioTranslations';
 import { getTechnologyClass } from '../utils/technologyColors';
@@ -90,7 +91,9 @@ export default function DigitalCanvas({ language }: { language: PortfolioLanguag
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           className={`group mx-auto grid w-full max-w-7xl items-center gap-8 lg:grid-cols-2 lg:gap-14 ${idx % 2 === 1 ? 'lg:[&>div:first-child]:order-2' : ''}`}
         >
-          <ProjectCover project={project} index={idx} />
+          <Link to={`/projects/${project.id}`} className="block focus:outline-none">
+            <ProjectCover project={project} index={idx} />
+          </Link>
 
           <div className="flex flex-col px-1 py-2 lg:px-3">
             <span className="mb-4 flex flex-wrap gap-x-2 text-sm font-bold tracking-normal">
@@ -107,9 +110,11 @@ export default function DigitalCanvas({ language }: { language: PortfolioLanguag
                 </span>
               )}
             </span>
-            <h3 className="mb-5 font-display text-3xl font-bold leading-tight tracking-tight text-primary md:text-4xl">
-              {project.name}
-            </h3>
+            <Link to={`/projects/${project.id}`} className="group-hover:text-accent transition-colors">
+              <h3 className="mb-5 font-display text-3xl font-bold leading-tight tracking-tight text-primary transition-colors hover:text-accent md:text-4xl">
+                {project.name}
+              </h3>
+            </Link>
             <p className="max-w-xl text-base leading-7 text-secondary">{project.painPoint}</p>
             {project.techStack?.length > 0 && (
               <div className="mt-6 flex flex-wrap gap-2">
@@ -123,7 +128,14 @@ export default function DigitalCanvas({ language }: { language: PortfolioLanguag
                 ))}
               </div>
             )}
-            <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3">
+            <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3 items-center">
+              <Link
+                to={`/projects/${project.id}`}
+                className="inline-flex items-center gap-1.5 text-sm font-bold text-accent underline decoration-accent/60 underline-offset-4 transition-colors hover:opacity-80"
+              >
+                {english ? englishPortfolio.projects.details : 'Chi tiết dự án'}
+                <ArrowUpRight size={16} />
+              </Link>
               {project.liveLink && (
                 <a
                   href={project.liveLink}

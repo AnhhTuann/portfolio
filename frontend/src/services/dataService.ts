@@ -62,6 +62,18 @@ export const getArtworks = async (): Promise<Artwork[]> => {
   }
 };
 
+export const getArtworkById = async (id: string): Promise<Artwork | null> => {
+  try {
+    const res = await fetch(`${API_URL}/artworks/${id}`);
+    if (!res.ok) return null;
+    const data = await res.json();
+    return data ? mapId(data) : null;
+  } catch (error) {
+    console.error(`Lỗi khi tải Artwork ${id}:`, error);
+    return null;
+  }
+};
+
 export const addArtwork = async (data: Omit<Artwork, 'id'>) => {
   try {
     const res = await fetch(`${API_URL}/artworks`, {
@@ -108,6 +120,18 @@ export const getProjects = async (): Promise<Project[]> => {
   } catch (error) {
     console.error("Lỗi khi tải Projects:", error);
     return [];
+  }
+};
+
+export const getProjectById = async (id: string): Promise<Project | null> => {
+  try {
+    const res = await fetch(`${API_URL}/projects/${id}`);
+    if (!res.ok) return null;
+    const data = await res.json();
+    return data ? mapId(data) : null;
+  } catch (error) {
+    console.error(`Lỗi khi tải Project ${id}:`, error);
+    return null;
   }
 };
 
