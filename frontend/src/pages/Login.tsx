@@ -24,10 +24,12 @@ export default function Login() {
 
   const handleEmailLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!username || !password) return;
+    const cleanUser = username.trim();
+    const cleanPass = password.trim();
+    if (!cleanUser || !cleanPass) return;
     setLoading(true);
     setError('');
-    const result = await signInWithEmail(username, password);
+    const result = await signInWithEmail(cleanUser, cleanPass);
     if (result.success) {
       navigate('/admin');
     } else {
