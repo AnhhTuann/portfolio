@@ -92,6 +92,305 @@ body {
   transition: background-color 0.5s ease, color 0.5s ease;
 }
 
+.portfolio-studio {
+  --background: #fff9f0;
+  --surface: #fffdf9;
+  --primary: #242a38;
+  --secondary: #485064;
+  --muted: #737b89;
+  --subtle: rgba(36, 42, 56, 0.12);
+  --subtle-hover: rgba(36, 42, 56, 0.24);
+  --glass: rgba(255, 255, 255, 0.72);
+  --glass-hover: rgba(255, 255, 255, 0.95);
+  --accent: #087e8b;
+  --accent-soft: rgba(8, 126, 139, 0.14);
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-muted: var(--muted);
+  --color-subtle: var(--subtle);
+  --color-subtle-hover: var(--subtle-hover);
+  --color-glass: var(--glass);
+  --color-glass-hover: var(--glass-hover);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  background-color: var(--background);
+}
+
+.dark .portfolio-studio {
+  --background: #202735;
+  --surface: #303d4d;
+  --primary: #fff9f0;
+  --secondary: #e0e5ec;
+  --muted: #c0c8d3;
+  --subtle: rgba(255, 255, 255, 0.12);
+  --subtle-hover: rgba(255, 255, 255, 0.24);
+  --glass: rgba(255, 255, 255, 0.06);
+  --glass-hover: rgba(255, 255, 255, 0.11);
+  --accent: #56c5c6;
+  --accent-soft: rgba(86, 197, 198, 0.16);
+}
+
+.studio-section {
+  position: relative;
+  scroll-margin-top: 1.5rem;
+  background-color: #fff9f0;
+  color: var(--primary);
+}
+
+.studio-section-about {
+  background-color: #fff9f0;
+}
+
+.studio-section-skills {
+  background-color: #eef5f3;
+}
+
+.studio-section-projects {
+  background-color: #f1f0f8;
+}
+
+.studio-section-gallery {
+  background-color: #f0f4eb;
+}
+
+.dark .studio-section-about {
+  background-color: #202735;
+}
+
+.dark .studio-section-skills {
+  background-color: #26333f;
+}
+
+.dark .studio-section-projects {
+  background-color: #252d3b;
+}
+
+.dark .studio-section-gallery {
+  background-color: #263633;
+}
+
+.studio-section-heading {
+  border-color: var(--subtle);
+}
+
+.studio-section-title {
+  max-width: 100%;
+  color: var(--primary);
+  font-size: clamp(2.15rem, 4.5vw, 3.75rem);
+  line-height: 1.08;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+}
+
+.studio-section-subtitle {
+  color: var(--secondary);
+  font-weight: 500;
+}
+
+.studio-section-number {
+  background: color-mix(in srgb, var(--section-number-color) 18%, transparent);
+  color: var(--section-number-color);
+}
+
+.studio-section-about { --section-number-color: #087e8b; }
+.studio-section-skills { --section-number-color: #c2410c; }
+.studio-section-projects { --section-number-color: #6941a5; }
+.studio-section-gallery { --section-number-color: #4d7c32; }
+.studio-contact { --section-number-color: #ad4564; }
+
+.dark .studio-section-about { --section-number-color: #56c5c6; }
+.dark .studio-section-skills { --section-number-color: #f29a78; }
+.dark .studio-section-projects { --section-number-color: #b8a6e5; }
+.dark .studio-section-gallery { --section-number-color: #a4c985; }
+.dark .studio-contact { --section-number-color: #f0a3b8; }
+
+.studio-contact-label {
+  color: var(--section-number-color);
+}
+
+.studio-contact-label .studio-section-number {
+  color: var(--section-number-color);
+}
+
+.studio-skill-card,
+.studio-art-card {
+  border-color: var(--subtle);
+  background: var(--surface);
+  color: var(--primary);
+  box-shadow: 0 12px 32px rgba(30, 42, 55, 0.07);
+}
+
+.dark .studio-skill-card,
+.dark .studio-art-card {
+  border-color: #506075;
+  background: #35475b;
+  box-shadow: 0 14px 32px rgba(5, 10, 18, 0.16);
+}
+
+.studio-skill-card:hover,
+.studio-art-card:hover {
+  border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+  box-shadow: 0 18px 36px rgba(30, 42, 55, 0.12);
+}
+
+.studio-skill-badge-coral {
+  background: #f7e5df;
+  color: #87442f;
+}
+
+.studio-skill-badge-purple {
+  background: #ece8f7;
+  color: #5d5086;
+}
+
+.studio-skill-badge-green {
+  background: #e6eee0;
+  color: #4b653e;
+}
+
+.studio-skill-dot-coral { background: #bd684e; }
+.studio-skill-dot-purple { background: #8575b5; }
+.studio-skill-dot-green { background: #72915f; }
+
+.dark .studio-skill-badge-coral {
+  background: #553b3a;
+  color: #f0b4a1;
+}
+
+.dark .studio-skill-badge-purple {
+  background: #443d59;
+  color: #c9b9f1;
+}
+
+.dark .studio-skill-badge-green {
+  background: #394b42;
+  color: #bbd5a8;
+}
+
+.dark .studio-skill-dot-coral { background: #e29a82; }
+.dark .studio-skill-dot-purple { background: #b4a2e3; }
+.dark .studio-skill-dot-green { background: #a7c58e; }
+
+.studio-section-skills .studio-section-subtitle,
+.studio-section-projects .studio-section-subtitle,
+.studio-section-gallery .studio-section-subtitle {
+  color: color-mix(in srgb, var(--secondary) 92%, transparent);
+}
+
+.studio-tile-blue {
+  background: #e6eefb;
+  color: #405c9b;
+}
+
+.studio-tile-coral {
+  background: #f7e3dc;
+  color: #a34f3a;
+}
+
+.studio-tile-green {
+  background: #e5efd9;
+  color: #547343;
+}
+
+.studio-tile-purple {
+  background: #ece7f8;
+  color: #6a579c;
+}
+
+.dark .studio-tile-blue { background: #34445c; color: #a9c5f3; }
+.dark .studio-tile-coral { background: #513d3e; color: #efb4a1; }
+.dark .studio-tile-green { background: #36493f; color: #b9d5a4; }
+.dark .studio-tile-purple { background: #403b55; color: #c7b9ef; }
+
+.studio-quote {
+  border-color: var(--accent);
+  background-color: #e5f3f2;
+  color: #183c42;
+}
+
+.studio-quote * {
+  color: inherit !important;
+}
+
+.dark .studio-quote {
+  border-color: var(--accent);
+  background-color: #2c4148;
+  color: #e0f3f1;
+}
+
+.studio-contact {
+  background: #263746;
+  color: #f7f8fa;
+}
+
+.studio-contact-title span {
+  color: #76c9c4;
+}
+
+.studio-contact-copy {
+  color: #d0d8df;
+}
+
+.studio-contact-form {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.studio-contact-input {
+  border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.07);
+  color: #fff;
+}
+
+.studio-contact-input::placeholder {
+  color: #c3cdd5;
+}
+
+.studio-contact-input:focus {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.tech-brand {
+  color: var(--technology-color, var(--accent));
+  font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+.tech-chip {
+  border-color: color-mix(in srgb, var(--technology-color, var(--accent)) 48%, transparent);
+  background-color: color-mix(in srgb, var(--technology-color, var(--accent)) 13%, transparent);
+}
+
+.portfolio-studio .tech-brand-javascript { --technology-color: #9a7600; }
+.portfolio-studio .tech-brand-html { --technology-color: #c2410c; }
+.portfolio-studio .tech-brand-css { --technology-color: #0369a1; }
+.portfolio-studio .tech-brand-react { --technology-color: #087e9b; }
+.portfolio-studio .tech-brand-typescript { --technology-color: #2563a6; }
+.portfolio-studio .tech-brand-node { --technology-color: #4d7c32; }
+.portfolio-studio .tech-brand-next { --technology-color: #242a38; }
+.portfolio-studio .tech-brand-tailwind { --technology-color: #0785a2; }
+.portfolio-studio .tech-brand-postgresql { --technology-color: #405f9b; }
+.portfolio-studio .tech-brand-motion { --technology-color: #7c3aed; }
+.portfolio-studio .tech-brand-api { --technology-color: #596579; }
+.portfolio-studio .tech-brand-jwt { --technology-color: #9554a2; }
+.portfolio-studio .tech-brand-figma { --technology-color: #d34b35; }
+.portfolio-studio .tech-brand-default { --technology-color: #c2410c; }
+
+.dark .portfolio-studio .tech-brand-javascript { --technology-color: #f2cf66; }
+.dark .portfolio-studio .tech-brand-html { --technology-color: #f29a78; }
+.dark .portfolio-studio .tech-brand-css { --technology-color: #78bce4; }
+.dark .portfolio-studio .tech-brand-react { --technology-color: #77c8d6; }
+.dark .portfolio-studio .tech-brand-typescript { --technology-color: #8eb6e8; }
+.dark .portfolio-studio .tech-brand-node { --technology-color: #a4c985; }
+.dark .portfolio-studio .tech-brand-next { --technology-color: #f1eee8; }
+.dark .portfolio-studio .tech-brand-tailwind { --technology-color: #75c4d2; }
+.dark .portfolio-studio .tech-brand-postgresql { --technology-color: #9db8e4; }
+.dark .portfolio-studio .tech-brand-motion { --technology-color: #b8a6e5; }
+.dark .portfolio-studio .tech-brand-api { --technology-color: #c0c8d3; }
+.dark .portfolio-studio .tech-brand-jwt { --technology-color: #d3a5d7; }
+.dark .portfolio-studio .tech-brand-figma { --technology-color: #ee947e; }
+.dark .portfolio-studio .tech-brand-default { --technology-color: #56c5c6; }
+
 h1, h2, h3, h4, h5, h6 {
   font-family: "Space Grotesk", sans-serif;
 }

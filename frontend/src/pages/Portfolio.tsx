@@ -6,11 +6,12 @@ import { saveContactMessage, getProfile, Profile } from '../services/dataService
 import ArtisticVision from '../components/ArtisticVision';
 import DigitalCanvas from '../components/DigitalCanvas';
 import TechnicalMastery from '../components/TechnicalMastery';
+import { getTechnologyClass } from '../utils/technologyColors';
 
 const FULL_NAME = 'Nguyễn Đức Anh Tuấn';
 const DISPLAY_NAME = 'Anh Tuấn.';
 
-const CinematicSection = ({
+const StudioSection = ({
   children,
   id,
   title,
@@ -23,48 +24,31 @@ const CinematicSection = ({
   number: string;
   subtitle?: string;
 }) => (
-  <section id={id} className="min-h-screen py-32 px-6 flex flex-col justify-center relative">
-    <motion.div
-      initial={{ opacity: 0, y: 40, filter: 'blur(8px)' }}
-      whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-      viewport={{ once: true, margin: "-20%" }}
-      transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-      className="max-w-6xl mx-auto w-full"
-    >
-      <div className="mb-16 relative">
-        <motion.div
-          initial={{ scaleX: 0 }}
-          whileInView={{ scaleX: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
-          className="absolute -top-4 left-0 h-[2px] w-full bg-gradient-to-r from-accent/60 via-primary/30 to-transparent origin-left"
-        />
-        <div className="flex items-baseline gap-6 pt-6 border-b border-subtle pb-8">
+  <section id={id} className={`studio-section studio-section-${id} px-5 py-20 md:px-10 md:py-28`}>
+    <div className="mx-auto w-full max-w-7xl">
+      <div className="studio-section-heading mb-10 border-b pb-6 md:mb-14 md:pb-8">
+        <div className="flex min-w-0 items-start gap-4 md:gap-5">
           <motion.span
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="font-mono text-xs tracking-[0.3em] text-accent"
+            className="studio-section-number mt-1 flex h-14 w-14 shrink-0 items-center justify-center rounded-full font-sans text-xl font-bold md:h-16 md:w-16 md:text-2xl"
           >
             {number}
           </motion.span>
-          <div>
-            <h2 className="font-display text-3xl md:text-5xl text-primary font-light tracking-tight">{title}</h2>
+          <div className="min-w-0">
+            <h2 className="studio-section-title font-display font-bold tracking-tight">{title}</h2>
             {subtitle && (
-              <p className="font-mono text-[10px] md:text-xs tracking-[0.25em] text-muted uppercase mt-3">{subtitle}</p>
+              <p className="studio-section-subtitle mt-2 font-sans text-sm leading-relaxed md:text-base">{subtitle}</p>
             )}
           </div>
         </div>
       </div>
       {children}
-    </motion.div>
+    </div>
   </section>
 );
 
 const MARQUEE_ITEMS = [
-  'REACT', 'TYPESCRIPT', 'NODE.JS', 'POSTGRESQL', 'TAILWIND CSS',
-  'FRAMER MOTION', 'REST API', 'JWT AUTH', 'DIGITAL ART', 'AQUASCAPE',
+  'JAVASCRIPT', 'HTML', 'CSS', 'REACT', 'TYPESCRIPT', 'NODE.JS', 'POSTGRESQL',
+  'TAILWIND CSS', 'FRAMER MOTION', 'REST API', 'JWT AUTH', 'DIGITAL ART', 'AQUASCAPE',
 ];
 
 export default function Portfolio() {
@@ -128,311 +112,252 @@ export default function Portfolio() {
   const heroName = profile?.name || DISPLAY_NAME;
 
   return (
-    <div className="min-h-screen bg-background text-secondary selection:bg-accent selection:text-black font-sans relative overflow-x-hidden">
+    <div className="portfolio-studio min-h-screen bg-background text-secondary selection:bg-accent selection:text-black font-sans relative overflow-x-hidden">
 
       {/* Scroll progress bar */}
       <motion.div
         style={{ scaleX: progress }}
-        className="fixed top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#3B82F6] via-[#8B5CF6] to-accent origin-left z-50"
+        className="fixed top-0 left-0 right-0 z-50 h-[3px] origin-left bg-accent"
       />
 
-      {/* Film grain overlay */}
-      <div className="fixed inset-0 pointer-events-none z-[5] opacity-[0.05] bg-grain" />
-
-      {/* --- Cực Quang Vũ Trụ (Aurora Background Glow) --- */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none z-0 mix-blend-screen opacity-70">
-        <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] bg-[#8B5CF6]/10 blur-[130px] rounded-full animate-aurora" style={{ animationDelay: '0s' }}></div>
-        <div className="absolute top-[20%] right-[-10%] w-[50%] h-[70%] bg-[#3B82F6]/10 blur-[140px] rounded-full animate-aurora" style={{ animationDelay: '-5s' }}></div>
-        <div className="absolute bottom-[-10%] left-[20%] w-[60%] h-[50%] bg-accent/5 blur-[120px] rounded-full animate-aurora" style={{ animationDelay: '-10s' }}></div>
-      </div>
-
       <div className="relative z-10 w-full">
+      <header className="relative z-30 mx-auto flex max-w-7xl items-center justify-between px-5 py-5 md:px-10">
+        <a href="#" className="font-display text-lg font-bold tracking-tight text-primary">
+          AT<span className="text-accent">.</span>
+        </a>
+        <nav aria-label="Main navigation" className="hidden items-center gap-8 text-sm font-medium text-secondary md:flex">
+          <a className="transition-colors hover:text-accent" href="#about">Giới thiệu</a>
+          <a className="transition-colors hover:text-accent" href="#projects">Dự án</a>
+          <a className="transition-colors hover:text-accent" href="#gallery">Nghệ thuật</a>
+        </nav>
+        <a href="#contact" className="rounded-full border border-primary px-4 py-2 text-xs font-semibold text-primary transition-colors hover:bg-primary hover:text-background">
+          Kết nối <span aria-hidden="true">↗</span>
+        </a>
+      </header>
       {/* 00. Prologue (Hero) */}
-      <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-6 pt-24 pb-40">
-        {/* Lưới không gian 3D chìm */}
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:60px_60px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_20%,transparent_100%)] pointer-events-none z-0"></div>
-
+      <section className="relative overflow-hidden px-5 pb-24 pt-12 md:px-10 md:pb-32 md:pt-20">
         <motion.div
-          initial={{ opacity: 0, scale: 0.94, filter: 'blur(16px)' }}
-          animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
-          transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
-          className="text-center z-10 relative flex flex-col items-center w-full max-w-5xl"
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          className="relative z-10 mx-auto grid w-full max-w-7xl items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-8"
         >
-          {/* Overline */}
           <motion.div
-            initial={{ opacity: 0, y: -12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.8 }}
-            className="flex items-center gap-3 mb-10"
+            initial={{ opacity: 0, x: -18 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.15, duration: 0.7 }}
+            className="order-1 flex flex-col items-start lg:order-1"
           >
-            <span className="w-2 h-2 rounded-full bg-accent animate-pulse-dot" />
-            <span className="font-mono text-[10px] md:text-xs tracking-[0.45em] text-muted uppercase">
-              {FULL_NAME} — Portfolio
+            <span className="mb-7 inline-flex items-center gap-2 rounded-full border border-subtle bg-surface px-4 py-2 text-xs font-semibold text-secondary shadow-sm">
+              <span className="h-2 w-2 rounded-full bg-[#82b93a]" />
+              Thiết kế & phát triển trải nghiệm số
             </span>
-            <span className="w-2 h-2 rounded-full bg-accent animate-pulse-dot" style={{ animationDelay: '1s' }} />
-          </motion.div>
 
-          {/* Avatar Container */}
-          <Link to="/admin" className="mb-10 relative w-40 h-40 md:w-48 md:h-48 mx-auto group perspective-1000 block cursor-pointer">
-            {/* Conic gradient ring xoay */}
-            <div className="absolute -inset-1.5 rounded-full bg-[conic-gradient(from_0deg,#3B82F6,#8B5CF6,#FFC107,#3B82F6)] opacity-60 blur-[2px] animate-spin-slower group-hover:opacity-90 transition-opacity duration-700" />
-            <div className="absolute -inset-4 rounded-full border border-subtle border-t-[#3B82F6]/60 border-b-accent/40 animate-spin [animation-duration:10s] pointer-events-none z-10" />
-            <div className="absolute -inset-8 rounded-full border border-subtle border-l-[#8B5CF6]/30 border-r-[#8B5CF6]/30 animate-spin-reverse pointer-events-none z-10" />
-
-            <div className="w-full h-full rounded-full border-2 border-subtle-hover overflow-hidden relative z-20 transform group-hover:rotate-y-[15deg] group-hover:rotate-x-[10deg] preserve-3d shadow-[0_0_40px_rgba(0,0,0,0.8)] transition-transform duration-700 bg-surface">
-              <img
-                src={profile?.avatarUrl || "/assets/images/avatar.png"}
-                alt={`${heroName}'s Avatar`}
-                className="w-full h-full object-cover filter grayscale-[10%] group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700 ease-out"
-              />
-              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/80 z-30"></div>
-            </div>
-            {/* Orbiting dot */}
-            <div className="absolute inset-[-14px] animate-spin [animation-duration:6s] pointer-events-none z-30">
-              <span className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-accent shadow-[0_0_12px_var(--accent)]" />
-            </div>
-            <div className="absolute inset-0 z-40" />
-          </Link>
-
-          {/* Tên — stagger từng từ */}
-          <div className="flex flex-col items-center mb-2">
-            <h1 className="font-display font-light tracking-tight text-primary leading-[0.95] flex flex-wrap justify-center gap-x-4 md:gap-x-6">
+            <p className="mb-4 text-sm font-semibold uppercase tracking-[0.16em] text-accent">
+              Xin chào, mình là
+            </p>
+            <h1 className="max-w-3xl font-display text-[clamp(3.4rem,8vw,7.5rem)] font-bold leading-[0.88] tracking-[-0.075em] text-primary">
               {heroName.replace(/\.$/, '').split(' ').map((word, i) => (
-                <span key={i} className="overflow-hidden inline-block">
-                  <motion.span
-                    initial={{ y: '110%', opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.45 + i * 0.08, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-                    className="inline-block bg-clip-text text-transparent bg-gradient-to-r from-[#3B82F6] via-[#8B5CF6] to-[#FFC107] dark:from-white dark:via-gray-100 dark:to-gray-500 drop-shadow-2xl"
-                    style={{ fontSize: 'clamp(2.6rem, 9vw, 6.5rem)' }}
-                  >
-                    {word}
-                  </motion.span>
+                <React.Fragment key={`${word}-${i}`}>
+                  {i > 0 && ' '}
+                  <span className={i === 0 ? 'text-accent' : ''}>{word}</span>
+                </React.Fragment>
+              ))}
+              <span className="text-accent">.</span>
+            </h1>
+
+            <div className="mt-6 flex flex-wrap gap-2">
+              {(profile?.role?.length ? profile.role : ['Software Engineer', 'Creative Explorer']).map((role, i) => (
+                <span key={role} className={`rounded-md px-3 py-1.5 text-xs font-semibold ${i % 2 ? 'bg-[#e9e3ff] text-[#5b45bc]' : 'bg-[#ffe3d9] text-[#b9472e]'}`}>
+                  {role}
                 </span>
               ))}
-            </h1>
-          </div>
+            </div>
 
-          {/* Roles */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.1, duration: 0.9 }}
-            className="flex items-center justify-center gap-3 md:gap-5 mb-8 mt-4"
-          >
-            {profile?.role && profile.role.length > 0 ? (
-              profile.role.map((r, index) => (
-                <React.Fragment key={index}>
-                  <span className={`font-mono text-[10px] md:text-xs tracking-[0.35em] uppercase font-semibold ${index % 2 === 0 ? 'text-[#3B82F6]' : 'text-accent'}`}>
-                    {r}
-                  </span>
-                  {index < profile.role.length - 1 && (
-                    <span className="w-1 h-1 rounded-full bg-muted animate-pulse-dot" />
-                  )}
-                </React.Fragment>
-              ))
-            ) : (
-              <>
-                <span className="font-mono text-[10px] md:text-xs tracking-[0.35em] text-[#3B82F6] uppercase font-semibold">Software Engineer</span>
-                <span className="w-1 h-1 rounded-full bg-muted animate-pulse-dot" />
-                <span className="font-mono text-[10px] md:text-xs tracking-[0.35em] text-accent uppercase font-semibold">Creative Explorer</span>
-              </>
-            )}
+            <p className="mt-7 max-w-xl text-base leading-7 text-secondary md:text-lg">
+              {profile?.description || (
+                <>Kỹ sư CNTT từ SGU, mình kết hợp tư duy hệ thống của <strong className="font-semibold text-primary">React, Node.js và PostgreSQL</strong> với cảm hứng từ <strong className="font-semibold text-accent">nghệ thuật và sự sống</strong>.</>
+              )}
+            </p>
+
+            <div className="mt-9 flex flex-wrap gap-3">
+              <a href="#projects" className="rounded-full bg-primary px-6 py-3.5 text-sm font-semibold text-background transition-transform hover:-translate-y-0.5">
+                Xem dự án <span aria-hidden="true">↗</span>
+              </a>
+              <a href="#contact" className="rounded-full border border-subtle-hover px-6 py-3.5 text-sm font-semibold text-primary transition-colors hover:bg-surface">
+                Liên hệ với mình
+              </a>
+            </div>
+
+            <div className="mt-10 flex items-center gap-3 text-xs font-medium text-muted">
+              <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-[#e6f0d7] text-[#52722e]"><ChevronDown size={16} /></span>
+              Cuộn xuống để khám phá
+            </div>
           </motion.div>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.3, duration: 1 }}
-            className="text-base md:text-lg font-light tracking-wide text-muted max-w-2xl mx-auto leading-relaxed mb-12 px-2"
-          >
-            {profile?.description || (
-              <>Kỹ sư CNTT từ SGU. Nơi logic của <span className="text-primary font-medium">React & Node.js/PostgreSQL</span> giao thoa cùng cảm xúc của <span className="text-accent font-medium drop-shadow-[0_0_8px_var(--accent)]">Nghệ thuật & Sự sống</span>.</>
-            )}
-          </motion.p>
-
-          {/* CTAs */}
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.55, duration: 0.9 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-5 w-full"
-          >
-            <a href="#projects" className="group relative px-9 py-4 bg-black text-white dark:bg-white dark:text-black rounded-full overflow-hidden font-mono text-xs tracking-[0.2em] font-semibold transition-all duration-500 hover:scale-105 active:scale-95 shadow-[0_0_30px_rgba(0,0,0,0.15)] dark:shadow-[0_0_30px_rgba(255,255,255,0.15)] hover:shadow-[0_0_45px_rgba(99,102,241,0.35)]">
-              <span className="absolute inset-0 bg-gradient-to-r from-[#3B82F6]/0 via-[#8B5CF6]/30 to-[#FFC107]/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-out" />
-              <span className="relative z-10 flex items-center gap-3">[ KHÁM PHÁ DỰ ÁN ]</span>
-            </a>
-
-            <a href="#contact" className="group relative px-9 py-4 bg-transparent border border-subtle-hover text-primary rounded-full overflow-hidden font-mono text-xs tracking-[0.2em] font-semibold transition-all duration-500 hover:border-accent/50 hover:bg-glass-hover hover:scale-105 active:scale-95">
-              <span className="absolute inset-0 bg-accent/0 group-hover:bg-accent/10 transition-colors duration-500" />
-              <span className="relative z-10 flex items-center gap-3">
-                <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse-dot" />
-                LIÊN HỆ NGAY
-              </span>
-            </a>
-          </motion.div>
-        </motion.div>
-
-        {/* Scroll indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 2.4, duration: 1 }}
-          className="absolute bottom-28 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 opacity-60 hover:opacity-100 transition-opacity cursor-pointer z-20 group"
-          onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
-        >
-          <span className="font-mono text-[9px] tracking-[0.3em] text-muted group-hover:text-primary transition-colors duration-300">SCROLL TO EXPLORE</span>
-          <div className="p-2 rounded-full border border-subtle-hover group-hover:border-accent/50 transition-colors duration-300">
-            <ChevronDown className="w-4 h-4 text-muted group-hover:text-accent group-hover:animate-bounce transition-all" />
+          <div className="order-2 mx-auto w-full max-w-[500px] lg:order-2">
+            <div className="relative mx-auto aspect-[0.92] max-w-[460px] rounded-[2rem] bg-[#f7b2a1] p-5 md:rounded-[2.5rem] md:p-7">
+              <div className="absolute -right-3 top-8 h-20 w-20 rounded-full bg-[#67c7c3] md:-right-6 md:h-28 md:w-28" />
+              <div className="absolute -bottom-5 -left-4 h-24 w-24 rounded-[2rem] bg-[#8a78d6] md:-bottom-7 md:-left-7 md:h-32 md:w-32" />
+              <div className="absolute inset-5 overflow-hidden rounded-[1.5rem] bg-[#f5f2eb] md:inset-7 md:rounded-[2rem]">
+                <div className="absolute inset-x-0 bottom-0 h-1/2 bg-[#e8e5de]" />
+                <Link to="/admin" aria-label="Mở trang quản trị hồ sơ" className="absolute inset-0 z-10 block">
+                  <img
+                    src={profile?.avatarUrl || '/assets/images/avatar.png'}
+                    alt={`${heroName}'s Avatar`}
+                    className="h-full w-full object-contain object-bottom transition-transform duration-700 hover:scale-[1.03]"
+                  />
+                </Link>
+              </div>
+              <div className="absolute -left-5 top-8 z-20 -rotate-6 rounded-xl bg-[#f8f3e8] px-4 py-3 shadow-lg md:-left-10 md:top-12">
+                <span className="block font-mono text-[9px] uppercase tracking-[0.16em] text-[#747b86]">Hi, I’m</span>
+                <span className="font-display text-sm font-bold text-[#242a38]">Anh Tuấn ✳</span>
+              </div>
+              <div className="absolute -bottom-3 right-5 z-20 rotate-3 rounded-full bg-[#fff9ed] px-4 py-2 text-xs font-bold text-[#242a38] shadow-md md:right-8">
+                Code × Art
+              </div>
+            </div>
           </div>
         </motion.div>
 
-        {/* Marquee */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 2, duration: 1.2 }}
-          className="absolute bottom-0 left-0 w-full border-t border-subtle py-5 overflow-hidden mask-fade-x bg-background/40 backdrop-blur-sm z-20"
-        >
-          <div className="flex w-max animate-marquee gap-0">
+        <div className="mx-auto mt-20 max-w-7xl overflow-hidden border-y border-subtle py-4 md:mt-28">
+          <div className="flex w-max animate-marquee">
             {[...MARQUEE_ITEMS, ...MARQUEE_ITEMS].map((item, i) => (
-              <span key={i} className="flex items-center gap-8 px-8 font-mono text-[11px] tracking-[0.3em] text-muted/70 whitespace-nowrap">
-                {item}
-                <span className="w-1 h-1 rounded-full bg-accent/50" />
+              <span key={i} className={`tech-brand flex items-center gap-5 px-5 text-sm font-bold tracking-normal whitespace-nowrap md:text-base ${getTechnologyClass(item)}`}>
+                {item}<span className="h-2 w-2 rounded-full bg-current opacity-80" />
               </span>
             ))}
           </div>
-        </motion.div>
-
-        {/* Ánh sáng dưới đáy */}
-        <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-background to-transparent z-0 pointer-events-none" />
+        </div>
       </section>
 
       {/* 01. The Architect & The Artist */}
-      <CinematicSection id="about" number="01" title="The Architect & The Artist" subtitle="Logic × Emotion">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-          <div className="space-y-6 text-muted font-light leading-relaxed text-lg">
+      <StudioSection id="about" number="01" title="Lý trí × Cảm hứng" subtitle="Một kỹ sư, một người sáng tạo">
+        <div className="grid grid-cols-1 items-start gap-12 md:grid-cols-[1.05fr_0.95fr] md:gap-16">
+          <div className="space-y-6 text-secondary leading-relaxed text-lg">
             <p dangerouslySetInnerHTML={{ __html: aboutData.p1 }}></p>
             <p dangerouslySetInnerHTML={{ __html: aboutData.p2 }}></p>
-            <blockquote className="border-l-2 border-accent/50 pl-6 italic text-secondary mt-8 font-serif text-xl">
+            <blockquote className="studio-quote mt-8 rounded-r-2xl border-l-4 px-6 py-5 font-serif text-xl italic">
               <span dangerouslySetInnerHTML={{ __html: aboutData.quote }} />
             </blockquote>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-4">
+          <div className="grid grid-cols-2 gap-3 md:gap-5">
+            <div className="space-y-4 md:space-y-5">
               <motion.div
                 initial={{ opacity: 0, y: 30, rotate: -2 }}
                 whileInView={{ opacity: 1, y: 0, rotate: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.9, delay: 0.1 }}
-                className="aspect-square bg-glass border border-subtle rounded-2xl flex flex-col items-center justify-center p-6 hover:bg-glass-hover hover:border-accent/30 transition-all duration-500 group/tile"
+                className="studio-tile studio-tile-blue aspect-square rounded-[1.5rem] p-4 flex flex-col items-center justify-center transition-transform duration-300 hover:-rotate-2 group/tile md:p-6"
               >
-                <Code2 className="w-8 h-8 text-secondary mb-4 group-hover/tile:text-accent group-hover/tile:-translate-y-1 transition-all duration-500" strokeWidth={1.5} />
-                <span className="font-display text-xs tracking-[0.2em] text-muted">LOGIC</span>
+                <Code2 className="mb-3 h-7 w-7 transition-transform group-hover/tile:-translate-y-1 md:mb-4 md:h-8 md:w-8" strokeWidth={1.7} />
+                <span className="font-display text-xs font-bold tracking-[0.12em]">LOGIC</span>
               </motion.div>
               <motion.div
                 initial={{ opacity: 0, y: 30, rotate: 2 }}
                 whileInView={{ opacity: 1, y: 0, rotate: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.9, delay: 0.3 }}
-                className="aspect-[4/5] bg-glass border border-subtle rounded-2xl flex flex-col items-center justify-center p-6 hover:bg-glass-hover hover:border-accent/30 transition-all duration-500 group/tile"
+                className="studio-tile studio-tile-coral aspect-[4/5] rounded-[1.5rem] p-4 flex flex-col items-center justify-center transition-transform duration-300 hover:rotate-2 group/tile md:p-6"
               >
-                <Palette className="w-8 h-8 text-secondary mb-4 group-hover/tile:text-accent group-hover/tile:-translate-y-1 transition-all duration-500" strokeWidth={1.5} />
-                <span className="font-display text-xs tracking-[0.2em] text-muted">EMOTION</span>
+                <Palette className="mb-3 h-7 w-7 transition-transform group-hover/tile:-translate-y-1 md:mb-4 md:h-8 md:w-8" strokeWidth={1.7} />
+                <span className="font-display text-xs font-bold tracking-[0.12em]">EMOTION</span>
               </motion.div>
             </div>
-            <div className="space-y-4 mt-12">
+            <div className="mt-10 space-y-4 md:mt-12 md:space-y-5">
               <motion.div
                 initial={{ opacity: 0, y: 30, rotate: -2 }}
                 whileInView={{ opacity: 1, y: 0, rotate: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.9, delay: 0.2 }}
-                className="aspect-[4/5] bg-glass border border-subtle rounded-2xl flex flex-col items-center justify-center p-6 hover:bg-glass-hover hover:border-accent/30 transition-all duration-500 group/tile"
+                className="studio-tile studio-tile-green aspect-[4/5] rounded-[1.5rem] p-4 flex flex-col items-center justify-center transition-transform duration-300 hover:-rotate-2 group/tile md:p-6"
               >
-                <Database className="w-8 h-8 text-secondary mb-4 group-hover/tile:text-accent group-hover/tile:-translate-y-1 transition-all duration-500" strokeWidth={1.5} />
-                <span className="font-display text-xs tracking-[0.2em] text-muted">STRUCTURE</span>
+                <Database className="mb-3 h-7 w-7 transition-transform group-hover/tile:-translate-y-1 md:mb-4 md:h-8 md:w-8" strokeWidth={1.7} />
+                <span className="font-display text-xs font-bold tracking-[0.12em]">STRUCTURE</span>
               </motion.div>
               <motion.div
                 initial={{ opacity: 0, y: 30, rotate: 2 }}
                 whileInView={{ opacity: 1, y: 0, rotate: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.9, delay: 0.4 }}
-                className="aspect-square bg-glass border border-subtle rounded-2xl flex flex-col items-center justify-center p-6 hover:bg-glass-hover hover:border-accent/30 transition-all duration-500 group/tile"
+                className="studio-tile studio-tile-purple aspect-square rounded-[1.5rem] p-4 flex flex-col items-center justify-center transition-transform duration-300 hover:rotate-2 group/tile md:p-6"
               >
-                <Fish className="w-8 h-8 text-secondary mb-4 group-hover/tile:text-accent group-hover/tile:-translate-y-1 transition-all duration-500" strokeWidth={1.5} />
-                <span className="font-display text-xs tracking-[0.2em] text-muted">LIFE</span>
+                <Fish className="mb-3 h-7 w-7 transition-transform group-hover/tile:-translate-y-1 md:mb-4 md:h-8 md:w-8" strokeWidth={1.7} />
+                <span className="font-display text-xs font-bold tracking-[0.12em]">LIFE</span>
               </motion.div>
             </div>
           </div>
         </div>
-      </CinematicSection>
+      </StudioSection>
 
       {/* 02. Technical Mastery */}
-      <CinematicSection id="skills" number="02" title="Technical Mastery" subtitle="Stack & Craft">
+      <StudioSection id="skills" number="02" title="Công cụ mình dùng" subtitle="Thiết kế · Phát triển · Hoàn thiện">
         <TechnicalMastery />
-      </CinematicSection>
+      </StudioSection>
 
       {/* 03. Digital Canvas */}
-      <CinematicSection id="projects" number="03" title="Digital Canvas" subtitle="Selected Works">
+      <StudioSection id="projects" number="03" title="Sản phẩm đã làm" subtitle="Một vài dấu mốc">
         <DigitalCanvas />
-      </CinematicSection>
+      </StudioSection>
 
       {/* 04. Artistic Vision */}
-      <CinematicSection id="gallery" number="04" title="Artistic Vision" subtitle="Canvas & Aquarium">
+      <StudioSection id="gallery" number="04" title="Ngoài những dòng code" subtitle="Hội họa & Thủy sinh">
         <ArtisticVision />
-      </CinematicSection>
+      </StudioSection>
 
       {/* 05. Epilogue */}
-      <section id="contact" className="py-32 px-6 flex flex-col items-center justify-center text-center border-t border-subtle mt-32 relative">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-accent/5 blur-[120px] rounded-full pointer-events-none" />
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1 }}
-          className="w-full max-w-md relative"
-        >
-          <span className="font-mono text-xs tracking-[0.3em] text-accent mb-6 block">05. EPILOGUE</span>
-          <h2 className="font-display text-4xl md:text-6xl text-primary font-light tracking-tight mb-8">The Next Chapter.</h2>
-          <p className="text-muted font-light mb-12">
-            Cho dù là một dự án phần mềm phức tạp, một bức tranh đang dang dở, hay một hồ thủy sinh cần thiết kế. Hãy kết nối với tôi.
-          </p>
+      <section id="contact" className="studio-contact mx-4 my-8 overflow-hidden rounded-[2rem] px-5 py-14 md:mx-8 md:my-12 md:rounded-[2.5rem] md:px-12 md:py-20">
+        <div className="relative mx-auto grid w-full max-w-7xl gap-12 md:grid-cols-[0.9fr_1.1fr] md:gap-20">
+          <div className="md:sticky md:top-16 md:self-start">
+            <div className="studio-contact-label mb-5 flex items-center gap-3 font-mono text-xs font-semibold tracking-[0.12em]">
+              <span className="studio-section-number studio-section-number-05 flex h-14 w-14 shrink-0 items-center justify-center rounded-full font-sans text-xl font-bold md:h-16 md:w-16 md:text-2xl">05</span>
+              <span>CÙNG BẮT ĐẦU</span>
+            </div>
+            <h2 className="studio-contact-title mb-6 font-display text-4xl font-bold leading-[1.05] tracking-tight md:text-6xl">Có ý tưởng hay?<br /><span>Mình cùng làm.</span></h2>
+            <p className="studio-contact-copy max-w-md text-base leading-7">
+              Từ một sản phẩm số, một bức tranh đến một hồ thủy sinh — mình luôn vui khi được nghe về dự án tiếp theo của bạn.
+            </p>
+            <div className="studio-contact-copy mt-8 flex items-center gap-3 text-sm">
+              <span className="h-2.5 w-2.5 rounded-full bg-[#7fc7a3]" />
+              Sẵn sàng cho những ý tưởng thú vị
+            </div>
+          </div>
 
           {/* Contact Form */}
-          <form onSubmit={handleSubmit} className="space-y-4 text-left">
+          <form onSubmit={handleSubmit} className="studio-contact-form space-y-4 rounded-[1.75rem] p-5 text-left md:p-8">
             <div className="relative group">
               <input
                 type="text"
-                placeholder="Your Name"
+                placeholder="Tên của bạn"
+                aria-label="Tên của bạn"
                 required
                 value={formData.name}
                 onChange={(e) => setFormData({...formData, name: e.target.value})}
-                className="w-full bg-glass border border-subtle rounded-xl px-6 py-4 text-primary placeholder:text-muted/60 focus:outline-none focus:border-accent/50 focus:bg-glass-hover transition-all duration-300"
+                className="studio-contact-input w-full rounded-xl border px-5 py-4 transition-all focus:border-accent focus:outline-none"
               />
-              <span className="absolute bottom-0 left-6 h-[1px] w-0 bg-accent group-focus-within:w-[calc(100%-3rem)] transition-all duration-500" />
             </div>
             <div className="relative group">
               <input
                 type="email"
-                placeholder="Your Email"
+                placeholder="Email"
+                aria-label="Email"
                 required
                 value={formData.email}
                 onChange={(e) => setFormData({...formData, email: e.target.value})}
-                className="w-full bg-glass border border-subtle rounded-xl px-6 py-4 text-primary placeholder:text-muted/60 focus:outline-none focus:border-accent/50 focus:bg-glass-hover transition-all duration-300"
+                className="studio-contact-input w-full rounded-xl border px-5 py-4 transition-all focus:border-accent focus:outline-none"
               />
-              <span className="absolute bottom-0 left-6 h-[1px] w-0 bg-accent group-focus-within:w-[calc(100%-3rem)] transition-all duration-500" />
             </div>
             <div className="relative group">
               <textarea
-                placeholder="Your Message"
+                placeholder="Kể mình nghe về dự án..."
+                aria-label="Nội dung tin nhắn"
                 rows={4}
                 required
                 value={formData.message}
                 onChange={(e) => setFormData({...formData, message: e.target.value})}
-                className="w-full bg-glass border border-subtle rounded-xl px-6 py-4 text-primary placeholder:text-muted/60 focus:outline-none focus:border-accent/50 focus:bg-glass-hover transition-all duration-300 resize-none"
+                className="studio-contact-input w-full resize-none rounded-xl border px-5 py-4 transition-all focus:border-accent focus:outline-none"
               />
-              <span className="absolute bottom-0 left-6 h-[1px] w-0 bg-accent group-focus-within:w-[calc(100%-3rem)] transition-all duration-500" />
             </div>
             <motion.button
               type="submit"
@@ -441,41 +366,41 @@ export default function Portfolio() {
               whileTap={{ scale: 0.97 }}
               className={`w-full flex items-center justify-center gap-3 px-8 py-4 rounded-xl font-mono text-xs tracking-[0.2em] font-semibold transition-all duration-500 disabled:opacity-60 ${
                 formStatus === 'success'
-                  ? 'bg-accent text-black'
+                  ? 'bg-[#9ed977] text-[#1c2a20]'
                   : formStatus === 'error'
-                    ? 'bg-red-500/80 text-white'
-                    : 'bg-white text-black hover:bg-gray-200 dark:bg-white dark:text-black dark:hover:bg-gray-200'
+                    ? 'bg-red-500 text-white'
+                    : 'bg-primary text-background hover:opacity-90'
               }`}
             >
               {formStatus === 'submitting' ? (
                 <>
                   <span className="w-4 h-4 border-2 border-black/30 border-t-black rounded-full animate-spin" />
-                  <span>SENDING...</span>
+                  <span>ĐANG GỬI...</span>
                 </>
               ) : formStatus === 'success' ? (
                 <>
                   <CheckCircle2 className="w-4 h-4" />
-                  <span>MESSAGE SENT</span>
+                  <span>ĐÃ GỬI TIN NHẮN</span>
                 </>
               ) : formStatus === 'error' ? (
                 <>
                   <AlertCircle className="w-4 h-4" />
-                  <span>ERROR. TRY AGAIN.</span>
+                  <span>CÓ LỖI. THỬ LẠI NHÉ.</span>
                 </>
               ) : (
                 <>
                   <Send className="w-4 h-4" />
-                  <span>TRANSMIT MESSAGE</span>
+                  <span>GỬI LỜI NHẮN</span>
                 </>
               )}
             </motion.button>
           </form>
-        </motion.div>
+        </div>
       </section>
 
       {/* Footer */}
-      <footer className="py-10 text-center text-muted/60 font-light text-[11px] tracking-[0.3em] border-t border-subtle font-mono">
-        <p>DESIGNED & ENGINEERED BY {FULL_NAME.toUpperCase()} © {new Date().getFullYear()}</p>
+      <footer className="px-5 py-8 text-center text-xs text-muted md:px-10">
+        <p>Thiết kế & phát triển bởi {FULL_NAME} <span className="text-accent">✳</span> © {new Date().getFullYear()}</p>
       </footer>
       </div>
     </div>
