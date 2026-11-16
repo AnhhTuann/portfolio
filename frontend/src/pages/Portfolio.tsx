@@ -15,6 +15,7 @@ import { Link } from 'react-router-dom';
 import ArtisticVision from '../components/ArtisticVision';
 import DigitalCanvas from '../components/DigitalCanvas';
 import GitHubAnalytics from '../components/GitHubAnalytics';
+import HeroAvatar from '../components/HeroAvatar';
 import TechnicalMastery from '../components/TechnicalMastery';
 import { getProfile, Profile, saveContactMessage } from '../services/dataService';
 import { englishPortfolio, PortfolioLanguage } from '../utils/portfolioTranslations';
@@ -306,35 +307,7 @@ export default function Portfolio() {
               </div>
             </motion.div>
 
-            <div className="order-2 mx-auto w-full max-w-[500px] lg:order-2">
-              <div className="relative mx-auto aspect-[0.92] max-w-[460px] rounded-[2rem] bg-[#f7b2a1] p-5 md:rounded-[2.5rem] md:p-7">
-                <div className="absolute -right-3 top-8 h-20 w-20 rounded-full bg-[#67c7c3] md:-right-6 md:h-28 md:w-28" />
-                <div className="absolute -bottom-5 -left-4 h-24 w-24 rounded-[2rem] bg-[#8a78d6] md:-bottom-7 md:-left-7 md:h-32 md:w-32" />
-                <div className="absolute inset-5 overflow-hidden rounded-[1.5rem] bg-[#f5f2eb] md:inset-7 md:rounded-[2rem]">
-                  <div className="absolute inset-x-0 bottom-0 h-1/2 bg-[#e8e5de]" />
-                  <Link
-                    to="/admin"
-                    aria-label="Mở trang quản trị hồ sơ"
-                    className="absolute inset-0 z-10 block"
-                  >
-                    <img
-                      src={profile?.avatarUrl || '/assets/images/avatar.png'}
-                      alt={`${heroName}'s Avatar`}
-                      className="h-full w-full object-contain object-bottom transition-transform duration-700 hover:scale-[1.03]"
-                    />
-                  </Link>
-                </div>
-                <div className="absolute -left-5 top-8 z-20 -rotate-6 rounded-xl bg-[#f8f3e8] px-4 py-3 shadow-lg md:-left-10 md:top-12">
-                  <span className="block font-mono text-[9px] uppercase tracking-[0.16em] text-[#747b86]">
-                    Hi, I’m
-                  </span>
-                  <span className="font-display text-sm font-bold text-[#242a38]">Anh Tuấn ✳</span>
-                </div>
-                <div className="absolute -bottom-3 right-5 z-20 rotate-3 rounded-full bg-[#fff9ed] px-4 py-2 text-xs font-bold text-[#242a38] shadow-md md:right-8">
-                  Code × Art
-                </div>
-              </div>
-            </div>
+            <HeroAvatar avatarUrl={profile?.avatarUrl} heroName={heroName} />
           </motion.div>
 
           <div className="mx-auto mt-20 max-w-7xl overflow-hidden border-y border-subtle py-4 md:mt-28">
