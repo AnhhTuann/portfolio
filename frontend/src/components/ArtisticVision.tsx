@@ -41,7 +41,7 @@ export default function ArtisticVision({ language }: { language: PortfolioLangua
   }
 
   return (
-    <div className="columns-1 gap-5 md:columns-2 lg:columns-3">
+    <div className="grid grid-cols-1 items-stretch gap-5 md:grid-cols-2 lg:grid-cols-3">
       {artworks.map((art, idx) => (
         <motion.div
           key={art.id}
@@ -49,29 +49,37 @@ export default function ArtisticVision({ language }: { language: PortfolioLangua
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-10%' }}
           transition={{ duration: 0.65, delay: (idx % 3) * 0.08, ease: [0.22, 1, 0.36, 1] }}
-          className="studio-art-card group relative mb-5 break-inside-avoid overflow-hidden rounded-[1.5rem] border"
+          className="studio-art-card group relative flex h-full flex-col overflow-hidden rounded-[1.5rem] border"
         >
-          {art.imageUrl && (
-            <img
-              src={art.imageUrl}
-              alt={art.title}
-              className="block h-auto w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-              loading="lazy"
-            />
-          )}
-          <div className="p-5 md:p-6">
+          <div className="flex aspect-[4/3] w-full items-center justify-center overflow-hidden bg-glass">
+            {art.imageUrl ? (
+              <img
+                src={art.imageUrl}
+                alt={art.title}
+                className="h-full w-full object-contain transition-transform duration-700 group-hover:scale-[1.03]"
+                loading="lazy"
+              />
+            ) : (
+              <span className="font-sans text-sm text-muted">
+                {english ? 'No image' : 'Chưa có ảnh'}
+              </span>
+            )}
+          </div>
+          <div className="flex flex-1 flex-col p-5 md:p-6">
             <span className="mb-3 block font-sans text-xs font-bold tracking-[0.08em] text-accent">
               {english ? englishPortfolio.gallery.artwork : 'TÁC PHẨM'}{' '}
               {String(idx + 1).padStart(2, '0')}
             </span>
-            <h3 className="mb-2 font-display text-xl font-bold tracking-tight text-primary lg:text-2xl">
+            <h3 className="mb-2 line-clamp-2 h-16 font-display text-xl font-bold tracking-tight text-primary lg:text-2xl">
               {art.title}
             </h3>
-            {art.description && (
-              <p className="whitespace-break-spaces font-sans text-sm leading-6 text-secondary">
-                {art.description}
-              </p>
-            )}
+            <div className="h-[7.5rem] overflow-hidden">
+              {art.description && (
+                <p className="line-clamp-5 whitespace-break-spaces font-sans text-sm leading-6 text-secondary">
+                  {art.description}
+                </p>
+              )}
+            </div>
           </div>
         </motion.div>
       ))}
