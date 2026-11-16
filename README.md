@@ -67,7 +67,7 @@ portfolio/
 
 ## 🚀 Hướng Dẫn Khởi Chạy
 
-**Yêu cầu:** Node.js ≥ 18 và một PostgreSQL database (local hoặc [Neon](https://neon.tech) / Supabase).
+**Yêu cầu:** Node.js ≥ 18 và PostgreSQL database.
 
 ### 1. Khởi chạy Backend
 ```bash
@@ -96,7 +96,6 @@ npm run dev
 ### Ví dụ `DATABASE_URL`
 ```
 postgres://postgres:postgres@localhost:5432/portfolio
-# Neon: postgres://user:pass@ep-xxx.region.aws.neon.tech/portfolio?sslmode=require
 ```
 
 ---

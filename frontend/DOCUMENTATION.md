@@ -45,7 +45,7 @@ JWT_SECRET=change_me
 PORT=5000
 ```
 
-> Hoạt động tốt với PostgreSQL local lẫn managed DB (Neon, Supabase). Với hosted DB yêu cầu SSL, `db.js` tự bật `ssl: { rejectUnauthorized: false }`.
+> Hoạt động trực tiếp với PostgreSQL. Với hosted DB yêu cầu SSL, `db.js` tự bật `ssl: { rejectUnauthorized: false }`.
 
 ---
 
