@@ -42,10 +42,10 @@ export default function MessageManager() {
     <div className="mt-12 border-t border-subtle pt-12 w-full max-w-2xl mx-auto mb-20">
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h2 className="font-display text-3xl text-primary font-light tracking-tight mb-2">Hộp Thư Tín Hiệu.</h2>
-          <p className="text-gray-500 font-light text-sm">Quản lý kết nối từ người dùng</p>
+          <h2 className="font-display text-3xl text-primary font-bold tracking-tight mb-1">Hộp Thư Tín Hiệu.</h2>
+          <p className="text-secondary text-sm">Quản lý kết nối từ người dùng</p>
         </div>
-        <div className="flex items-center gap-2 px-4 py-2 bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded-lg font-mono text-xs tracking-widest shadow-[0_0_15px_rgba(59,130,246,0.1)]">
+        <div className="flex items-center gap-2 px-4 py-2.5 bg-blue-500/20 text-blue-300 border border-blue-500/40 rounded-xl font-medium text-xs tracking-wider shadow-sm">
           <Mail className="w-4 h-4" /> {messages.filter(m => !m.read).length} CHƯA ĐỌC
         </div>
       </div>
@@ -100,7 +100,12 @@ export default function MessageManager() {
               </div>
             </motion.div>
           ))}
-          {messages.length === 0 && <p className="text-gray-500 text-sm italic py-8 text-center border border-dashed border-subtle rounded-xl">Chưa có tín hiệu nào truyền tới hệ thống.</p>}
+          {messages.length === 0 && (
+            <div className="flex flex-col items-center justify-center py-10 px-6 rounded-2xl border border-dashed border-subtle bg-surface/50 text-center">
+              <p className="text-primary font-medium text-sm">Chưa có tín hiệu nào truyền tới hệ thống.</p>
+              <p className="text-secondary text-xs mt-1.5">Khi khách truy cập gửi lời nhắn từ trang chủ, thông điệp sẽ xuất hiện ở đây.</p>
+            </div>
+          )}
         </div>
       )}
     </div>

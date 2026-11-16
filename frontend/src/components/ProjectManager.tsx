@@ -131,12 +131,12 @@ export default function ProjectManager() {
     <div className="mt-20 border-t border-subtle pt-12 w-full max-w-2xl mx-auto">
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h2 className="font-display text-3xl text-primary font-light tracking-tight mb-2">Digital Canvas.</h2>
-          <p className="text-gray-500 font-light text-sm">Quản lý các mảnh ghép sáng tạo</p>
+          <h2 className="font-display text-3xl text-primary font-bold tracking-tight mb-1">Digital Canvas.</h2>
+          <p className="text-secondary text-sm">Quản lý các mảnh ghép sáng tạo</p>
         </div>
         <button 
           onClick={openAddModal}
-          className="flex items-center gap-2 px-4 py-2 bg-accent-soft text-accent hover:bg-accent/20 border border-accent/20 rounded-lg font-mono text-xs tracking-widest transition-colors shadow-[0_0_15px_var(--accent-soft)] hover:shadow-[0_0_20px_var(--accent-soft)]"
+          className="flex items-center gap-2 px-4 py-2.5 bg-teal-500/20 text-teal-300 hover:bg-teal-500/30 border border-teal-500/40 rounded-xl font-medium text-xs tracking-wider transition-all shadow-sm"
         >
           <Plus className="w-4 h-4" /> THÊM PROJECT
         </button>
@@ -172,7 +172,12 @@ export default function ProjectManager() {
               </div>
             </div>
           ))}
-          {projects.length === 0 && <p className="text-gray-500 text-sm italic py-4">Hệ thống The Matrix đang trống. Bạn chưa thêm dự án nào.</p>}
+          {projects.length === 0 && (
+            <div className="col-span-full flex flex-col items-center justify-center py-10 px-6 rounded-2xl border border-dashed border-subtle bg-surface/50 text-center">
+              <p className="text-primary font-medium text-sm">Chưa có dự án nào trong Digital Canvas.</p>
+              <p className="text-secondary text-xs mt-1.5">Bấm nút "THÊM PROJECT" ở trên để tạo dự án đầu tiên của bạn.</p>
+            </div>
+          )}
         </div>
       )}
 

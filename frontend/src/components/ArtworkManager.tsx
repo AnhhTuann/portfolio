@@ -120,19 +120,24 @@ export default function ArtworkManager() {
     <div className="mt-12 border-t border-subtle pt-12 w-full max-w-2xl mx-auto mb-20">
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h2 className="font-display text-3xl text-primary font-light tracking-tight mb-2">Artistic Vision.</h2>
-          <p className="text-gray-500 font-light text-sm">Phòng tranh Nghệ Thuật & Khung Hình Trừu Tượng</p>
+          <h2 className="font-display text-3xl text-primary font-bold tracking-tight mb-1">Artistic Vision.</h2>
+          <p className="text-secondary text-sm">Phòng tranh Nghệ Thuật & Khung Hình Trừu Tượng</p>
         </div>
         <button 
           onClick={openAddModal}
-          className="flex items-center gap-2 px-4 py-2 bg-[#8B5CF6]/10 text-[#8B5CF6] hover:bg-[#8B5CF6]/20 border border-[#8B5CF6]/20 rounded-lg font-mono text-xs tracking-widest transition-colors shadow-[0_0_15px_rgba(139,92,246,0.1)] hover:shadow-[0_0_20px_rgba(139,92,246,0.3)]"
+          className="flex items-center gap-2 px-4 py-2.5 bg-violet-500/20 text-violet-300 hover:bg-violet-500/30 border border-violet-500/40 rounded-xl font-medium text-xs tracking-wider transition-all shadow-sm"
         >
           <Plus className="w-4 h-4" /> THÊM BỨC TRANH
         </button>
       </div>
 
       {loading ? (
-        <div className="text-[#8B5CF6] font-mono text-xs animate-pulse text-center py-6">ĐANG TẢI TRANH...</div>
+        <div className="text-violet-400 font-mono text-xs animate-pulse text-center py-6">ĐANG TẢI TRANH...</div>
+      ) : artworks.length === 0 ? (
+        <div className="flex flex-col items-center justify-center py-10 px-6 rounded-2xl border border-dashed border-subtle bg-surface/50 text-center">
+          <p className="text-primary font-medium text-sm">Chưa có tác phẩm nào trong phòng tranh.</p>
+          <p className="text-secondary text-xs mt-1.5">Bấm nút "THÊM BỨC TRANH" ở trên để trưng bày tác phẩm đầu tiên của bạn.</p>
+        </div>
       ) : (
         <div className="columns-2 sm:columns-3 gap-4 space-y-4">
           {artworks.map(a => (
@@ -163,7 +168,6 @@ export default function ArtworkManager() {
               </div>
             </div>
           ))}
-          {artworks.length === 0 && <p className="text-gray-500 text-sm italic py-4 col-span-2">Phòng tranh số không đang vắng vẻ.</p>}
         </div>
       )}
 
