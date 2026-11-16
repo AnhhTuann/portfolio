@@ -8,6 +8,7 @@ const router = express.Router();
 // Route Đăng nhập
 router.post('/login', async (req, res) => {
   try {
+    const { username, password } = req.body || {};
     const cleanUsername = (username || '').trim();
     const cleanPassword = (password || '').trim();
 
