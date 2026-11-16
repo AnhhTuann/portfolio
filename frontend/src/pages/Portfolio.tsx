@@ -14,6 +14,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ArtisticVision from '../components/ArtisticVision';
 import DigitalCanvas from '../components/DigitalCanvas';
+import GitHubAnalytics from '../components/GitHubAnalytics';
 import TechnicalMastery from '../components/TechnicalMastery';
 import { getProfile, Profile, saveContactMessage } from '../services/dataService';
 import { englishPortfolio, PortfolioLanguage } from '../utils/portfolioTranslations';
@@ -446,6 +447,7 @@ export default function Portfolio() {
           }
         >
           <TechnicalMastery language={language} />
+          <GitHubAnalytics language={language} />
         </StudioSection>
 
         {/* 03. Digital Canvas */}
