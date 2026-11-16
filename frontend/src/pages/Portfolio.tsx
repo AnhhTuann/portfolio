@@ -16,6 +16,7 @@ import ArtisticVision from '../components/ArtisticVision';
 import DigitalCanvas from '../components/DigitalCanvas';
 import TechnicalMastery from '../components/TechnicalMastery';
 import { getProfile, Profile, saveContactMessage } from '../services/dataService';
+import { englishPortfolio, PortfolioLanguage } from '../utils/portfolioTranslations';
 import { getTechnologyClass } from '../utils/technologyColors';
 
 const FULL_NAME = 'Nguyễn Đức Anh Tuấn';
@@ -73,7 +74,20 @@ const MARQUEE_ITEMS = [
 ];
 
 export default function Portfolio() {
+  const [language, setLanguage] = useState<PortfolioLanguage>(() => {
+    try {
+      return localStorage.getItem('portfolio_language') === 'en' ? 'en' : 'vi';
+    } catch {
+      return 'vi';
+    }
+  });
+  const english = language === 'en';
   const [profile, setProfile] = useState<Profile | null>(null);
+
+  useEffect(() => {
+    document.documentElement.lang = language;
+    localStorage.setItem('portfolio_language', language);
+  }, [language]);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -144,6 +158,7 @@ export default function Portfolio() {
   };
 
   const heroName = profile?.name || DISPLAY_NAME;
+  const visibleAbout = english ? englishPortfolio.about.content : aboutData;
 
   return (
     <div className="portfolio-studio min-h-screen bg-background text-secondary selection:bg-accent selection:text-black font-sans relative overflow-x-hidden">
@@ -159,24 +174,46 @@ export default function Portfolio() {
             AT<span className="text-accent">.</span>
           </a>
           <nav
-            aria-label="Main navigation"
+            aria-label={english ? englishPortfolio.navigation.label : 'Điều hướng chính'}
             className="hidden items-center gap-8 text-sm font-medium text-secondary md:flex"
           >
             <a className="transition-colors hover:text-accent" href="#about">
-              Giới thiệu
+              {english ? englishPortfolio.navigation.about : 'Giới thiệu'}
             </a>
             <a className="transition-colors hover:text-accent" href="#projects">
-              Dự án
+              {english ? englishPortfolio.navigation.projects : 'Dự án'}
             </a>
             <a className="transition-colors hover:text-accent" href="#gallery">
-              Nghệ thuật
+              {english ? englishPortfolio.navigation.gallery : 'Nghệ thuật'}
             </a>
           </nav>
+          <div
+            role="group"
+            aria-label={english ? englishPortfolio.languageLabel : 'Chọn ngôn ngữ'}
+            className="flex shrink-0 items-center rounded-full border border-subtle p-1"
+          >
+            {(['vi', 'en'] as const).map((option) => (
+              <button
+                key={option}
+                type="button"
+                aria-pressed={language === option}
+                onClick={() => setLanguage(option)}
+                className={`min-w-9 rounded-full px-2.5 py-1 text-[11px] font-bold transition-colors ${
+                  language === option
+                    ? 'bg-primary text-background'
+                    : 'text-secondary hover:text-accent'
+                }`}
+              >
+                {option.toUpperCase()}
+              </button>
+            ))}
+          </div>
           <a
             href="#contact"
             className="rounded-full border border-primary px-4 py-2 text-xs font-semibold text-primary transition-colors hover:bg-primary hover:text-background"
           >
-            Kết nối <span aria-hidden="true">↗</span>
+            {english ? englishPortfolio.navigation.contact : 'Kết nối'}{' '}
+            <span aria-hidden="true">↗</span>
           </a>
         </header>
         {/* 00. Prologue (Hero) */}
@@ -195,11 +232,11 @@ export default function Portfolio() {
             >
               <span className="mb-7 inline-flex items-center gap-2 rounded-full border border-subtle bg-surface px-4 py-2 text-xs font-semibold text-secondary shadow-sm">
                 <span className="h-2 w-2 rounded-full bg-[#82b93a]" />
-                Thiết kế & phát triển trải nghiệm số
+                {english ? englishPortfolio.hero.specialty : 'Thiết kế & phát triển trải nghiệm số'}
               </span>
 
               <p className="mb-4 text-sm font-semibold uppercase tracking-[0.16em] text-accent">
-                Xin chào, mình là
+                {english ? englishPortfolio.hero.greeting : 'Xin chào, mình là'}
               </p>
               <h1 className="max-w-3xl font-display text-[clamp(3.4rem,8vw,7.5rem)] font-bold leading-[0.88] tracking-[-0.075em] text-primary">
                 {heroName
@@ -229,16 +266,19 @@ export default function Portfolio() {
               </div>
 
               <p className="mt-7 max-w-xl text-base leading-7 text-secondary md:text-lg">
-                {profile?.description || (
-                  <>
-                    Kỹ sư CNTT từ SGU, mình kết hợp tư duy hệ thống của{' '}
-                    <strong className="font-semibold text-primary">
-                      React, Node.js và PostgreSQL
-                    </strong>{' '}
-                    với cảm hứng từ{' '}
-                    <strong className="font-semibold text-accent">nghệ thuật và sự sống</strong>.
-                  </>
-                )}
+                {english
+                  ? englishPortfolio.hero.description
+                  : profile?.description || (
+                      <>
+                        Kỹ sư CNTT từ SGU, mình kết hợp tư duy hệ thống của{' '}
+                        <strong className="font-semibold text-primary">
+                          React, Node.js và PostgreSQL
+                        </strong>{' '}
+                        với cảm hứng từ{' '}
+                        <strong className="font-semibold text-accent">nghệ thuật và sự sống</strong>
+                        .
+                      </>
+                    )}
               </p>
 
               <div className="mt-9 flex flex-wrap gap-3">
@@ -246,13 +286,14 @@ export default function Portfolio() {
                   href="#projects"
                   className="rounded-full bg-primary px-6 py-3.5 text-sm font-semibold text-background transition-transform hover:-translate-y-0.5"
                 >
-                  Xem dự án <span aria-hidden="true">↗</span>
+                  {english ? englishPortfolio.hero.projectsButton : 'Xem dự án'}{' '}
+                  <span aria-hidden="true">↗</span>
                 </a>
                 <a
                   href="#contact"
                   className="rounded-full border border-subtle-hover px-6 py-3.5 text-sm font-semibold text-primary transition-colors hover:bg-surface"
                 >
-                  Liên hệ với mình
+                  {english ? englishPortfolio.hero.contactButton : 'Liên hệ với mình'}
                 </a>
               </div>
 
@@ -260,7 +301,7 @@ export default function Portfolio() {
                 <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-[#e6f0d7] text-[#52722e]">
                   <ChevronDown size={16} />
                 </span>
-                Cuộn xuống để khám phá
+                {english ? englishPortfolio.hero.scroll : 'Cuộn xuống để khám phá'}
               </div>
             </motion.div>
 
@@ -314,21 +355,23 @@ export default function Portfolio() {
         <StudioSection
           id="about"
           number="01"
-          title="Lý trí × Cảm hứng"
-          subtitle="Freelance Frontend Engineer · 2021 — nay"
+          title={english ? englishPortfolio.about.title : 'Lý trí × Cảm hứng'}
+          subtitle={
+            english ? englishPortfolio.about.subtitle : 'Freelance Frontend Engineer · 2021 — nay'
+          }
         >
           <div className="grid grid-cols-1 items-start gap-10 md:grid-cols-[0.9fr_1.1fr] md:gap-14">
             <div>
               <div className="studio-about-status mb-6">
                 <span className="h-2 w-2 rounded-full bg-[#78c49a]" />
-                FREELANCE FRONTEND DEVELOPER
+                {english ? englishPortfolio.about.status : 'FREELANCE FRONTEND DEVELOPER'}
               </div>
               <div className="space-y-5 text-secondary text-base leading-7 md:text-lg md:leading-8">
-                <p dangerouslySetInnerHTML={{ __html: aboutData.p1 }}></p>
-                <p dangerouslySetInnerHTML={{ __html: aboutData.p2 }}></p>
+                <p dangerouslySetInnerHTML={{ __html: visibleAbout.p1 }}></p>
+                <p dangerouslySetInnerHTML={{ __html: visibleAbout.p2 }}></p>
               </div>
               <blockquote className="studio-quote mt-7 rounded-r-2xl border-l-4 px-5 py-4 font-serif text-lg italic md:mt-8 md:px-6 md:py-5 md:text-xl">
-                <span dangerouslySetInnerHTML={{ __html: aboutData.quote }} />
+                <span dangerouslySetInnerHTML={{ __html: visibleAbout.quote }} />
               </blockquote>
             </div>
 
@@ -365,22 +408,30 @@ export default function Portfolio() {
                     'Ứng dụng AI để hỗ trợ debug, tối ưu và rút ngắn vòng lặp phát triển.',
                   style: 'studio-tile-purple',
                 },
-              ].map(({ icon: Icon, category, title, description, style }) => (
-                <article key={category} className={`studio-tile studio-about-card ${style}`}>
-                  <div className="studio-about-card-top">
-                    <span className="studio-about-card-category">{category}</span>
-                    <Icon aria-hidden="true" className="h-6 w-6 shrink-0" strokeWidth={1.8} />
-                  </div>
-                  <div>
-                    <h3 className="font-display text-base font-bold leading-snug md:text-xl">
-                      {title}
-                    </h3>
-                    <p className="mt-2 text-[13px] leading-5 md:text-sm md:leading-6">
-                      {description}
-                    </p>
-                  </div>
-                </article>
-              ))}
+              ].map((card, index) => {
+                const Icon = card.icon;
+                const localizedCard = english ? englishPortfolio.about.cards[index] : card;
+
+                return (
+                  <article
+                    key={localizedCard.category}
+                    className={`studio-tile studio-about-card ${card.style}`}
+                  >
+                    <div className="studio-about-card-top">
+                      <span className="studio-about-card-category">{localizedCard.category}</span>
+                      <Icon aria-hidden="true" className="h-6 w-6 shrink-0" strokeWidth={1.8} />
+                    </div>
+                    <div>
+                      <h3 className="font-display text-base font-bold leading-snug md:text-xl">
+                        {localizedCard.title}
+                      </h3>
+                      <p className="mt-2 text-[13px] leading-5 md:text-sm md:leading-6">
+                        {localizedCard.description}
+                      </p>
+                    </div>
+                  </article>
+                );
+              })}
             </div>
           </div>
         </StudioSection>
@@ -389,25 +440,32 @@ export default function Portfolio() {
         <StudioSection
           id="skills"
           number="02"
-          title="Công cụ mình dùng"
-          subtitle="Thiết kế · Phát triển · Hoàn thiện"
+          title={english ? englishPortfolio.skills.title : 'Công cụ mình dùng'}
+          subtitle={
+            english ? englishPortfolio.skills.subtitle : 'Thiết kế · Phát triển · Hoàn thiện'
+          }
         >
-          <TechnicalMastery />
+          <TechnicalMastery language={language} />
         </StudioSection>
 
         {/* 03. Digital Canvas */}
-        <StudioSection id="projects" number="03" title="Sản phẩm đã làm" subtitle="Một vài dấu mốc">
-          <DigitalCanvas />
+        <StudioSection
+          id="projects"
+          number="03"
+          title={english ? englishPortfolio.projects.title : 'Sản phẩm đã làm'}
+          subtitle={english ? englishPortfolio.projects.subtitle : 'Một vài dấu mốc'}
+        >
+          <DigitalCanvas language={language} />
         </StudioSection>
 
         {/* 04. Artistic Vision */}
         <StudioSection
           id="gallery"
           number="04"
-          title="Ngoài những dòng code"
-          subtitle="Hội họa & Thủy sinh"
+          title={english ? englishPortfolio.gallery.title : 'Ngoài những dòng code'}
+          subtitle={english ? englishPortfolio.gallery.subtitle : 'Hội họa & Thủy sinh'}
         >
-          <ArtisticVision />
+          <ArtisticVision language={language} />
         </StudioSection>
 
         {/* 05. Epilogue */}
@@ -421,26 +479,31 @@ export default function Portfolio() {
                 <span className="studio-section-number studio-section-number-05 flex h-14 w-14 shrink-0 items-center justify-center rounded-full font-sans text-xl font-bold md:h-16 md:w-16 md:text-2xl">
                   05
                 </span>
-                <span>CÙNG BẮT ĐẦU</span>
+                <span>{english ? englishPortfolio.contact.label : 'CÙNG BẮT ĐẦU'}</span>
               </div>
               <h2 className="studio-contact-title mb-6 font-display text-4xl font-bold leading-[1.05] tracking-tight md:text-6xl">
-                Có ý tưởng hay?
+                {english ? englishPortfolio.contact.title : 'Có ý tưởng hay?'}
                 <br />
-                <span>Mình cùng làm.</span>
+                <span>{english ? englishPortfolio.contact.titleLine2 : 'Mình cùng làm.'}</span>
               </h2>
               <p className="studio-contact-copy max-w-md text-base leading-7">
-                Từ một sản phẩm số, một bức tranh đến một hồ thủy sinh — mình luôn vui khi được nghe
-                về dự án tiếp theo của bạn.
+                {english
+                  ? englishPortfolio.contact.description
+                  : 'Từ một sản phẩm số, một bức tranh đến một hồ thủy sinh — mình luôn vui khi được nghe về dự án tiếp theo của bạn.'}
               </p>
               <div className="studio-contact-copy mt-8 flex items-center gap-3 text-sm">
                 <span className="h-2.5 w-2.5 rounded-full bg-[#7fc7a3]" />
-                Sẵn sàng cho những ý tưởng thú vị
+                {english
+                  ? englishPortfolio.contact.availability
+                  : 'Sẵn sàng cho những ý tưởng thú vị'}
               </div>
               <a
                 href="https://github.com/AnhhTuann"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Xem GitHub của Anh Tuấn"
+                aria-label={
+                  english ? englishPortfolio.contact.githubAria : 'Xem GitHub của Anh Tuấn'
+                }
                 className="studio-contact-copy mt-5 inline-flex items-center gap-2 rounded-full border border-current/20 px-4 py-2.5 text-sm font-semibold transition-colors hover:border-current/50"
               >
                 <Github aria-hidden="true" size={18} />
@@ -456,8 +519,8 @@ export default function Portfolio() {
               <div className="relative group">
                 <input
                   type="text"
-                  placeholder="Tên của bạn"
-                  aria-label="Tên của bạn"
+                  placeholder={english ? englishPortfolio.contact.name : 'Tên của bạn'}
+                  aria-label={english ? englishPortfolio.contact.name : 'Tên của bạn'}
                   required
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
@@ -477,8 +540,10 @@ export default function Portfolio() {
               </div>
               <div className="relative group">
                 <textarea
-                  placeholder="Kể mình nghe về dự án..."
-                  aria-label="Nội dung tin nhắn"
+                  placeholder={
+                    english ? englishPortfolio.contact.message : 'Kể mình nghe về dự án...'
+                  }
+                  aria-label={english ? englishPortfolio.contact.messageAria : 'Nội dung tin nhắn'}
                   rows={4}
                   required
                   value={formData.message}
@@ -502,22 +567,22 @@ export default function Portfolio() {
                 {formStatus === 'submitting' ? (
                   <>
                     <span className="w-4 h-4 border-2 border-black/30 border-t-black rounded-full animate-spin" />
-                    <span>ĐANG GỬI...</span>
+                    <span>{english ? englishPortfolio.contact.sending : 'ĐANG GỬI...'}</span>
                   </>
                 ) : formStatus === 'success' ? (
                   <>
                     <CheckCircle2 className="w-4 h-4" />
-                    <span>ĐÃ GỬI TIN NHẮN</span>
+                    <span>{english ? englishPortfolio.contact.sent : 'ĐÃ GỬI TIN NHẮN'}</span>
                   </>
                 ) : formStatus === 'error' ? (
                   <>
                     <AlertCircle className="w-4 h-4" />
-                    <span>CÓ LỖI. THỬ LẠI NHÉ.</span>
+                    <span>{english ? englishPortfolio.contact.error : 'CÓ LỖI. THỬ LẠI NHÉ.'}</span>
                   </>
                 ) : (
                   <>
                     <Send className="w-4 h-4" />
-                    <span>GỬI LỜI NHẮN</span>
+                    <span>{english ? englishPortfolio.contact.submit : 'GỬI LỜI NHẮN'}</span>
                   </>
                 )}
               </motion.button>
@@ -528,8 +593,8 @@ export default function Portfolio() {
         {/* Footer */}
         <footer className="px-5 py-8 text-center text-xs text-muted md:px-10">
           <p>
-            Thiết kế & phát triển bởi {FULL_NAME} <span className="text-accent">✳</span> ©{' '}
-            {new Date().getFullYear()}
+            {english ? englishPortfolio.footer : 'Thiết kế & phát triển bởi'} {FULL_NAME}{' '}
+            <span className="text-accent">✳</span> © {new Date().getFullYear()}
           </p>
         </footer>
       </div>

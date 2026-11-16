@@ -1,8 +1,10 @@
-import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
-import { getArtworks, Artwork } from '../services/dataService';
+import { useEffect, useState } from 'react';
+import { Artwork, getArtworks } from '../services/dataService';
+import { englishPortfolio, PortfolioLanguage } from '../utils/portfolioTranslations';
 
-export default function ArtisticVision() {
+export default function ArtisticVision({ language }: { language: PortfolioLanguage }) {
+  const english = language === 'en';
   const [artworks, setArtworks] = useState<Artwork[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -22,7 +24,7 @@ export default function ArtisticVision() {
       <div className="w-full flex flex-col items-center justify-center py-32 space-y-6">
         <div className="w-10 h-10 border-2 border-accent/20 border-t-accent rounded-full animate-spin"></div>
         <span className="font-sans text-sm font-medium text-secondary animate-pulse">
-          Đang tải bộ sưu tập...
+          {english ? englishPortfolio.gallery.loading : 'Đang tải bộ sưu tập...'}
         </span>
       </div>
     );
@@ -32,7 +34,7 @@ export default function ArtisticVision() {
     return (
       <div className="w-full rounded-[1.75rem] border border-dashed border-subtle-hover bg-surface/70 px-6 py-20 text-center">
         <span className="font-display text-lg font-semibold text-secondary">
-          Những tác phẩm mới sẽ xuất hiện ở đây.
+          {english ? englishPortfolio.gallery.empty : 'Những tác phẩm mới sẽ xuất hiện ở đây.'}
         </span>
       </div>
     );
@@ -45,7 +47,7 @@ export default function ArtisticVision() {
           key={art.id}
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-10%" }}
+          viewport={{ once: true, margin: '-10%' }}
           transition={{ duration: 0.65, delay: (idx % 3) * 0.08, ease: [0.22, 1, 0.36, 1] }}
           className="studio-art-card group relative mb-5 break-inside-avoid overflow-hidden rounded-[1.5rem] border"
         >
@@ -59,7 +61,8 @@ export default function ArtisticVision() {
           )}
           <div className="p-5 md:p-6">
             <span className="mb-3 block font-sans text-xs font-bold tracking-[0.08em] text-accent">
-              TÁC PHẨM {String(idx + 1).padStart(2, '0')}
+              {english ? englishPortfolio.gallery.artwork : 'TÁC PHẨM'}{' '}
+              {String(idx + 1).padStart(2, '0')}
             </span>
             <h3 className="mb-2 font-display text-xl font-bold tracking-tight text-primary lg:text-2xl">
               {art.title}

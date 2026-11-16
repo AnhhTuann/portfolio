@@ -1,12 +1,14 @@
-import { useState, useEffect } from 'react';
-import { motion } from 'motion/react';
-import { getProjects, Project } from '../services/dataService';
 import { ArrowUpRight } from 'lucide-react';
+import { motion } from 'motion/react';
+import { useEffect, useState } from 'react';
+import { getProjects, Project } from '../services/dataService';
+import { englishPortfolio, PortfolioLanguage } from '../utils/portfolioTranslations';
 import { getTechnologyClass } from '../utils/technologyColors';
 
 function ProjectCover({ project, index }: { project: Project; index: number }) {
   const [imageFailed, setImageFailed] = useState(false);
-  const background = index % 3 === 1 ? 'bg-[#c6b8ee]' : index % 3 === 2 ? 'bg-[#d5e4ad]' : 'bg-[#f7b2a1]';
+  const background =
+    index % 3 === 1 ? 'bg-[#c6b8ee]' : index % 3 === 2 ? 'bg-[#d5e4ad]' : 'bg-[#f7b2a1]';
 
   return (
     <div className={`relative aspect-[16/10] overflow-hidden rounded-[1.75rem] ${background}`}>
@@ -36,7 +38,8 @@ function ProjectCover({ project, index }: { project: Project; index: number }) {
   );
 }
 
-export default function DigitalCanvas() {
+export default function DigitalCanvas({ language }: { language: PortfolioLanguage }) {
+  const english = language === 'en';
   const [projects, setProjects] = useState<Project[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -56,7 +59,7 @@ export default function DigitalCanvas() {
       <div className="w-full flex flex-col items-center justify-center py-32 space-y-6">
         <div className="w-10 h-10 border-2 border-accent/20 border-t-accent rounded-full animate-spin"></div>
         <span className="font-sans text-sm font-medium text-secondary animate-pulse">
-          Đang tải dự án...
+          {english ? englishPortfolio.projects.loading : 'Đang tải dự án...'}
         </span>
       </div>
     );
@@ -70,7 +73,7 @@ export default function DigitalCanvas() {
           animate={{ opacity: 1 }}
           className="font-display text-lg font-semibold text-secondary"
         >
-          Dự án mới sẽ sớm được cập nhật ở đây.
+          {english ? englishPortfolio.projects.empty : 'Dự án mới sẽ sớm được cập nhật ở đây.'}
         </motion.span>
       </div>
     );
@@ -91,24 +94,30 @@ export default function DigitalCanvas() {
 
           <div className="flex flex-col px-1 py-2 lg:px-3">
             <span className="mb-4 flex flex-wrap gap-x-2 text-sm font-bold tracking-normal">
-              {project.techStack?.length
-                ? project.techStack.slice(0, 2).map((technology, index) => (
+              {project.techStack?.length ? (
+                project.techStack.slice(0, 2).map((technology, index) => (
                   <span key={technology} className={`tech-brand ${getTechnologyClass(technology)}`}>
-                    {index > 0 && <span className="mr-2 text-muted">·</span>}{technology}
+                    {index > 0 && <span className="mr-2 text-muted">·</span>}
+                    {technology}
                   </span>
                 ))
-                : <span className="text-accent">Selected project</span>}
+              ) : (
+                <span className="text-accent">
+                  {english ? englishPortfolio.projects.selected : 'Selected project'}
+                </span>
+              )}
             </span>
             <h3 className="mb-5 font-display text-3xl font-bold leading-tight tracking-tight text-primary md:text-4xl">
               {project.name}
             </h3>
-            <p className="max-w-xl text-base leading-7 text-secondary">
-              {project.painPoint}
-            </p>
+            <p className="max-w-xl text-base leading-7 text-secondary">{project.painPoint}</p>
             {project.techStack?.length > 0 && (
               <div className="mt-6 flex flex-wrap gap-2">
                 {project.techStack.map((tag) => (
-                  <span key={tag} className={`tech-brand tech-chip rounded-full border px-3.5 py-2 text-sm font-semibold ${getTechnologyClass(tag)}`}>
+                  <span
+                    key={tag}
+                    className={`tech-brand tech-chip rounded-full border px-3.5 py-2 text-sm font-semibold ${getTechnologyClass(tag)}`}
+                  >
                     {tag}
                   </span>
                 ))}
@@ -116,13 +125,25 @@ export default function DigitalCanvas() {
             )}
             <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3">
               {project.liveLink && (
-                <a href={project.liveLink} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-sm font-semibold text-primary underline decoration-accent/60 underline-offset-4 transition-colors hover:text-accent">
-                  Xem dự án <ArrowUpRight size={16} />
+                <a
+                  href={project.liveLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 text-sm font-semibold text-primary underline decoration-accent/60 underline-offset-4 transition-colors hover:text-accent"
+                >
+                  {english ? englishPortfolio.projects.view : 'Xem dự án'}{' '}
+                  <ArrowUpRight size={16} />
                 </a>
               )}
               {project.sourceCode && (
-                <a href={project.sourceCode} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-sm font-semibold text-primary underline decoration-accent/60 underline-offset-4 transition-colors hover:text-accent">
-                  Mã nguồn <ArrowUpRight size={16} />
+                <a
+                  href={project.sourceCode}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 text-sm font-semibold text-primary underline decoration-accent/60 underline-offset-4 transition-colors hover:text-accent"
+                >
+                  {english ? englishPortfolio.projects.source : 'Mã nguồn'}{' '}
+                  <ArrowUpRight size={16} />
                 </a>
               )}
             </div>

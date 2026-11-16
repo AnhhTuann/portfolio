@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="16" fill="#202638" />
+  <path d="M0 16C0 7.16 7.16 0 16 0h32c8.84 0 16 7.16 16 16v5H0z" fill="#f7b2a1" />
+  <text x="8" y="46" fill="#fff9ed" font-family="Georgia,serif" font-size="29" font-weight="700">AT</text>
+  <circle cx="53" cy="46" r="4" fill="#67c7c3" />
+</svg>
