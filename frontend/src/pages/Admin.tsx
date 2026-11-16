@@ -118,38 +118,55 @@ export default function Admin() {
   };
 
   return (
-    <div className="min-h-screen bg-background text-secondary font-sans p-6 md:p-12 relative overflow-x-hidden">
-      {/* Background Glow */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none z-0 mix-blend-screen opacity-50">
-        <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-accent/10 blur-[130px] rounded-full"></div>
-        <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-[#3B82F6]/10 blur-[130px] rounded-full"></div>
+    <div className="portfolio-studio studio-admin relative min-h-screen overflow-x-hidden px-5 py-6 font-sans text-secondary md:px-10 md:py-10">
+      <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
+        <div className="absolute -left-[10%] -top-[20%] h-[50%] w-[50%] rounded-full bg-accent/10 blur-[130px]" />
+        <div className="absolute -bottom-[20%] -right-[10%] h-[50%] w-[50%] rounded-full bg-[#ad4564]/10 blur-[130px]" />
       </div>
 
-      <div className="relative z-10 max-w-2xl mx-auto mt-12">
-        <div className="flex items-center justify-between mb-8">
-          <Link to="/" className="inline-flex items-center gap-2 text-muted hover:text-primary transition-colors font-mono text-sm">
-            <ArrowLeft className="w-4 h-4" /> TRỞ VỀ TRANG CHỦ
+      <div className="relative z-10 mx-auto w-full max-w-5xl">
+        <header className="mb-10 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-subtle bg-surface/90 px-4 py-3 shadow-sm backdrop-blur md:px-6">
+          <Link
+            to="/"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-secondary transition-colors hover:text-accent"
+          >
+            <ArrowLeft className="h-4 w-4" /> Về trang chủ
           </Link>
-          <button 
+          <span className="hidden items-center gap-2 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-muted sm:inline-flex">
+            <span className="h-2 w-2 rounded-full bg-[#82b93a]" />
+            Studio / Bảng điều khiển
+          </span>
+          <button
             onClick={async () => {
               await logout();
               navigate('/login');
             }}
-            className="inline-flex items-center gap-2 text-red-500/70 hover:text-red-500 transition-colors font-mono text-xs tracking-widest px-4 py-2 rounded-lg bg-red-500/5 hover:bg-red-500/10 border border-red-500/10"
+            className="inline-flex items-center gap-2 rounded-full border border-red-500/20 bg-red-500/5 px-4 py-2 text-xs font-semibold text-red-600 transition-colors hover:bg-red-500/10 dark:text-red-300"
           >
-            <LogOut className="w-4 h-4" /> ĐĂNG XUẤT
+            <LogOut className="h-4 w-4" /> Đăng xuất
           </button>
-        </div>
-        
-        <div className="mb-12 border-b border-subtle pb-6">
-          <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="font-display text-4xl text-primary font-light tracking-tight mb-2"
-          >
-            Terminal Quản Trị.
-          </motion.h1>
-          <p className="text-gray-500 font-light text-sm">Cập nhật thông tin nhận diện không gian mạng</p>
+        </header>
+
+        <div className="mb-8 flex flex-col justify-between gap-5 border-b border-subtle pb-8 md:flex-row md:items-end">
+          <div>
+            <p className="mb-3 font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-accent">
+              Không gian sáng tạo / Quản trị
+            </p>
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="font-display text-4xl font-bold tracking-tight text-primary md:text-5xl"
+            >
+              Studio của bạn.
+            </motion.h1>
+            <p className="mt-3 max-w-xl text-sm leading-6 text-secondary">
+              Cập nhật hồ sơ và quản lý những nội dung đang xuất hiện trên portfolio.
+            </p>
+          </div>
+          <div className="inline-flex w-fit items-center gap-2 rounded-full border border-subtle bg-surface px-4 py-2 text-xs font-semibold text-secondary shadow-sm">
+            <span className="h-2 w-2 rounded-full bg-[#82b93a]" />
+            Đang hoạt động
+          </div>
         </div>
 
         <motion.form 
@@ -157,31 +174,30 @@ export default function Admin() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
           onSubmit={handleSubmit} 
-          className="space-y-6"
+          className="studio-admin-panel space-y-6 rounded-[1.75rem] border border-subtle bg-surface p-5 shadow-[0_16px_45px_rgba(30,42,55,0.08)] md:p-8"
         >
-          {/* Cột đôi cho Tên và Avatar */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
-              <label className="block font-mono text-xs text-accent uppercase tracking-widest">Tên Hiển Thị</label>
+              <label className="block text-xs font-semibold text-primary">Tên hiển thị</label>
               <input 
                 type="text" 
                 required
                 value={profile.name}
                 onChange={(e) => setProfile({...profile, name: e.target.value})}
-                className="w-full bg-glass border border-subtle rounded-xl px-4 py-3 text-primary placeholder:text-gray-600 focus:outline-none focus:border-white/[0.2] transition-colors"
+                className="w-full rounded-xl border border-subtle bg-background px-4 py-3.5 text-primary outline-none transition-colors placeholder:text-muted focus:border-accent"
                 placeholder="VD: Nguyễn Đức Anh Tuấn."
               />
             </div>
             <div className="space-y-2">
-              <label className="block font-mono text-xs text-accent uppercase tracking-widest">Avatar URL</label>
+              <label className="block text-xs font-semibold text-primary">Ảnh đại diện</label>
               <div className="flex gap-2">
                 <input 
                   type="text" 
                   required
                   value={profile.avatarUrl}
                   onChange={(e) => setProfile({...profile, avatarUrl: e.target.value})}
-                  className="flex-1 min-w-0 bg-glass border border-subtle rounded-xl px-4 py-3 text-primary placeholder:text-gray-600 focus:outline-none focus:border-white/[0.2] transition-colors"
-                  placeholder="VD: /assets/images/avatar.png"
+                  className="min-w-0 flex-1 rounded-xl border border-subtle bg-background px-4 py-3.5 text-primary outline-none transition-colors placeholder:text-muted focus:border-accent"
+                  placeholder="Đường dẫn ảnh hoặc chọn ảnh"
                 />
                 <input 
                   type="file" 
@@ -194,7 +210,7 @@ export default function Admin() {
                   type="button" 
                   onClick={() => fileInputRef.current?.click()}
                   disabled={uploadingImage}
-                  className="px-5 bg-glass-hover hover:bg-glass-hover border border-subtle-hover rounded-xl text-primary font-mono text-xs tracking-wider transition-colors flex flex-shrink-0 items-center justify-center gap-2"
+                  className="flex flex-shrink-0 items-center justify-center gap-2 rounded-xl border border-subtle px-4 text-xs font-semibold text-secondary transition-colors hover:border-accent hover:text-accent"
                 >
                   {uploadingImage ? 'XỬ LÝ...' : (
                     <>
@@ -207,37 +223,34 @@ export default function Admin() {
             </div>
           </div>
 
-          {/* Vai trò */}
           <div className="space-y-2">
-            <label className="block font-mono text-xs text-[#3B82F6] uppercase tracking-widest">Vai Trò (Cách nhau dấu phẩy)</label>
+            <label className="block text-xs font-semibold text-primary">Vai trò <span className="font-normal text-muted">(cách nhau bằng dấu phẩy)</span></label>
             <input 
               type="text" 
               required
               value={roleInput}
               onChange={(e) => setRoleInput(e.target.value)}
-              className="w-full bg-glass border border-subtle rounded-xl px-4 py-3 text-primary placeholder:text-gray-600 focus:outline-none focus:border-white/[0.2] transition-colors"
+              className="w-full rounded-xl border border-subtle bg-background px-4 py-3.5 text-primary outline-none transition-colors placeholder:text-muted focus:border-accent"
               placeholder="VD: Software Engineer, Creative Explorer"
             />
           </div>
 
-          {/* Mô tả */}
           <div className="space-y-2">
-             <label className="block font-mono text-xs text-muted uppercase tracking-widest">Đoạn Mô Tả Giới Thiệu</label>
+             <label className="block text-xs font-semibold text-primary">Giới thiệu</label>
              <textarea 
                 rows={4}
                 required
                 value={profile.description}
                 onChange={(e) => setProfile({...profile, description: e.target.value})}
-                className="w-full bg-glass border border-subtle rounded-xl px-4 py-3 text-primary placeholder:text-gray-600 focus:outline-none focus:border-white/[0.2] transition-colors resize-none"
+                className="w-full resize-y rounded-xl border border-subtle bg-background px-4 py-3.5 text-primary outline-none transition-colors placeholder:text-muted focus:border-accent"
              />
           </div>
 
-          {/* Nút Submit */}
-          <div className="pt-6">
+          <div className="border-t border-subtle pt-5">
             <button 
               type="submit" 
               disabled={status === 'saving'}
-              className="w-full flex items-center justify-center gap-3 px-8 py-4 bg-white text-black rounded-xl font-medium hover:bg-gray-200 transition-colors disabled:opacity-50"
+              className="flex w-full items-center justify-center gap-3 rounded-xl bg-accent px-8 py-4 font-semibold text-background shadow-[0_10px_24px_var(--accent-soft)] transition-all hover:-translate-y-0.5 hover:shadow-[0_14px_28px_var(--accent-soft)] disabled:cursor-not-allowed disabled:opacity-50"
             >
               {status === 'saving' ? (
                 <span>ĐANG LƯU...</span>
@@ -255,11 +268,13 @@ export default function Admin() {
           </div>
         </motion.form>
 
-        <AboutManager />
-        <SkillsManager />
-        <ProjectManager />
-        <ArtworkManager />
-        <MessageManager />
+        <div className="studio-admin-managers">
+          <AboutManager />
+          <SkillsManager />
+          <ProjectManager />
+          <ArtworkManager />
+          <MessageManager />
+        </div>
       </div>
 
       {/* CROPPER MODAL DÀNH CHO AVATAR */}

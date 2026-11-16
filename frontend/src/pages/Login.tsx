@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { useNavigate, Navigate, Link } from 'react-router-dom';
 import { signInWithEmail, isAuthenticated } from '../services/authService';
-import { ArrowLeft, Fingerprint, AlertCircle, Mail, Lock, Eye, EyeOff } from 'lucide-react';
+import { ArrowLeft, Fingerprint, AlertCircle, Lock, Eye, EyeOff } from 'lucide-react';
 
 export default function Login() {
   const [loading, setLoading] = useState(false);
@@ -37,74 +37,110 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-background text-secondary font-sans flex flex-col items-center justify-center px-6 relative overflow-hidden">
-      {/* Glow Effects */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#3B82F6]/5 blur-[120px] rounded-full pointer-events-none"></div>
-
-      <Link to="/" className="absolute top-12 left-12 inline-flex items-center gap-2 text-muted hover:text-primary transition-colors font-mono text-xs tracking-widest z-10">
-        <ArrowLeft className="w-4 h-4" /> CANCEL
+    <div className="portfolio-studio flex min-h-screen flex-col overflow-hidden px-5 py-8 font-sans text-secondary md:px-10 md:py-10">
+      <Link
+        to="/"
+        className="relative z-10 inline-flex w-fit items-center gap-2 rounded-full border border-subtle bg-surface px-4 py-2.5 text-xs font-semibold text-secondary transition-colors hover:border-accent hover:text-accent"
+      >
+        <ArrowLeft className="h-4 w-4" /> VỀ TRANG CHỦ
       </Link>
 
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="relative z-10 w-full max-w-sm flex flex-col items-center"
-      >
-        <div className="w-20 h-20 mb-8 rounded-full border border-subtle-hover bg-glass flex items-center justify-center relative group">
-          <div className="absolute inset-0 rounded-full border-t border-[#3B82F6] animate-spin opacity-50 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
-          <Fingerprint className="w-8 h-8 text-accent group-hover:scale-110 transition-transform" strokeWidth={1.5} />
-        </div>
-
-        <h1 className="font-display text-4xl text-primary font-light tracking-tight mb-2 text-center">Xác Thực.</h1>
-        <p className="text-gray-500 font-light text-sm text-center mb-10">Hệ thống yêu cầu quyền truy cập cấp cao</p>
-
-        {error && (
-          <div className="mb-6 w-full flex items-center gap-3 bg-red-500/10 border border-red-500/20 text-red-400 p-4 rounded-xl text-sm font-mono tracking-wide">
-            <AlertCircle className="w-5 h-5 shrink-0" />
-            <span>{error}</span>
+      <div className="relative flex flex-1 items-center justify-center py-12">
+        <div className="pointer-events-none absolute left-1/2 top-1/2 h-[34rem] w-[34rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/10 blur-[100px]" />
+        <motion.main
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="relative w-full max-w-md rounded-[2rem] border border-subtle bg-surface/90 p-6 shadow-[0_24px_70px_rgba(30,42,55,0.12)] backdrop-blur md:p-10"
+        >
+          <div className="mb-8 flex items-center gap-4">
+            <div className="relative flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-accent/10 text-accent">
+              <Fingerprint className="h-7 w-7" strokeWidth={1.5} />
+              <span className="absolute -bottom-1 -right-1 h-3.5 w-3.5 rounded-full border-[3px] border-surface bg-[#82b93a]" />
+            </div>
+            <div>
+              <p className="mb-1 font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-accent">
+                Studio / Private area
+              </p>
+              <p className="text-xs text-muted">Chỉ dành cho quản trị viên</p>
+            </div>
           </div>
-        )}
 
-        {/* Email/Password Form */}
-        <form onSubmit={handleEmailLogin} className="w-full space-y-4 mb-6">
-          <div className="relative">
-            <Fingerprint className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" />
-            <input
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              placeholder="Username"
-              required
-              className="w-full bg-glass border border-subtle rounded-xl pl-11 pr-4 py-3.5 text-primary placeholder:text-muted/60 focus:outline-none focus:border-accent/40 transition-colors text-sm"
-            />
-          </div>
-          <div className="relative">
-            <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" />
-            <input
-              type={showPassword ? 'text' : 'password'}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Mật khẩu"
-              required
-              className="w-full bg-glass border border-subtle rounded-xl pl-11 pr-11 py-3.5 text-primary placeholder:text-muted/60 focus:outline-none focus:border-accent/40 transition-colors text-sm"
-            />
-            <button
-              type="button"
-              onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-4 top-1/2 -translate-y-1/2 text-muted hover:text-primary transition-colors"
+          <h1 className="mb-3 font-display text-4xl font-bold tracking-tight text-primary">
+            Chào mừng trở lại.
+          </h1>
+          <p className="mb-8 text-sm leading-6 text-secondary">
+            Đăng nhập để tiếp tục chăm sóc không gian sáng tạo của mình.
+          </p>
+
+          {error && (
+            <div
+              role="alert"
+              className="mb-5 flex items-start gap-3 rounded-xl border border-red-500/20 bg-red-500/10 p-4 text-sm text-red-600 dark:text-red-300"
             >
-              {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+              <AlertCircle className="mt-0.5 h-5 w-5 shrink-0" />
+              <span>{error}</span>
+            </div>
+          )}
+
+          <form onSubmit={handleEmailLogin} className="space-y-5">
+            <div className="space-y-2">
+              <label htmlFor="username" className="text-xs font-semibold text-primary">
+                Tên đăng nhập
+              </label>
+              <div className="relative">
+                <Fingerprint className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" />
+                <input
+                  id="username"
+                  type="text"
+                  autoComplete="username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  placeholder="Nhập tên đăng nhập"
+                  required
+                  className="w-full rounded-xl border border-subtle bg-background px-4 py-3.5 pl-11 text-sm text-primary outline-none transition-colors placeholder:text-muted focus:border-accent"
+                />
+              </div>
+            </div>
+            <div className="space-y-2">
+              <label htmlFor="password" className="text-xs font-semibold text-primary">
+                Mật khẩu
+              </label>
+              <div className="relative">
+                <Lock className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" />
+                <input
+                  id="password"
+                  type={showPassword ? 'text' : 'password'}
+                  autoComplete="current-password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Nhập mật khẩu"
+                  required
+                  className="w-full rounded-xl border border-subtle bg-background px-4 py-3.5 pl-11 pr-11 text-sm text-primary outline-none transition-colors placeholder:text-muted focus:border-accent"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  aria-label={showPassword ? 'Ẩn mật khẩu' : 'Hiện mật khẩu'}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-muted transition-colors hover:text-primary"
+                >
+                  {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                </button>
+              </div>
+            </div>
+            <button
+              type="submit"
+              disabled={loading}
+              className="flex w-full items-center justify-center gap-2 rounded-xl bg-accent px-6 py-4 text-sm font-bold text-background shadow-[0_10px_24px_var(--accent-soft)] transition-all hover:-translate-y-0.5 hover:shadow-[0_14px_28px_var(--accent-soft)] active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              {loading ? 'ĐANG ĐĂNG NHẬP...' : 'ĐĂNG NHẬP'}
             </button>
-          </div>
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full px-8 py-3.5 bg-accent text-white dark:text-black rounded-xl font-mono text-xs tracking-widest font-semibold transition-all hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:hover:scale-100 shadow-[0_0_20px_var(--accent-soft)]"
-          >
-            {loading ? 'ĐANG KẾT NỐI...' : 'ĐĂNG NHẬP'}
-          </button>
-        </form>
-      </motion.div>
+          </form>
+
+          <p className="mt-7 border-t border-subtle pt-5 text-center text-xs text-muted">
+            Một góc nhỏ được bảo vệ để quản lý portfolio.
+          </p>
+        </motion.main>
+      </div>
     </div>
   );
 }
