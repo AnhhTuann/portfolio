@@ -1,13 +1,12 @@
-import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 import dotenv from 'dotenv';
-import { User } from './models/index.js';
+import { pool, initDb } from './db.js';
 
 dotenv.config();
 
 const createAdmin = async () => {
-  if (!process.env.MONGODB_URI) {
-    console.error('❌ Vui lòng thiết lập MONGODB_URI trong file .env trước!');
+  if (!process.env.DATABASE_URL) {
+    console.error('❌ Vui lòng thiết lập DATABASE_URL trong file .env trước!');
     process.exit(1);
   }
 
@@ -15,26 +14,22 @@ const createAdmin = async () => {
   const password = process.argv[3] || '123456';
 
   try {
-    await mongoose.connect(process.env.MONGODB_URI);
-    console.log('✅ Đã kết nối MongoDB');
+    await initDb();
 
-    const count = await User.countDocuments();
-    if (count > 0) {
+    const { rows } = await pool.query('SELECT COUNT(*)::int AS count FROM users');
+    if (rows[0].count > 0) {
       console.log('⚠️ Admin đã tồn tại. Không thể tạo thêm.');
       process.exit(0);
     }
 
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
+    const hashedPassword = await bcrypt.hash(password, 10);
+    await pool.query('INSERT INTO users (username, password_hash) VALUES ($1, $2)', [username, hashedPassword]);
 
-    const user = new User({ username, password: hashedPassword });
-    await user.save();
-    
     console.log(`🎉 Đã khởi tạo Admin thành công!\n- Username: ${username}\n- Password: ${password}`);
   } catch (error) {
     console.error('❌ Lỗi:', error.message);
   } finally {
-    mongoose.disconnect();
+    await pool.end();
     process.exit(0);
   }
 };

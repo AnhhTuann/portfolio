@@ -9,7 +9,7 @@ const getAuthHeaders = () => {
   };
 };
 
-const mapId = (item: any) => ({ ...item, id: item._id });
+const mapId = (item: any) => ({ ...item, id: item.id ?? item._id });
 
 // --- ĐỊNH NGHĨA KIỂU DỮ LIỆU (TYPESCRIPT) ---
 export interface Profile {

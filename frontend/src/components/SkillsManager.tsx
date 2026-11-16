@@ -9,7 +9,7 @@ export interface SkillCategory {
 
 const DEFAULT_SKILLS: SkillCategory[] = [
   { title: "Frontend Engineering", items: ["React / Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"] },
-  { title: "Backend & Cloud", items: ["MongoDB / Mongoose", "Node.js / Express", "RESTful APIs", "Cloud Functions"] },
+  { title: "Backend & Data", items: ["PostgreSQL", "Node.js / Express", "RESTful APIs", "JWT Auth"] },
   { title: "Creative Tools", items: ["Figma", "Digital Painting", "Aquascape Design", "UI/UX Prototyping"] }
 ];
 

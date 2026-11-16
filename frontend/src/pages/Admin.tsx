@@ -169,7 +169,7 @@ export default function Admin() {
                 value={profile.name}
                 onChange={(e) => setProfile({...profile, name: e.target.value})}
                 className="w-full bg-glass border border-subtle rounded-xl px-4 py-3 text-primary placeholder:text-gray-600 focus:outline-none focus:border-white/[0.2] transition-colors"
-                placeholder="VD: Tuấn."
+                placeholder="VD: Nguyễn Đức Anh Tuấn."
               />
             </div>
             <div className="space-y-2">

@@ -1,7 +1,7 @@
 import express from 'express';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { User } from '../models/index.js';
+import { pool } from '../db.js';
 
 const router = express.Router();
 
@@ -9,36 +9,32 @@ const router = express.Router();
 router.post('/login', async (req, res) => {
   try {
     const { username, password } = req.body;
-    
-    // Tìm admin
-    const user = await User.findOne({ username });
+
+    const { rows } = await pool.query('SELECT * FROM users WHERE username = $1', [username]);
+    const user = rows[0];
     if (!user) return res.status(400).json({ success: false, message: 'Sai tên đăng nhập hoặc mật khẩu.' });
 
-    // Kiểm tra pass
-    const validPass = await bcrypt.compare(password, user.password);
+    const validPass = await bcrypt.compare(password, user.password_hash);
     if (!validPass) return res.status(400).json({ success: false, message: 'Sai tên đăng nhập hoặc mật khẩu.' });
 
-    // Tạo token
-    const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
+    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '7d' });
     res.json({ success: true, token });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
   }
 });
 
-// Route Đổi mật khẩu hoặc tạo Admin (Dùng nội bộ khi setup)
+// Route tạo Admin (Dùng nội bộ khi setup)
 router.post('/setup', async (req, res) => {
   try {
-    const count = await User.countDocuments();
-    if (count > 0) return res.status(400).json({ success: false, message: 'Admin đã tồn tại.' });
+    const { rows } = await pool.query('SELECT COUNT(*)::int AS count FROM users');
+    if (rows[0].count > 0) return res.status(400).json({ success: false, message: 'Admin đã tồn tại.' });
 
     const { username, password } = req.body;
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
+    const hashedPassword = await bcrypt.hash(password, 10);
 
-    const user = new User({ username, password: hashedPassword });
-    await user.save();
-    
+    await pool.query('INSERT INTO users (username, password_hash) VALUES ($1, $2)', [username, hashedPassword]);
+
     res.json({ success: true, message: 'Admin created.' });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
