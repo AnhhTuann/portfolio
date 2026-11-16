@@ -304,6 +304,67 @@ body {
 .dark .studio-tile-green { background: #36493f; color: #b9d5a4; }
 .dark .studio-tile-purple { background: #403b55; color: #c7b9ef; }
 
+.studio-about-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  border: 1px solid var(--subtle);
+  border-radius: 9999px;
+  background: var(--surface);
+  padding: 0.55rem 0.9rem;
+  color: var(--primary);
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.studio-about-stack-label {
+  color: var(--muted);
+}
+
+.studio-about-card {
+  display: flex;
+  min-height: 190px;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.75rem;
+  border: 1px solid rgba(36, 42, 56, 0.08);
+  border-radius: 1.5rem;
+  padding: 1.25rem;
+  box-shadow: 0 12px 30px rgba(20, 30, 45, 0.08);
+  transition: transform 220ms ease, box-shadow 220ms ease;
+}
+
+.studio-about-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 34px rgba(20, 30, 45, 0.14);
+}
+
+.studio-about-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.studio-about-card-category {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  opacity: 0.78;
+}
+
+.dark .studio-about-card {
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 14px 32px rgba(5, 10, 18, 0.18);
+}
+
+.dark .studio-about-card:hover {
+  box-shadow: 0 20px 38px rgba(5, 10, 18, 0.3);
+}
+
 .studio-quote {
   border-color: var(--accent);
   background-color: #e5f3f2;

@@ -4,9 +4,9 @@ import { motion } from 'motion/react';
 
 export default function AboutManager() {
   const defaultAbout = {
-    p1: "Tốt nghiệp Đại học Sài Gòn (SGU), tôi được rèn luyện trong môi trường kỹ thuật khắt khe. Ở đó, mọi thứ đều cần sự chính xác, tối ưu và logic.",
-    p2: 'Nhưng mã nguồn không chỉ là những dòng lệnh khô khan. Khi kết hợp với tư duy thẩm mỹ từ việc <strong class="text-primary font-normal">vẽ tranh</strong> và sự tĩnh lặng khi <strong class="text-primary font-normal">chăm sóc hồ cá thủy sinh</strong>, tôi tìm thấy một nhịp điệu riêng:',
-    quote: '"Code là nghệ thuật kiến tạo, và nghệ thuật là logic của cảm xúc."'
+    p1: 'Mình là Frontend Engineer làm việc tự do từ năm 2021, có kinh nghiệm xây dựng và triển khai website cho nhiều khách hàng — từ chuyển ý tưởng thành giao diện đến đưa sản phẩm vào vận hành.',
+    p2: 'Mình tập trung vào <strong class="text-primary font-semibold">website thương mại điện tử và landing page</strong> với React, Vite và WordPress. Kết hợp tư duy thẩm mỹ cùng SASS/SCSS, mình tạo giao diện riêng cho từng thương hiệu và dùng AI hỗ trợ debug, tối ưu quy trình phát triển.',
+    quote: '"Từ ý tưởng đến sản phẩm thực tế — mình chăm chút cả hành trình."'
   };
 
   const [formData, setFormData] = useState(defaultAbout);
@@ -43,7 +43,7 @@ export default function AboutManager() {
     >
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h2 className="text-2xl font-display text-primary tracking-tight">Chỉnh Sửa "The Architect & The Artist"</h2>
+          <h2 className="text-2xl font-display text-primary tracking-tight">Chỉnh sửa phần giới thiệu</h2>
           <p className="text-muted text-sm mt-1 font-light">
             Cập nhật đoạn giới thiệu (Chỉ lưu tạm trên Browser - Không cần DB)
           </p>
@@ -52,7 +52,7 @@ export default function AboutManager() {
 
       <form onSubmit={handleSave} className="space-y-6">
         <div className="space-y-2">
-          <label className="block font-mono text-xs text-accent uppercase tracking-widest">Đoạn 1 (Học vấn & Logic)</label>
+          <label className="block font-mono text-xs text-accent uppercase tracking-widest">Đoạn 1 (Kinh nghiệm & hướng làm việc)</label>
           <textarea 
             rows={3}
             required
@@ -63,7 +63,7 @@ export default function AboutManager() {
         </div>
 
         <div className="space-y-2">
-          <label className="block font-mono text-xs text-accent uppercase tracking-widest">Đoạn 2 (Nghệ thuật & Cảm xúc - Hỗ trợ thẻ HTML)</label>
+          <label className="block font-mono text-xs text-accent uppercase tracking-widest">Đoạn 2 (Chuyên môn & quy trình - Hỗ trợ thẻ HTML)</label>
           <textarea 
             rows={4}
             required

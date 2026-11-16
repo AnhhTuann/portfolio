@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, useScroll, useSpring } from 'motion/react';
 import { Link } from 'react-router-dom';
-import { Code2, Palette, Fish, Database, ChevronDown, Send, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Code2, Palette, ShoppingCart, Workflow, ChevronDown, Send, CheckCircle2, AlertCircle } from 'lucide-react';
 import { saveContactMessage, getProfile, Profile } from '../services/dataService';
 import ArtisticVision from '../components/ArtisticVision';
 import DigitalCanvas from '../components/DigitalCanvas';
@@ -63,9 +63,9 @@ export default function Portfolio() {
   }, []);
 
   const defaultAbout = {
-    p1: "Tốt nghiệp Đại học Sài Gòn (SGU), tôi được rèn luyện trong môi trường kỹ thuật khắt khe. Ở đó, mọi thứ đều cần sự chính xác, tối ưu và logic.",
-    p2: 'Nhưng mã nguồn không chỉ là những dòng lệnh khô khan. Khi kết hợp với tư duy thẩm mỹ từ việc <strong class="text-primary font-normal">vẽ tranh</strong> và sự tĩnh lặng khi <strong class="text-primary font-normal">chăm sóc hồ cá thủy sinh</strong>, tôi tìm thấy một nhịp điệu riêng:',
-    quote: '"Code là nghệ thuật kiến tạo, và nghệ thuật là logic của cảm xúc."'
+    p1: 'Mình là Frontend Engineer làm việc tự do từ năm 2021, có kinh nghiệm xây dựng và triển khai website cho nhiều khách hàng — từ chuyển ý tưởng thành giao diện đến đưa sản phẩm vào vận hành.',
+    p2: 'Mình tập trung vào <strong class="text-primary font-semibold">website thương mại điện tử và landing page</strong> với React, Vite và WordPress. Kết hợp tư duy thẩm mỹ cùng SASS/SCSS, mình tạo giao diện riêng cho từng thương hiệu và dùng AI hỗ trợ debug, tối ưu quy trình phát triển.',
+    quote: '"Từ ý tưởng đến sản phẩm thực tế — mình chăm chút cả hành trình."'
   };
   const [aboutData, setAboutData] = useState(() => {
     try {
@@ -232,61 +232,43 @@ export default function Portfolio() {
       </section>
 
       {/* 01. The Architect & The Artist */}
-      <StudioSection id="about" number="01" title="Lý trí × Cảm hứng" subtitle="Một kỹ sư, một người sáng tạo">
-        <div className="grid grid-cols-1 items-start gap-12 md:grid-cols-[1.05fr_0.95fr] md:gap-16">
-          <div className="space-y-6 text-secondary leading-relaxed text-lg">
-            <p dangerouslySetInnerHTML={{ __html: aboutData.p1 }}></p>
-            <p dangerouslySetInnerHTML={{ __html: aboutData.p2 }}></p>
-            <blockquote className="studio-quote mt-8 rounded-r-2xl border-l-4 px-6 py-5 font-serif text-xl italic">
+      <StudioSection id="about" number="01" title="Lý trí × Cảm hứng" subtitle="Freelance Frontend Engineer · 2021 — nay">
+        <div className="grid grid-cols-1 items-start gap-10 md:grid-cols-[0.9fr_1.1fr] md:gap-14">
+          <div>
+            <div className="studio-about-status mb-6">
+              <span className="h-2 w-2 rounded-full bg-[#78c49a]" />
+              FREELANCE FRONTEND DEVELOPER
+            </div>
+            <div className="space-y-5 text-secondary text-base leading-7 md:text-lg md:leading-8">
+              <p dangerouslySetInnerHTML={{ __html: aboutData.p1 }}></p>
+              <p dangerouslySetInnerHTML={{ __html: aboutData.p2 }}></p>
+            </div>
+            <blockquote className="studio-quote mt-7 rounded-r-2xl border-l-4 px-5 py-4 font-serif text-lg italic md:mt-8 md:px-6 md:py-5 md:text-xl">
               <span dangerouslySetInnerHTML={{ __html: aboutData.quote }} />
             </blockquote>
           </div>
 
-          <div className="grid grid-cols-2 gap-3 md:gap-5">
-            <div className="space-y-4 md:space-y-5">
-              <motion.div
-                initial={{ opacity: 0, y: 30, rotate: -2 }}
-                whileInView={{ opacity: 1, y: 0, rotate: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.9, delay: 0.1 }}
-                className="studio-tile studio-tile-blue aspect-square rounded-[1.5rem] p-4 flex flex-col items-center justify-center transition-transform duration-300 hover:-rotate-2 group/tile md:p-6"
+          <div className="grid grid-cols-2 gap-3 md:gap-4">
+            {[
+              { icon: Code2, category: '01 / BUILD', title: 'Từ ý tưởng đến vận hành', description: 'Phát triển website trọn quy trình — từ dựng giao diện đến triển khai thực tế.', style: 'studio-tile-blue' },
+              { icon: ShoppingCart, category: '02 / COMMERCE', title: 'E-commerce & Landing Page', description: 'Tập trung vào trải nghiệm mua sắm và trang đích rõ ràng, hiệu quả.', style: 'studio-tile-green' },
+              { icon: Palette, category: '03 / VISUAL', title: 'Giao diện có cá tính', description: 'Kết hợp nền tảng mỹ thuật với SASS/SCSS để tạo chất riêng cho thương hiệu.', style: 'studio-tile-coral' },
+              { icon: Workflow, category: '04 / WORKFLOW', title: 'Quy trình thông minh', description: 'Ứng dụng AI để hỗ trợ debug, tối ưu và rút ngắn vòng lặp phát triển.', style: 'studio-tile-purple' },
+            ].map(({ icon: Icon, category, title, description, style }) => (
+              <article
+                key={category}
+                className={`studio-tile studio-about-card ${style}`}
               >
-                <Code2 className="mb-3 h-7 w-7 transition-transform group-hover/tile:-translate-y-1 md:mb-4 md:h-8 md:w-8" strokeWidth={1.7} />
-                <span className="font-display text-xs font-bold tracking-[0.12em]">LOGIC</span>
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, y: 30, rotate: 2 }}
-                whileInView={{ opacity: 1, y: 0, rotate: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.9, delay: 0.3 }}
-                className="studio-tile studio-tile-coral aspect-[4/5] rounded-[1.5rem] p-4 flex flex-col items-center justify-center transition-transform duration-300 hover:rotate-2 group/tile md:p-6"
-              >
-                <Palette className="mb-3 h-7 w-7 transition-transform group-hover/tile:-translate-y-1 md:mb-4 md:h-8 md:w-8" strokeWidth={1.7} />
-                <span className="font-display text-xs font-bold tracking-[0.12em]">EMOTION</span>
-              </motion.div>
-            </div>
-            <div className="mt-10 space-y-4 md:mt-12 md:space-y-5">
-              <motion.div
-                initial={{ opacity: 0, y: 30, rotate: -2 }}
-                whileInView={{ opacity: 1, y: 0, rotate: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.9, delay: 0.2 }}
-                className="studio-tile studio-tile-green aspect-[4/5] rounded-[1.5rem] p-4 flex flex-col items-center justify-center transition-transform duration-300 hover:-rotate-2 group/tile md:p-6"
-              >
-                <Database className="mb-3 h-7 w-7 transition-transform group-hover/tile:-translate-y-1 md:mb-4 md:h-8 md:w-8" strokeWidth={1.7} />
-                <span className="font-display text-xs font-bold tracking-[0.12em]">STRUCTURE</span>
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, y: 30, rotate: 2 }}
-                whileInView={{ opacity: 1, y: 0, rotate: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.9, delay: 0.4 }}
-                className="studio-tile studio-tile-purple aspect-square rounded-[1.5rem] p-4 flex flex-col items-center justify-center transition-transform duration-300 hover:rotate-2 group/tile md:p-6"
-              >
-                <Fish className="mb-3 h-7 w-7 transition-transform group-hover/tile:-translate-y-1 md:mb-4 md:h-8 md:w-8" strokeWidth={1.7} />
-                <span className="font-display text-xs font-bold tracking-[0.12em]">LIFE</span>
-              </motion.div>
-            </div>
+                <div className="studio-about-card-top">
+                  <span className="studio-about-card-category">{category}</span>
+                  <Icon aria-hidden="true" className="h-6 w-6 shrink-0" strokeWidth={1.8} />
+                </div>
+                <div>
+                  <h3 className="font-display text-base font-bold leading-snug md:text-xl">{title}</h3>
+                  <p className="mt-2 text-[13px] leading-5 md:text-sm md:leading-6">{description}</p>
+                </div>
+              </article>
+            ))}
           </div>
         </div>
       </StudioSection>
