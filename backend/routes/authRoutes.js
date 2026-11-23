@@ -10,7 +10,7 @@ router.post('/login', async (req, res) => {
   try {
     const { username, password } = req.body || {};
     const cleanUsername = (username || '').trim();
-    const cleanPassword = (password || '').trim();
+    const cleanPassword = typeof password === 'string' ? password : '';
 
     if (!cleanUsername || !cleanPassword) {
       return res.status(400).json({ success: false, message: 'Vui lòng nhập đầy đủ tên đăng nhập và mật khẩu.' });
