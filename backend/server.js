@@ -7,7 +7,8 @@ import dataRoutes from './routes/dataRoutes.js';
 
 dotenv.config();
 
-const app = express();
+export const app = express();
+app.disable('x-powered-by');
 const PORT = process.env.PORT || 5000;
 
 if (!process.env.DATABASE_URL) {
@@ -15,24 +16,39 @@ if (!process.env.DATABASE_URL) {
   process.exit(1);
 }
 
-// Tăng giới hạn payload JSON lên 50MB để chứa ảnh Base64
-app.use(express.json({ limit: '50mb' }));
-app.use(express.urlencoded({ limit: '50mb', extended: true }));
-app.use(cors());
+// Vercel Functions allow only a small request body; larger images need object storage.
+app.use(express.json({ limit: '3mb' }));
+app.use(express.urlencoded({ limit: '3mb', extended: true }));
+const allowedOrigins = new Set((process.env.CORS_ALLOWED_ORIGINS || '')
+  .split(',').map(value => value.trim()).filter(Boolean));
+app.use(cors({ origin(origin, callback) {
+  if (!origin || allowedOrigins.has(origin)) return callback(null, true);
+  return callback(new Error('Origin not allowed'));
+} }));
 
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/data', dataRoutes);
 
-app.get('/api/health', (req, res) => res.json({ status: 'ok' }));
+app.get('/api/health', async (_req, res) => {
+  try {
+    await pool.query('SELECT 1');
+    res.json({ status: 'ok', database: 'connected' });
+  } catch {
+    res.status(503).json({ status: 'unavailable', database: 'disconnected' });
+  }
+});
 
-initDb()
-  .then(() => {
-    app.listen(PORT, () => {
-      console.log(`Server is running on port ${PORT}`);
+// Vercel Functions import this Express app and must not listen on a port.
+// Schema has been initialized separately on the existing empty Neon project.
+if (process.env.VERCEL !== '1') {
+  initDb()
+    .then(() => app.listen(PORT, () => console.log(`Server running on port ${PORT}`)))
+    .catch((error) => {
+      console.error('Error connecting to PostgreSQL:', error);
+      process.exitCode = 1;
     });
-  })
-  .catch((error) => {
-    console.error('Error connecting to PostgreSQL:', error);
-    process.exit(1);
-  });
+}
+
+// The Node preset also discovers backend/server.js as the handler.
+export default app;

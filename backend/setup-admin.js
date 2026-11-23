@@ -10,8 +10,12 @@ const createAdmin = async () => {
     process.exit(1);
   }
 
-  const username = process.argv[2] || 'admin';
-  const password = process.argv[3] || '123456';
+  const username = process.argv[2];
+  const password = process.argv[3];
+  if (!username || !password || password.length < 16) {
+    console.error('Provide an explicit admin username and password of at least 16 characters.');
+    process.exit(1);
+  }
 
   try {
     await initDb();
@@ -25,7 +29,7 @@ const createAdmin = async () => {
     const hashedPassword = await bcrypt.hash(password, 10);
     await pool.query('INSERT INTO users (username, password_hash) VALUES ($1, $2)', [username, hashedPassword]);
 
-    console.log(`🎉 Đã khởi tạo Admin thành công!\n- Username: ${username}\n- Password: ${password}`);
+    console.log(`Admin account ${username} provisioned successfully.`);
   } catch (error) {
     console.error('❌ Lỗi:', error.message);
   } finally {

@@ -10,7 +10,7 @@ router.post('/login', async (req, res) => {
   try {
     const { username, password } = req.body || {};
     const cleanUsername = (username || '').trim();
-    const cleanPassword = (password || '').trim();
+    const cleanPassword = typeof password === 'string' ? password : '';
 
     if (!cleanUsername || !cleanPassword) {
       return res.status(400).json({ success: false, message: 'Vui lòng nhập đầy đủ tên đăng nhập và mật khẩu.' });
@@ -30,21 +30,6 @@ router.post('/login', async (req, res) => {
   }
 });
 
-// Route tạo Admin (Dùng nội bộ khi setup)
-router.post('/setup', async (req, res) => {
-  try {
-    const { rows } = await pool.query('SELECT COUNT(*)::int AS count FROM users');
-    if (rows[0].count > 0) return res.status(400).json({ success: false, message: 'Admin đã tồn tại.' });
-
-    const { username, password } = req.body;
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    await pool.query('INSERT INTO users (username, password_hash) VALUES ($1, $2)', [username, hashedPassword]);
-
-    res.json({ success: true, message: 'Admin created.' });
-  } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
-  }
-});
+// Admin accounts are provisioned offline with setup-admin.js, never through a public API.
 
 export default router;
