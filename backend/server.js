@@ -49,3 +49,6 @@ if (process.env.VERCEL !== '1') {
       process.exitCode = 1;
     });
 }
+
+// The Node preset also discovers backend/server.js as the handler.
+export default app;
